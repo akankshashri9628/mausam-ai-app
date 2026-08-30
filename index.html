@@ -3,97 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Companion - Pro Edition</title>
+    <title>Mausam AI Pro - Hyperlocal Satellite Intelligence</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
-        body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-        .phone-container { width: 100%; max-width: 390px; height: 820px; background: linear-gradient(180deg, #0f172a 0%, #0284c7 100%); border-radius: 44px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35); border: 10px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; color: white; }
-        .app-header { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 14px 16px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
-        .app-header h2 { font-size: 20px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .live-bar { display: flex; justify-content: space-between; align-items: center; margin: 10px 14px 0 14px; padding: 8px 12px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.15); }
-        .live-location { font-size: 13px; font-weight: 700; color: #38bdf8; }
-        .live-clock { font-size: 13px; font-weight: 800; color: #ffffff; }
-        .mode-switch { display: flex; margin: 10px 14px 0 14px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); border-radius: 16px; padding: 4px; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .mode-btn { flex: 1; padding: 10px 5px; border: none; background: transparent; font-size: 12px; font-weight: 700; border-radius: 12px; cursor: pointer; color: #94a3b8; transition: all 0.3s ease; }
-        .mode-btn.active { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
-        .jarvis-container { padding: 16px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 10px 14px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .orb-glow { width: 60px; height: 60px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 24px; }
-        .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 35px #f43f5e; }
+        body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
+        .phone-container { width: 100%; max-width: 410px; height: 860px; background: linear-gradient(180deg, #0b1329 0%, #0284c7 100%); border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.4); border: 8px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        
+        /* Top Navigation & Language Selector */
+        .app-header { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+        .app-header h2 { font-size: 18px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .lang-select { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; outline: none; }
+        
+        /* Location Hierarchy Bar */
+        .geo-bar { background: rgba(15, 23, 42, 0.6); margin: 8px 12px 0 12px; padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+        .geo-path { color: #38bdf8; font-weight: 700; display: flex; align-items: center; gap: 4px; }
+        .gps-btn { background: #0284c7; border: none; color: white; padding: 4px 8px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 10px; }
+
+        /* Voice AI Section */
+        .jarvis-container { padding: 12px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 8px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .orb-glow { width: 52px; height: 52px; margin: 0 auto 6px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 20px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 22px; }
+        .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 30px #f43f5e; }
         @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-        .wave-box { display: flex; justify-content: center; align-items: center; gap: 4px; height: 20px; margin-top: 8px; }
-        .wave-bar { width: 4px; height: 6px; background: #38bdf8; border-radius: 4px; transition: 0.2s; }
-        .wave-active .wave-bar { animation: wave 1s infinite ease-in-out; }
-        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
-        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
-        .wave-bar:nth-child(4) { animation-delay: 0.1s; }
-        @keyframes wave { 0%, 100% { height: 6px; } 50% { height: 22px; background: #f43f5e; } }
-        .crop-select { width: 100%; padding: 8px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 12px; margin-top: 8px; outline: none; font-size: 12px; }
-        .crop-select option { background: #0f172a; color: white; }
-        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 14px; }
-        .action-chip { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; backdrop-filter: blur(8px); transition: 0.2s; }
-        .action-chip:hover { background: rgba(56, 189, 248, 0.3); border-color: #38bdf8; }
-        .voice-msg { font-size: 12px; color: #7dd3fc; margin-top: 6px; font-weight: 600; min-height: 28px; }
-        .content-area { padding: 0 14px 14px 14px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .weather-card { background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 14px; backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); }
-        .temp-main { font-size: 42px; font-weight: 800; text-align: center; margin: 4px 0; background: linear-gradient(180deg, #ffffff, #bae6fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .weather-desc { text-align: center; font-size: 13px; font-weight: 600; color: #e0f2fe; text-transform: capitalize; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-        .stat-item { background: rgba(15, 23, 42, 0.4); padding: 8px; border-radius: 12px; text-align: center; font-size: 11px; }
-        .stat-val { font-weight: 700; font-size: 12px; color: #38bdf8; margin-top: 2px; }
+        .voice-msg { font-size: 11px; color: #7dd3fc; font-weight: 600; min-height: 20px; }
+
+        /* Main Content Scrollable Area */
+        .content-area { padding: 0 12px 12px 12px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .card { background: rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 12px; backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); }
+        .card-title { font-size: 12px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Satellite Grid */
+        .sat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+        .sat-item { background: rgba(15, 23, 42, 0.5); padding: 8px; border-radius: 10px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .sat-lbl { font-size: 9px; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
+        .sat-val { font-size: 11px; font-weight: 800; color: #4ade80; margin-top: 2px; }
+
+        /* Farm Status Grid */
+        .farm-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 11px; margin-bottom: 6px; }
+        .farm-pill { background: rgba(255, 255, 255, 0.05); padding: 6px 8px; border-radius: 8px; display: flex; justify-content: space-between; }
+
+        /* Irrigation Schedule */
+        .plan-box { display: flex; flex-direction: column; gap: 6px; }
+        .plan-row { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.4); padding: 8px 10px; border-radius: 8px; font-size: 11px; }
+        .water-saving { background: rgba(34, 197, 94, 0.15); border: 1px dashed #22c55e; color: #4ade80; padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; font-weight: 800; margin-top: 4px; }
+
+        /* Risk Grid */
+        .risk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .risk-card { background: rgba(15, 23, 42, 0.5); padding: 6px; border-radius: 8px; text-align: center; font-size: 10px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .risk-icon { font-size: 14px; margin-bottom: 2px; }
+        .risk-badge { font-size: 8px; font-weight: 800; padding: 2px 4px; border-radius: 4px; margin-top: 2px; display: inline-block; }
+        .risk-low { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
+        .risk-med { background: rgba(234, 179, 8, 0.2); color: #facc15; }
+        .risk-high { background: rgba(239, 68, 68, 0.2); color: #f87171; }
     </style>
 </head>
 <body>
 
 <div class="phone-container">
+    <!-- Header with Multi-Language Switch -->
     <div class="app-header">
-        <h2>Mausam AI Pro ⚡</h2>
-    </div>
-
-    <div class="live-bar">
-        <div class="live-location" id="locationName">📍 Lucknow, UP</div>
-        <div class="live-clock" id="liveTime">--:-- PM</div>
-    </div>
-
-    <div class="mode-switch">
-        <button class="mode-btn active" id="btnDaily" onclick="switchMode('daily')">🌆 Daily Mode</button>
-        <button class="mode-btn" id="btnFarmer" onclick="switchMode('farmer')">🌾 Farmer Mode</button>
-    </div>
-
-    <div class="jarvis-container">
-        <div class="orb-glow" id="micBtn" onclick="toggleListening()">🎙️</div>
-        <div class="voice-msg" id="voiceStatus">माइक दबाएं और पूछें...</div>
-        
-        <div class="wave-box" id="waveBox">
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-            <div class="wave-bar"></div>
-        </div>
-
-        <select class="crop-select" id="cropSelect" style="display:none;" onchange="onCropChange()">
-            <option value="गेहूं">🌾 गेहूं (Wheat)</option>
-            <option value="धान">🌾 धान (Rice)</option>
-            <option value="सरसों">🟡 सरसों (Mustard)</option>
-            <option value="सब्सियां">🥦 सब्जियां (Vegetables)</option>
+        <h2>Mausam AI Pro 🛰️</h2>
+        <select class="lang-select" id="langSelect" onchange="changeLanguage()">
+            <option value="hi-IN">🇮🇳 हिंदी (Hindi)</option>
+            <option value="en-IN">🇬🇧 English</option>
+            <option value="bn-IN">🇮🇳 বাংলা (Bengali)</option>
+            <option value="ta-IN">🇮🇳 தமிழ் (Tamil)</option>
+            <option value="te-IN">🇮🇳 తెలుగు (Telugu)</option>
+            <option value="mr-IN">🇮🇳 मराठी (Marathi)</option>
+            <option value="gu-IN">🇮🇳 ગુજરાતી (Gujarati)</option>
+            <option value="as-IN">🇮🇳 অসমীয়া (Assamese)</option>
         </select>
     </div>
 
-    <div class="quick-actions">
-        <div class="action-chip" onclick="quickAsk('barish')">☔ बारिश अलर्ट</div>
-        <div class="action-chip" onclick="quickAsk('sinchai')">🌾 सिंचाई सलाह</div>
-        <div class="action-chip" onclick="quickAsk('travel')">👕 ट्रैवल टिप्स</div>
-        <div class="action-chip" onclick="quickAsk('kisaan')">💡 किसान सलाह</div>
+    <!-- Hyperlocal Location Hierarchy -->
+    <div class="geo-bar">
+        <div class="geo-path" id="geoPath">📍 UP → Malihabad → Khasra #402</div>
+        <button class="gps-btn" onclick="locateFarm()">🎯 Live GPS</button>
+    </div>
+
+    <!-- Voice AI Orb -->
+    <div class="jarvis-container">
+        <div class="orb-glow" id="micBtn" onclick="toggleListening()">🎙️</div>
+        <div class="voice-msg" id="voiceStatus">Press "Ask Mausam" to Speak</div>
     </div>
 
     <div class="content-area">
-        <div class="weather-card">
-            <div class="weather-desc" id="weatherCond">हल्की धूप और बादल</div>
-            <div class="temp-main" id="tempVal">32°C</div>
-            
-            <div class="stats-grid">
-                <div class="stat-item">हवा <div class="stat-val" id="windVal">12 km/h</div></div>
-                <div class="stat-item">नमी <div class="stat-val" id="humidityVal">68%</div></div>
-                <div class="stat-item">UV इंडेक्स <div class="stat-val" id="uvVal">सामान्य</div></div>
+        <!-- Farm Status & Crop Stage -->
+        <div class="card">
+            <div class="card-title">🌾 YOUR FARM ENGINE</div>
+            <div class="farm-info">
+                <div class="farm-pill"><span>Crop:</span> <b style="color:#facc15">Wheat (गेहूँ)</b></div>
+                <div class="farm-pill"><span>Stage:</span> <b>Flowering</b></div>
+                <div class="farm-pill"><span>Rain Expected:</span> <b>11 mm</b></div>
+                <div class="farm-pill"><span>Irrigation:</span> <b style="color:#4ade80">LOW</b></div>
+            </div>
+        </div>
+
+        <!-- Satellite Intelligence Metrics -->
+        <div class="card">
+            <div class="card-title">🛰️ SATELLITE DERIVED DATA (SENTINEL/MODIS)</div>
+            <div class="sat-grid">
+                <div class="sat-item"><div class="sat-lbl">NDVI Health</div><div class="sat-val">0.74 (Healthy)</div></div>
+                <div class="sat-item"><div class="sat-lbl">Soil Moisture</div><div class="sat-val">42%</div></div>
+                <div class="sat-item"><div class="sat-lbl">Surface Temp</div><div class="sat-val">29.4°C</div></div>
+                <div class="sat-item"><div class="sat-lbl">Crop Stress</div><div class="sat-val" style="color:#4ade80">Minimal</div></div>
+                <div class="sat-item"><div class="sat-lbl">Water Bodies</div><div class="sat-val">Optimal</div></div>
+                <div class="sat-item"><div class="sat-lbl">Land Change</div><div class="sat-val">Stable</div></div>
+            </div>
+        </div>
+
+        <!-- Precision Irrigation Plan -->
+        <div class="card">
+            <div class="card-title">💧 PRECISION IRRIGATION PLAN</div>
+            <div class="plan-box">
+                <div class="plan-row"><span>Tomorrow (कल):</span> <b style="color:#f87171">❌ No Irrigation Needed</b></div>
+                <div class="plan-row"><span>Tuesday (मंगलवार):</span> <b style="color:#facc15">⚠️ 20 Minutes</b></div>
+                <div class="plan-row"><span>Wednesday (बुधवार):</span> <b style="color:#4ade80">✅ 35 Minutes</b></div>
+            </div>
+            <div class="water-saving">💧 Estimated Water Saved: 1,850 Litres</div>
+        </div>
+
+        <!-- 8 Multi-Risk Assessment Grid -->
+        <div class="card">
+            <div class="card-title">🚨 MULTI-RISK ASSESSMENT</div>
+            <div class="risk-grid">
+                <div class="risk-card"><div class="risk-icon">🌧️</div>Heavy Rain<div class="risk-badge risk-med">Moderate</div></div>
+                <div class="risk-card"><div class="risk-icon">🌊</div>Flood Risk<div class="risk-badge risk-low">Low</div></div>
+                <div class="risk-card"><div class="risk-icon">🌾</div>Crop Stress<div class="risk-badge risk-low">Low</div></div>
+                <div class="risk-card"><div class="risk-icon">🔥</div>Heatwave<div class="risk-badge risk-low">Low</div></div>
+                <div class="risk-card"><div class="risk-icon">🌪️</div>Storm Risk<div class="risk-badge risk-med">Moderate</div></div>
+                <div class="risk-card"><div class="risk-icon">💧</div>Drought Risk<div class="risk-badge risk-low">Low</div></div>
+                <div class="risk-card"><div class="risk-icon">🦠</div>Disease Risk<div class="risk-badge risk-high">High</div></div>
+                <div class="risk-card"><div class="risk-icon">⛰️</div>Landslide<div class="risk-badge risk-low">Safe</div></div>
             </div>
         </div>
     </div>
@@ -101,59 +141,68 @@
 
 <script>
     let isListening = false;
-    let currentMode = 'daily';
     let recognition;
     let synth = window.speechSynthesis;
-    let selectedVoice = null;
 
-    // Load Clean Natural Voices
-    function loadVoices() {
-        if (!synth) return;
-        let voices = synth.getVoices();
-        // Priority for Hindi Natural Voice or Indian English Voice
-        selectedVoice = voices.find(v => v.lang === 'hi-IN') || 
-                        voices.find(v => v.lang.includes('hi')) || 
-                        voices.find(v => v.lang === 'en-IN') || 
-                        voices[0];
-    }
-    if (synth) {
-        loadVoices();
-        if (synth.onvoiceschanged !== undefined) {
-            synth.onvoiceschanged = loadVoices;
+    // Multilingual Dictionary & Voice Responses
+    const translations = {
+        'hi-IN': {
+            listening: "मैं सुन रहा हूँ, पूछिए...",
+            rainQuery: "कल आपके खेत में 11 मिलीमीटर बारिश की उम्मीद है, इसलिए कल सिंचाई न करें।",
+            defaultReply: "उपग्रह आंकड़ों के अनुसार आपकी गेहूं की फसल का स्वास्थ्य अच्छा है और मिट्टी में 42 प्रतिशत नमी है।",
+            statusLabel: "माइक दबाएं और पूछें..."
+        },
+        'en-IN': {
+            listening: "Listening, ask your question...",
+            rainQuery: "11 millimeter rainfall is expected on your farm tomorrow. Skip irrigation tomorrow.",
+            defaultReply: "Satellite metrics show optimal NDVI of 0.74 with 42% soil moisture.",
+            statusLabel: "Press Mic & Ask Mausam..."
+        },
+        'bn-IN': {
+            listening: "আমি শুনছি, বলুন...",
+            rainQuery: "আগামীকাল আপনার খামারে ১১ মিমি বৃষ্টির সম্ভাবনা রয়েছে। সেচ দেবেন না।",
+            defaultReply: "উপগ্রহ উপাত্ত অনুসারে আপনার ফসলের স্বাস্থ্য ভালো আছে।",
+            statusLabel: "মাইক চাপুন এবং জিজ্ঞাসা করুন..."
         }
+    };
+
+    function changeLanguage() {
+        const lang = document.getElementById('langSelect').value;
+        const dict = translations[lang] || translations['en-IN'];
+        document.getElementById('voiceStatus').innerText = dict.statusLabel;
+        if (recognition) recognition.lang = lang;
+        speak(dict.statusLabel);
     }
 
-    // Speech Recognition Setup
+    // Speech Recognition
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
-        recognition.lang = 'hi-IN';
+        recognition.lang = document.getElementById('langSelect').value;
         recognition.continuous = false;
         recognition.interimResults = false;
 
         recognition.onstart = function() {
             isListening = true;
             document.getElementById('micBtn').classList.add('listening');
-            document.getElementById('waveBox').classList.add('wave-active');
-            document.getElementById('voiceStatus').innerText = "मैं आपकी बात सुन रहा हूँ...";
+            const lang = document.getElementById('langSelect').value;
+            const dict = translations[lang] || translations['en-IN'];
+            document.getElementById('voiceStatus').innerText = dict.listening;
         };
 
         recognition.onresult = function(event) {
             const userSpeech = event.results[0][0].transcript;
-            document.getElementById('voiceStatus').innerText = `आपने कहा: "${userSpeech}"`;
-            processUserQuery(userSpeech);
+            document.getElementById('voiceStatus').innerText = `"${userSpeech}"`;
+            processQuery(userSpeech);
         };
 
-        recognition.onerror = function(event) {
-            document.getElementById('voiceStatus').innerText = "आवाज समझ नहीं आई, कृपया फिर से बोलें।";
-            stopMicUI();
+        recognition.onerror = function() {
+            stopMic();
         };
 
         recognition.onend = function() {
-            stopMicUI();
+            stopMic();
         };
-    } else {
-        document.getElementById('voiceStatus').innerText = "आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।";
     }
 
     function toggleListening() {
@@ -162,84 +211,52 @@
             recognition.stop();
         } else {
             if (synth) synth.cancel();
+            recognition.lang = document.getElementById('langSelect').value;
             recognition.start();
         }
     }
 
-    function stopMicUI() {
+    function stopMic() {
         isListening = false;
         document.getElementById('micBtn').classList.remove('listening');
-        document.getElementById('waveBox').classList.remove('wave-active');
     }
 
-    // Natural Hindi Responses for Clean Pronunciation
-    function processUserQuery(query) {
+    function processQuery(query) {
+        const lang = document.getElementById('langSelect').value;
+        const dict = translations[lang] || translations['hi-IN'];
         const text = query.toLowerCase();
-        let reply = "";
 
-        if (text.includes("मौसम") || text.includes("weather") || text.includes("कैसा") || text.includes("आज")) {
-            reply = "आज लखनऊ में मौसम सुहावना है। तापमान लगभग 32 डिग्री सेल्सियस है और हल्की धूप खिली रहेगी।";
-        } else if (text.includes("बारिश") || text.includes("rain") || text.includes("पानी")) {
-            reply = "आज बारिश होने की संभावना बहुत कम है। आप बिना छाते के बाहर जा सकते हैं।";
-        } else if (text.includes("गेहूं") || text.includes("फसल") || text.includes("सिंचाई") || text.includes("किसान")) {
-            reply = "मौसम में नमी अच्छी है। फसल में फिलहाल सिंचाई की जरूरत नहीं है, दो दिन बाद पानी दे सकते हैं।";
-        } else if (text.includes("कपड़े") || text.includes("घूमने") || text.includes("बाहर")) {
-            reply = "आज हल्के सूती कपड़े पहनना सही रहेगा। शाम को बाहर जाने के लिए मौसम बहुत बढ़िया है।";
-        } else {
-            reply = `आपने पूछा ${query}। मौसम फिलहाल सामान्य है और तापमान 32 डिग्री सेल्सियस है।`;
+        let reply = dict.defaultReply;
+        if (text.includes("बारिश") || text.includes("rain") || text.includes("বৃষ্টি") || text.includes("कल")) {
+            reply = dict.rainQuery;
         }
 
         setTimeout(() => speak(reply), 300);
     }
 
-    function quickAsk(type) {
-        if(type === 'barish') processUserQuery("बारिश");
-        if(type === 'sinchai') processUserQuery("सिंचाई");
-        if(type === 'travel') processUserQuery("कपड़े");
-        if(type === 'kisaan') processUserQuery("किसान");
-    }
-
-    function switchMode(mode) {
-        currentMode = mode;
-        document.getElementById('btnDaily').classList.toggle('active', mode === 'daily');
-        document.getElementById('btnFarmer').classList.toggle('active', mode === 'farmer');
-        document.getElementById('cropSelect').style.display = (mode === 'farmer') ? 'block' : 'none';
-        
-        const text = (mode === 'farmer') ? "किसान मोड एक्टिव हो गया है।" : "डेली मोड एक्टिव है।";
-        speak(text);
-    }
-
-    function onCropChange() {
-        const crop = document.getElementById('cropSelect').value;
-        speak(`आपने ${crop} चुना है। इस मौसम में इस फसल को हल्की नमी की जरूरत है।`);
-    }
-
-    // Upgraded Natural Text-To-Speech Function
     function speak(text) {
         if ('speechSynthesis' in window) {
-            synth.cancel(); // Stop any active speech
-            
+            synth.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'hi-IN';
-            
-            if (selectedVoice) {
-                utterance.voice = selectedVoice;
-            }
-            
-            utterance.rate = 0.9; // Smooth natural speed
-            utterance.pitch = 1.0;
-            
+            utterance.lang = document.getElementById('langSelect').value;
+            utterance.rate = 0.9;
             document.getElementById('voiceStatus').innerText = text;
             synth.speak(utterance);
         }
     }
 
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('liveTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    function locateFarm() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                const lat = position.coords.latitude.toFixed(3);
+                const lon = position.coords.longitude.toFixed(3);
+                document.getElementById('geoPath').innerText = `📍 GPS: ${lat}°N, ${lon}°E (Farm Level)`;
+                speak("GPS Location Locked to Farm Field Level.");
+            }, () => {
+                alert("Geolocation Permission Denied.");
+            });
+        }
     }
-    setInterval(updateClock, 1000);
-    updateClock();
 </script>
 
 </body>
