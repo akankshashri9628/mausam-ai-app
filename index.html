@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Companion - Smart & Caring</title>
+    <title>Mausam & Krishi AI Assistant</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
         body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
-        .phone-container { width: 100%; max-width: 410px; height: 860px; background: linear-gradient(180deg, #0b1329 0%, #0284c7 100%); border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.4); border: 8px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+        .phone-container { width: 100%; max-width: 420px; height: 880px; background: linear-gradient(180deg, #0b1329 0%, #0f172a 100%); border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.4); border: 8px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        .app-header { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
-        .app-header h2 { font-size: 18px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .app-header { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+        .app-header h2 { font-size: 18px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #4ade80); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         .mode-switch { display: flex; margin: 10px 12px 4px 12px; background: rgba(15, 23, 42, 0.8); padding: 4px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.15); }
         .mode-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 800; font-size: 13px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
@@ -18,11 +18,11 @@
         .mode-btn.active-urban { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
 
         .jarvis-container { padding: 14px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 6px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .orb-glow { width: 62px; height: 62px; margin: 0 auto 8px auto; background: radial-gradient(circle, #f472b6 0%, #db2777 70%); border-radius: 50%; box-shadow: 0 0 25px #f472b6; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 26px; }
+        .orb-glow { width: 62px; height: 62px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 26px; }
         .orb-glow.rural-orb { background: radial-gradient(circle, #22c55e 0%, #15803d 70%); box-shadow: 0 0 25px #22c55e; }
         .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%) !important; box-shadow: 0 0 35px #f43f5e !important; }
         @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-        .voice-msg { font-size: 12px; color: #fce7f3; font-weight: 700; min-height: 28px; line-height: 1.4; }
+        .voice-msg { font-size: 12px; color: #e2e8f0; font-weight: 700; min-height: 28px; line-height: 1.4; }
 
         .content-area { padding: 0 12px 12px 12px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .card { background: rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 12px; backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); }
@@ -32,13 +32,12 @@
         .crop-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 4px; border-radius: 10px; text-align: center; font-size: 11px; font-weight: 700; cursor: pointer; color: white; }
         .crop-btn.selected { border-color: #22c55e; background: rgba(34, 197, 94, 0.25); color: #4ade80; }
         
-        .kisan-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
         .kisan-chip { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.4); color: #4ade80; padding: 10px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; }
-
-        .urban-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+        .scheme-chip { background: rgba(250, 204, 21, 0.15); border: 1px solid rgba(250, 204, 21, 0.4); color: #fde047; padding: 10px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; }
         .urban-chip { background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); color: #7dd3fc; padding: 10px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-align: center; cursor: pointer; }
 
-        .care-box { background: linear-gradient(135deg, rgba(219, 39, 119, 0.25), rgba(15, 23, 42, 0.6)); border: 1px solid rgba(244, 114, 182, 0.3); border-radius: 14px; padding: 10px 12px; font-size: 12px; color: #fce7f3; margin-top: 4px; }
+        .info-display { background: rgba(15, 23, 42, 0.9); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 14px; padding: 12px; font-size: 12px; color: #f8fafc; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -50,19 +49,20 @@
     </div>
 
     <div class="mode-switch">
-        <button class="mode-btn active-rural" id="btnRural" onclick="switchMode('rural')">🌾 किसान साथी (Rural)</button>
+        <button class="mode-btn active-rural" id="btnRural" onclick="switchMode('rural')">🌾 किसान & योजना (Rural)</button>
         <button class="mode-btn" id="btnUrban" onclick="switchMode('urban')">🌆 अर्बन केयर (Urban)</button>
     </div>
 
     <div class="jarvis-container">
         <div class="orb-glow rural-orb" id="micBtn" onclick="toggleListening()">🎙️</div>
-        <div class="voice-msg" id="voiceStatus">नमस्ते! मैं आपकी मौसम मित्र हूँ, पूछिए...</div>
+        <div class="voice-msg" id="voiceStatus">नमस्ते! बोलकर सवाल पूछें या बटन दबाएं...</div>
     </div>
 
     <div class="content-area">
+        <!-- RURAL SECTION -->
         <div id="ruralSection">
             <div class="card">
-                <div class="card-title" style="color:#4ade80">🌾 आपकी फसल चुनें (Crop Doctor)</div>
+                <div class="card-title" style="color:#4ade80">🌾 आपकी फसल (Crop Selection)</div>
                 <div class="crop-grid">
                     <div class="crop-btn selected" onclick="selectCrop(this, 'गेहूं')">🌾 गेहूं</div>
                     <div class="crop-btn" onclick="selectCrop(this, 'धान')">🌾 धान</div>
@@ -71,43 +71,49 @@
                 </div>
             </div>
 
-            <div class="card" style="text-align:center; padding:12px;">
-                <div style="font-size:12px; font-weight:700; color:#94a3b8;">खेत का मौसम & नमी</div>
-                <div style="font-size:36px; font-weight:800; color:#4ade80; margin:2px 0;">32°C</div>
-                <div style="font-size:12px; color:#facc15; font-weight:700;">⛅ हल्की धूप • बारिश की संभावना नहीं</div>
+            <div class="card">
+                <div class="card-title" style="color:#fde047">🏛️ सरकारी योजनाएं (Govt Schemes)</div>
+                <div class="action-grid">
+                    <div class="scheme-chip" onclick="askScheme('pmkisan')">💰 PM-किसान (₹6,000)</div>
+                    <div class="scheme-chip" onclick="askScheme('bima')">🛡️ फसल बीमा योजना</div>
+                    <div class="scheme-chip" onclick="askScheme('kcc')">💳 किसान क्रेडिट कार्ड</div>
+                    <div class="scheme-chip" onclick="askScheme('sinchai')">💧 सिंचाई सब्सिडी yojana</div>
+                </div>
             </div>
 
             <div class="card">
-                <div class="card-title" style="color:#4ade80">💡 किसान हेल्प डेस्क (1-Tap Assistant)</div>
-                <div class="kisan-actions">
+                <div class="card-title" style="color:#4ade80">💡 स्मार्ट कृषि हेल्प (1-Tap Helper)</div>
+                <div class="action-grid">
                     <div class="kisan-chip" onclick="askKisan('sinchai')">💧 सिंचाई सलाह</div>
-                    <div class="kisan-chip" onclick="askKisan('bimari')">🐛 फसल बीमारी जांच</div>
-                    <div class="kisan-chip" onclick="askKisan('mandi')">💰 मंडी भाव & बिक्री</div>
-                    <div class="kisan-chip" onclick="askKisan('pashu')">🐄 पशु & शेड सुरक्षा</div>
+                    <div class="kisan-chip" onclick="askKisan('bimari')">🐛 कीट व बीमारी जांच</div>
+                    <div class="kisan-chip" onclick="askKisan('mandi')">💰 आज का मंडी भाव</div>
+                    <div class="kisan-chip" onclick="askKisan('pashu')">🐄 पशु सुरक्षा टिप्स</div>
                 </div>
             </div>
         </div>
 
+        <!-- URBAN SECTION -->
         <div id="urbanSection" style="display:none;">
             <div class="card" style="text-align:center; padding:12px;">
-                <div style="font-size:12px; font-weight:700; color:#7dd3fc;">आज का शहर मौसम</div>
-                <div style="font-size:40px; font-weight:800; color:#ffffff;">32°C</div>
-                <div style="font-size:13px; color:#38bdf8; font-weight:700;">☀️ खिली धूप • हवा: 12 km/h</div>
-            </div>
-
-            <div class="care-box" id="careBox">
-                ❤️ <b>Mausam Care Advice:</b> आज धूप थोड़ी तेज रहेगी। बाहर जाते समय सूती कपड़े पहनें, सनग्लासेस लगाएं और पानी साथ रखें!
+                <div style="font-size:12px; font-weight:700; color:#7dd3fc;">सिटी वेदर & AQI Status</div>
+                <div style="font-size:36px; font-weight:800; color:#ffffff;">32°C</div>
+                <div style="font-size:12px; color:#38bdf8; font-weight:700;">AQI: 110 (Moderate) • ☀️ खिली धूप</div>
             </div>
 
             <div class="card">
-                <div class="card-title">⚡ URBAN SMART LIFE</div>
-                <div class="urban-actions">
-                    <div class="urban-chip" onclick="askUrban('travel')">🚗 Travel & Umbrella</div>
-                    <div class="urban-chip" onclick="askUrban('outfit')">👗 Wardrobe & Clothes</div>
-                    <div class="urban-chip" onclick="askUrban('health')">💧 UV & Hydration</div>
-                    <div class="urban-chip" onclick="askUrban('plants')">🌱 Indoor Plant Care</div>
+                <div class="card-title">⚡ URBAN SMART FEATURES</div>
+                <div class="action-grid">
+                    <div class="urban-chip" onclick="askUrban('aqi')">😷 Air Quality & Mask</div>
+                    <div class="urban-chip" onclick="askUrban('travel')">🚗 Travel & Rain Alert</div>
+                    <div class="urban-chip" onclick="askUrban('outfit')">👗 Outfit Suggestion</div>
+                    <div class="urban-chip" onclick="askUrban('power')">☀️ Solar & Energy Tips</div>
                 </div>
             </div>
+        </div>
+
+        <!-- RESPONSE BOX -->
+        <div class="info-display" id="infoDisplay">
+            ℹ️ किसी भी बटन पर क्लिक करें या माइक दबाकर सवाल पूछें...
         </div>
     </div>
 </div>
@@ -135,7 +141,7 @@
             urbanSec.style.display = 'none';
             mic.classList.add('rural-orb');
             title.innerText = "Mausam AI Sathi 🌾";
-            speak("नमस्ते किसान भाई! मैं आपकी फसल और मौसम मित्र हूँ। अपनी फसल चुनें या बोलकर पूछें।");
+            speak("नमस्ते किसान भाई! सरकारी योजनाएं और फसल सहायता के लिए बटन दबाएं।");
         } else {
             btnUrban.className = 'mode-btn active-urban';
             btnRural.className = 'mode-btn';
@@ -143,7 +149,7 @@
             ruralSec.style.display = 'none';
             mic.classList.remove('rural-orb');
             title.innerText = "Mausam AI Care 🌆";
-            speak("अर्बन केयर मोड चालू हो गया है। आज धूप खिली रहेगी, अपना ध्यान रखिएगा!");
+            speak("अर्बन केयर मोड ऑन हो गया है। आज मौसम साफ रहेगा!");
         }
     }
 
@@ -151,27 +157,46 @@
         document.querySelectorAll('.crop-btn').forEach(btn => btn.classList.remove('selected'));
         element.classList.add('selected');
         currentCrop = cropName;
-        speak(`आपने ${cropName} चुना है। इसके बारे में कोई भी सवाल पूछिए।`);
+        speak(`आपने ${cropName} चुना है।`);
     }
 
+    // GOVERNMENT SCHEMES LOGIC
+    function askScheme(type) {
+        let msg = "";
+        if(type === 'pmkisan') msg = "PM-किसान योजना में किसानों को सालाना ₹6,000 की वित्तीय सहायता 3 किस्तों में मिलती है। e-KYC पूरा रखें!";
+        if(type === 'bima') msg = "प्रधानमंत्री फसल बीमा योजना के तहत सूखा या बारिश से नुकसान होने पर 72 घंटे के अंदर क्लेम दर्ज कराएं।";
+        if(type === 'kcc') msg = "KCC यानी किसान क्रेडिट कार्ड से आपको 4% की सस्ती ब्याज दर पर 3 लाख तक का लोन मिलता है।";
+        if(type === 'sinchai') msg = "प्रधानमंत्री कृषि सिंचाई योजना में ड्रिप और स्प्रिंकलर सिस्टम लगाने पर 50% से 80% तक सब्सिडी मिलती है।";
+        
+        document.getElementById('infoDisplay').innerHTML = "🏛️ <b>सरकारी योजना:</b> " + msg;
+        speak(msg);
+    }
+
+    // KISAN LOGIC
     function askKisan(type) {
         let msg = "";
-        if(type === 'sinchai') msg = `आज ${currentCrop} में सिंचाई की जरूरत नहीं है, मिट्टी में नमी एकदम सही है।`;
-        if(type === 'bimari') msg = `मौसम साफ है, ${currentCrop} में कीट का खतरा कम है। रोकथाम के लिए नीम के तेल का स्प्रे कर सकते हैं।`;
-        if(type === 'mandi') msg = `आज मंडी में ${currentCrop} का भाव बहुत अच्छा है, आप फसल बेचने की योजना बना सकते हैं।`;
-        if(type === 'pashu') msg = `दोपहर में धूप तेज रहेगी, पशुओं को छायादार जगह पर बांधें और साफ पानी पिलाएं।`;
+        if(type === 'sinchai') msg = `आज ${currentCrop} में सिंचाई की जरूरत नहीं है, मिट्टी में पर्याप्त नमी है।`;
+        if(type === 'bimari') msg = `${currentCrop} में कीट नियंत्रण के लिए नीम के तेल का छिड़काव करें।`;
+        if(type === 'mandi') msg = `आज की नजदीकी मंडी में ${currentCrop} के दाम अच्छे चल रहे हैं।`;
+        if(type === 'pashu') msg = "दोपहर में धूप तेज रहेगी, पशुओं को छांव में रखें और ठंडा पानी दें।";
+        
+        document.getElementById('infoDisplay').innerHTML = "💡 <b>किसान सलाह:</b> " + msg;
         speak(msg);
     }
 
+    // URBAN LOGIC
     function askUrban(type) {
         let msg = "";
-        if(type === 'travel') msg = "आज बाहर मौसम बहुत खुशनुमा है! बस धूप से बचने के लिए चश्मा या छाता साथ रख लें।";
-        if(type === 'outfit') msg = "आज के मौसम के हिसाब से हल्के और सूती कपड़े पहनना सबसे आरामदायक रहेगा।";
-        if(type === 'health') msg = "आज UV इंडेक्स थोड़ा बढ़ा हुआ है, दिन भर पानी पीते रहें और स्किन का ध्यान रखें!";
-        if(type === 'plants') msg = "आज हवा में नमी कम है, बालकनी के पौधों में शाम को हल्का पानी जरूर छिड़कें।";
+        if(type === 'aqi') msg = "आज AQI 110 है, जो मध्यम है। संवेदनशील लोगों को सुबह बाहर जाते समय मास्क पहनना चाहिए।";
+        if(type === 'travel') msg = "आज बारिश की संभावना नहीं है, यात्रा के लिए मौसम अनुकूल है।";
+        if(type === 'outfit') msg = "धूप तेज रहेगी, हल्के सूती कपड़े पहनना आरामदायक रहेगा।";
+        if(type === 'power') msg = "आज अच्छी धूप है, सोलर पैनल अधिकतम बिजली जनरेट करेंगे!";
+        
+        document.getElementById('infoDisplay').innerHTML = "🌆 <b>Urban Smart Tip:</b> " + msg;
         speak(msg);
     }
 
+    // SPEECH RECOGNITION
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
@@ -180,21 +205,17 @@
         recognition.onstart = function() {
             isListening = true;
             document.getElementById('micBtn').classList.add('listening');
-            document.getElementById('voiceStatus').innerText = "मैं आपकी बात सुन रही हूँ, बोलिए...";
+            document.getElementById('voiceStatus').innerText = "सुन रहा हूँ...";
         };
 
         recognition.onresult = function(event) {
             const userSpeech = event.results[0][0].transcript;
             document.getElementById('voiceStatus').innerText = `आपने कहा: "${userSpeech}"`;
             
-            if(currentMode === 'rural') {
-                if (userSpeech.includes("पानी") || userSpeech.includes("सिंचाई")) askKisan('sinchai');
-                else if (userSpeech.includes("मंडी") || userSpeech.includes("भाव")) askKisan('mandi');
-                else askKisan('bimari');
-            } else {
-                if (userSpeech.includes("कपड़े") || userSpeech.includes("पहनू")) askUrban('outfit');
-                else askUrban('travel');
-            }
+            if (userSpeech.includes("किसान") || userSpeech.includes("पैसा") || userSpeech.includes("योजना")) askScheme('pmkisan');
+            else if (userSpeech.includes("बीमा") || userSpeech.includes("नुकसान")) askScheme('bima');
+            else if (userSpeech.includes("सिंचाई") || userSpeech.includes("पानी")) askKisan('sinchai');
+            else askKisan('bimari');
         };
 
         recognition.onend = function() {
@@ -213,20 +234,22 @@
         }
     }
 
+    // IMPROVED MALE VOICE FUNCTION
     function speak(text) {
         if ('speechSynthesis' in window) {
             synth.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'hi-IN';
             
-            utterance.pitch = 1.25; 
-            utterance.rate = 0.88;
+            // Adjust Pitch & Rate to make voice sound natural & Male-like
+            utterance.pitch = 0.8; // Lower pitch = Male Voice
+            utterance.rate = 0.9;  // Slightly natural speed
 
             const voices = synth.getVoices();
-            const femaleVoice = voices.find(v => v.lang.includes('hi') && (v.name.includes('Female') || v.name.includes('Google') || v.name.includes('Heera')));
-            if (femaleVoice) utterance.voice = femaleVoice;
+            // Search for Male voice first
+            const maleVoice = voices.find(v => v.lang.includes('hi') && (v.name.includes('Male') || v.name.includes('David') || v.name.includes('Google')));
+            if (maleVoice) utterance.voice = maleVoice;
 
-            document.getElementById('voiceStatus').innerText = text;
             synth.speak(utterance);
         }
     }
