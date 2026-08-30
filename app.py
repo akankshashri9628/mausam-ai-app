@@ -1,81 +1,102 @@
-import streamlit as st
+import os
 
-# Page Configuration
-st.set_page_config(page_title="Mausam - Personalized AI Engine", page_icon="🌤️", layout="wide")
+# Create backend directory structure if needed
+os.makedirs("backend", exist_ok=True)
 
-# Header Section
-st.title("🌤️ 'Mausam' Smart Personalization Engine")
-st.caption("SIH Problem Statement: SIH26076 | Ministry of Earth Sciences (IMD)")
+# 1. package.json
+package_json = """{
+  "name": "mausam-ai-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Mausam AI Pro - Fetching Weather, AQI & Forecast",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0"
+  }
+}
+"""
 
-st.sidebar.header("🕹️ Demo Controls (Simulate Context)")
-# Persona Selector for Presentation
-persona = st.sidebar.selectbox(
-    "Select User Persona:",
-    ["🌾 Kisan / Farmer Mode", "🚗 Commuter / Traveller Mode", "🏃 Health & Fitness Mode", "🚨 Emergency Red Alert Mode"]
-)
+with open("package.json", "w", encoding="utf-8") as f:
+    f.write(package_json)
 
-# Simulated Weather Conditions
-location = st.sidebar.text_input("Live Location", "Lucknow, UP")
-temp = "32°C"
-humidity = "78%"
+# 2. .env.example
+env_example = """# OpenWeatherMap API Key (Get a free key from https://openweathermap.org/api)
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+PORT=5000
+"""
 
-st.sidebar.markdown("---")
-st.sidebar.info("💡 **Judge Pitch:** App automatically selects layout based on GPS, Season & IMD Hazard Score.")
+with open(".env.example", "w", encoding="utf-8") as f:
+    f.write(env_example)
 
-# --- DYNAMIC UI RENDERING LOGIC ---
+# 3. server.js (Node.js Express Backend)
+server_js = """const express = require('express');
+const cors = require('cors');
+const fetch = require('node-fetch');
+require('dotenv').config();
 
-# 1. KISAN / FARMER MODE
-if persona == "🌾 Kisan / Farmer Mode":
-    st.success(f"📍 Location Detected: {location} | **Persona: Agricultural Dashboard**")
-    
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Rainfall Probability", "85%", "High Chance Today")
-    col2.metric("Soil Moisture", "42%", "+5% from Yesterday")
-    col3.metric("Wind Speed", "14 km/h", "Safe for Spraying")
-    
-    st.subheader("👨‍🌾 Agromet Advisories (Kisan Bulletin)")
-    st.warning("⚠️ **Farmer Alert:** Heavy rainfall expected in the next 24 hours. Postpone paddy harvesting and clear drainage channels.")
-    st.info("🚜 **Mandi Weather:** High humidity expected at local mandi yard. Keep harvested wheat covered.")
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-# 2. COMMUTER / TRAVELLER MODE
-elif persona == "🚗 Commuter / Traveller Mode":
-    st.info(f"📍 Location Detected: {location} | **Persona: Travel & Visibility Dashboard**")
-    
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Road Visibility", "1.2 km", "-300m (Mist/Fog)")
-    col2.metric("Hourly Storm Risk", "Low", "Safe till 6 PM")
-    col3.metric("Current Temp", temp, humidity)
-    
-    st.subheader("🚗 Highway & Route Advisories")
-    st.write("✅ **NH-24 Route:** Open, clear roads.")
-    st.write("⚠️ **Expressway Warning:** Expect sudden rain showers post 5:00 PM. Keep vehicle speed under 60 km/h.")
+const PORT = process.env.PORT || 5000;
+const API_KEY = process.env.OPENWEATHER_API_KEY;
 
-# 3. HEALTH & FITNESS MODE
-elif persona == "🏃 Health & Fitness Mode":
-    st.success(f"📍 Location Detected: {location} | **Persona: Environmental Health Index**")
-    
-    col1, col2, col3 = st.columns(3)
-    col1.metric("AQI Index", "142", "Moderate Air Quality")
-    col2.metric("UV Index", "8 (High)", "Wear Sunscreen")
-    col3.metric("Humidity", humidity, "High Sweat Rate")
-    
-    st.subheader("🏋️ Active Lifestyle Forecast")
-    st.write("🟢 **Best Workout Window:** 6:00 AM - 8:00 AM (Optimal AQI & Temp).")
-    st.write("🔴 **Avoid Outdoor Running:** Between 12:00 PM - 3:00 PM due to high UV rays.")
+// Endpoint 1: Health Check
+app.get('/', (req, res) => {
+    res.json({ status: "ok", message: "Mausam AI Pro Backend is running smoothly!" });
+});
 
-# 4. EMERGENCY RED ALERT MODE
-elif persona == "🚨 Emergency Red Alert Mode":
-    st.error("🚨 CRITICAL WEATHER HAZARD DETECTED IN YOUR ZONE!")
-    st.markdown("## 🔴 CYCLONE / SEVERE STORM OVERRIDE DASHBOARD")
-    
-    st.error("""
-    **IMD RED ALERT (Next 12 Hours):**
-    - **Wind Gusts:** Up to 90 km/h expected.
-    - **Evacuation Zone:** Low-lying areas near rivers.
-    - **Emergency Helpline:** 1077 (Disaster Control Room)
-    """)
-    st.button("📲 Send SOS Location to Local Disaster Relief")
+// Endpoint 2: Fetch Current Weather, AQI & Forecast by Lat/Lon
+app.get('/api/weather', async (req, res) => {
+    try {
+        const { lat, lon } = req.query;
 
-# Footer
-st.markdown("---")
-st.caption("Powered by Context-Aware Dynamic Card Sorting Algorithm | MoES / IMD Prototype")
+        if (!lat || !lon) {
+            return res.status(400).json({ error: "Latitude (lat) and Longitude (lon) are required." });
+        }
+
+        if (!API_KEY) {
+            return res.status(500).json({ error: "OPENWEATHER_API_KEY is missing in backend environment variables." });
+        }
+
+        // Fetch Current Weather
+        const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+        const weatherRes = await fetch(weatherUrl);
+        const weatherData = await weatherRes.json();
+
+        // Fetch AQI Data
+        const aqiUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+        const aqiRes = await fetch(aqiUrl);
+        const aqiData = await aqiRes.json();
+
+        // Fetch 5 Day / 3 Hour Forecast
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+        const forecastRes = await fetch(forecastUrl);
+        const forecastData = await forecastRes.json();
+
+        res.json({
+            weather: weatherData,
+            aqi: aqiData,
+            forecast: forecastData
+        });
+
+    } catch (error) {
+        console.error("Backend Weather Fetch Error:", error);
+        res.status(500).json({ error: "Failed to fetch real-time weather data from OpenWeather API." });
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+"""
+
+with open("server.js", "w", encoding="utf-8") as f:
+    f.write(server_js)
+
+print("Backend files generated successfully!")
