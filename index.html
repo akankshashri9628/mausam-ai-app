@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Pro - Winning Edition</title>
+    <title>Mausam AI Pro - All India Multilingual Edition</title>
     
     <meta name="theme-color" content="#0d1117">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,6 @@
             --border-color: rgba(255, 255, 255, 0.12);
             --accent-urban: #00d2ff;
             --accent-rural: #2ecc71;
-            --accent-alert: #ff4757;
             --text-main: #ffffff;
             --text-sub: #94a3b8;
         }
@@ -34,7 +33,6 @@
             padding-bottom: 30px;
         }
 
-        /* Header Bar */
         .app-header {
             width: 100%; max-width: 600px; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
@@ -53,7 +51,6 @@
 
         .main-container { width: 100%; max-width: 600px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
 
-        /* Mode Switcher */
         .mode-banner {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 16px; padding: 14px 18px; display: flex;
@@ -68,10 +65,8 @@
             background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
             border: 1px solid var(--border-color); color: #fff; padding: 8px 14px;
             border-radius: 20px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px;
-            transition: all 0.2s;
         }
 
-        /* Voice Card */
         .voice-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 24px; padding: 30px 20px; text-align: center;
@@ -97,7 +92,6 @@
 
         .voice-status { font-size: 0.9rem; color: var(--text-sub); }
 
-        /* Action Chips */
         .quick-chips { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 5px; }
         .chip {
             white-space: nowrap; background: rgba(255, 255, 255, 0.06);
@@ -106,7 +100,6 @@
         }
         .chip:hover { background: rgba(255, 255, 255, 0.15); border-color: #00d2ff; }
 
-        /* Camera Scanner Feature */
         .camera-card {
             background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(22, 29, 47, 0.7));
             border: 1px dashed var(--accent-rural); border-radius: 18px; padding: 15px;
@@ -115,7 +108,6 @@
         .camera-info { display: flex; align-items: center; gap: 12px; }
         .camera-info i { font-size: 1.5rem; color: var(--accent-rural); }
 
-        /* Output Response */
         .response-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
             border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
@@ -124,23 +116,21 @@
         .response-header { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-sub); }
         .response-text { font-size: 1.05rem; line-height: 1.6; color: #f8fafc; }
 
-        /* Language Modal */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center; z-index: 1000;
         }
         .modal-overlay.hidden { display: none; }
-        .lang-modal { background: #161d2f; border: 1px solid var(--border-color); width: 90%; max-width: 400px; border-radius: 24px; padding: 25px; text-align: center; }
-        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-        .lang-option { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; cursor: pointer; }
+        .lang-modal { background: #161d2f; border: 1px solid var(--border-color); width: 90%; max-width: 440px; border-radius: 24px; padding: 25px; text-align: center; }
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; max-height: 300px; overflow-y: auto; }
+        .lang-option { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); padding: 12px; border-radius: 14px; cursor: pointer; text-align: center; }
         .lang-option.selected { border-color: #00d2ff; background: rgba(0, 210, 255, 0.15); }
         .save-btn { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); border: none; padding: 12px; border-radius: 14px; color: #fff; font-weight: 600; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- App Header -->
     <div class="app-header">
         <div class="brand"><i class="fa-solid fa-cloud-sun-rain"></i> Mausam AI</div>
         <button class="lang-btn" onclick="openLanguageModal()">
@@ -148,10 +138,8 @@
         </button>
     </div>
 
-    <!-- Main Section -->
     <div class="main-container">
 
-        <!-- Mode Switcher -->
         <div class="mode-banner">
             <div class="mode-badge urban" id="mode-badge">
                 <i class="fa-solid fa-city" id="mode-icon"></i> <span id="mode-title">शहरी देखभाल मोड</span>
@@ -161,7 +149,6 @@
             </button>
         </div>
 
-        <!-- AI Voice Assistant Orb -->
         <div class="voice-card">
             <div class="voice-orb" id="voice-orb" onclick="startVoiceRecognition()">
                 <i class="fa-solid fa-microphone"></i>
@@ -171,7 +158,6 @@
             <div class="quick-chips" id="quick-chips"></div>
         </div>
 
-        <!-- AI Crop & Pest Scanner -->
         <div class="camera-card" id="camera-card" onclick="triggerCropScan()">
             <div class="camera-info">
                 <i class="fa-solid fa-camera-retro"></i>
@@ -183,7 +169,6 @@
             <i class="fa-solid fa-chevron-right" style="color: var(--text-sub);"></i>
         </div>
 
-        <!-- Output Card -->
         <div class="response-card">
             <div class="response-header">
                 <span><i class="fa-solid fa-robot"></i> <span id="ai-response-title">AI मौसम सलाह</span></span>
@@ -196,16 +181,34 @@
 
     </div>
 
-    <!-- Language Selector Modal -->
+    <!-- Multi-Language Modal -->
     <div class="modal-overlay" id="lang-modal-overlay">
         <div class="lang-modal">
-            <h2 id="modal-title">भाषा चुनें / Choose Language</h2>
+            <h2 id="modal-title">अपनी भाषा चुनें / Choose Language</h2>
             <div class="lang-grid">
-                <div class="lang-option selected" id="opt-hi" onclick="selectLanguage('hi', 'हिंदी')">
+                <div class="lang-option selected" id="opt-hi" onclick="selectLanguage('hi', 'हिंदी', 'hi-IN')">
                     <strong>हिंदी</strong><br><small>Hindi</small>
                 </div>
-                <div class="lang-option" id="opt-en" onclick="selectLanguage('en', 'English')">
+                <div class="lang-option" id="opt-en" onclick="selectLanguage('en', 'English', 'en-US')">
                     <strong>English</strong><br><small>English</small>
+                </div>
+                <div class="lang-option" id="opt-bn" onclick="selectLanguage('bn', 'বাংলা', 'bn-IN')">
+                    <strong>বাংলা</strong><br><small>Bengali</small>
+                </div>
+                <div class="lang-option" id="opt-mr" onclick="selectLanguage('mr', 'मराठी', 'mr-IN')">
+                    <strong>मराठी</strong><br><small>Marathi</small>
+                </div>
+                <div class="lang-option" id="opt-te" onclick="selectLanguage('te', 'తెలుగు', 'te-IN')">
+                    <strong>తెలుగు</strong><br><small>Telugu</small>
+                </div>
+                <div class="lang-option" id="opt-ta" onclick="selectLanguage('ta', 'தமிழ்', 'ta-IN')">
+                    <strong>தமிழ்</strong><br><small>Tamil</small>
+                </div>
+                <div class="lang-option" id="opt-gu" onclick="selectLanguage('gu', 'ગુજરાતી', 'gu-IN')">
+                    <strong>ગુજરાતી</strong><br><small>Gujarati</small>
+                </div>
+                <div class="lang-option" id="opt-kn" onclick="selectLanguage('kn', 'ಕನ್ನಡ', 'kn-IN')">
+                    <strong>ಕನ್ನಡ</strong><br><small>Kannada</small>
                 </div>
             </div>
             <button class="save-btn" onclick="closeLanguageModal()">आगे बढ़ें / Continue</button>
@@ -214,60 +217,82 @@
 
     <script>
         let selectedLang = 'hi'; 
+        let selectedLangLabel = 'हिंदी';
+        let voiceLocale = 'hi-IN';
         let isUrbanMode = true; 
 
         const content = {
             hi: {
-                urbanTitle: "शहरी देखभाल मोड",
-                ruralTitle: "ग्रामीण / किसान मोड",
-                switchBtn: "मोड बदलें",
-                statusIdle: "बोलने के लिए माइक दबाएं...",
-                statusListening: "सुन रहे हैं... अब बोलिए",
+                urbanTitle: "शहरी देखभाल मोड", ruralTitle: "ग्रामीण / किसान मोड", switchBtn: "मोड बदलें",
+                statusIdle: "बोलने के लिए माइक दबाएं...", statusListening: "सुन रहे हैं... अब बोलिए",
                 welcomeGreeting: "नमस्ते! मौसम AI Pro में आपका स्वागत है। बताइए, आज मैं आपकी क्या मदद कर सकता हूँ?",
-                camTitle: "AI फसल व मौसम स्कैनर",
-                camSub: "फोटो खींचकर तुरंत जानकारी पाएं",
+                camTitle: "AI फसल व मौसम स्कैनर", camSub: "फोटो खींचकर तुरंत जानकारी पाएं",
                 urbanChips: ["🚗 ट्रैफिक व मौसम", "😷 हवा की गुणवत्ता (AQI)", "☔ बारिश की चेतावनी", "👕 पहनावा सलाह"],
                 ruralChips: ["🌾 फसल सुरक्षा सलाह", "🌧️ सिंचाई अलर्ट", "🚜 मंडी भाव", "📜 किसान योजना"],
-                urbanResponses: {
-                    "🚗 ट्रैफिक व मौसम": "ट्रैफिक व मौसम: आज धूप खिली रहेगी, तापमान 29°C रहेगा। यात्रा के लिए रास्ता बिल्कुल साफ है।",
-                    "😷 हवा की गुणवत्ता (AQI)": "AQI अपडेट: आपके क्षेत्र का AQI 120 (मध्यम) है। बाहर जाते समय मास्क पहनना बेहतर रहेगा।",
-                    "☔ बारिश की चेतावनी": "बारिश अलर्ट: आज बारिश की संभावना केवल 10% है। छाता ले जाने की आवश्यकता नहीं है।",
-                    "👕 पहनावा सलाह": "पहनावा सलाह: आज का मौसम सुहावना है, हल्के सूती कपड़े पहनना आरामदायक रहेगा।"
-                },
-                ruralResponses: {
-                    "🌾 फसल सुरक्षा सलाह": "फसल सलाह: गेहूं और धान की फसल में कीटों से बचाव के लिए जैविक नीम तेल का छिड़काव करें।",
-                    "🌧️ सिंचाई अलर्ट": "सिंचाई अलर्ट: अगले 48 घंटों में हल्की वर्षा की संभावना है, खेतों में सिंचाई रोक दें।",
-                    "🚜 मंडी भाव": "मंडी भाव: आज स्थानीय मंडी में गेहूं 2,250 रुपये प्रति क्विंटल दर्ज किया गया है।",
-                    "📜 किसान योजना": "किसान योजना: PM-किसान सम्मान निधि की अगली किस्त के लिए e-KYC तुरंत पूरा करें।"
-                },
-                modeAudioUrban: "शहरी देखभाल मोड चालू हो गया है",
-                modeAudioRural: "ग्रामीण और किसान मोड चालू हो गया है"
+                modeAudioUrban: "शहरी देखभाल मोड चालू हो गया है", modeAudioRural: "ग्रामीण और किसान मोड चालू हो गया है"
             },
             en: {
-                urbanTitle: "Urban Care Mode",
-                ruralTitle: "Rural / Farmer Mode",
-                switchBtn: "Switch Mode",
-                statusIdle: "Tap mic and speak...",
-                statusListening: "Listening... Speak now",
+                urbanTitle: "Urban Care Mode", ruralTitle: "Rural / Farmer Mode", switchBtn: "Switch Mode",
+                statusIdle: "Tap mic and speak...", statusListening: "Listening... Speak now",
                 welcomeGreeting: "Welcome to Mausam AI Pro! How can I help you today?",
-                camTitle: "AI Weather & Crop Scanner",
-                camSub: "Snap a picture to scan environment",
+                camTitle: "AI Weather & Crop Scanner", camSub: "Snap a picture to scan environment",
                 urbanChips: ["🚗 Traffic & Weather", "😷 AQI Air Quality", "☔ Rain Alert", "👕 Clothing Guide"],
                 ruralChips: ["🌾 Crop Protection", "🌧️ Irrigation Alert", "🚜 Market Prices", "📜 Farmer Schemes"],
-                urbanResponses: {
-                    "🚗 Traffic & Weather": "Traffic & Weather: Clear skies expected today with 29°C. Ideal conditions for commute.",
-                    "😷 AQI Air Quality": "AQI Update: Air Quality Index is 120 (Moderate). Wearing a mask outdoors is advised.",
-                    "☔ Rain Alert": "Rain Alert: Rain probability is only 10% today. No umbrella needed.",
-                    "👕 Clothing Guide": "Clothing Guide: Pleasant weather ahead. Light cotton clothes are recommended."
-                },
-                ruralResponses: {
-                    "🌾 Crop Protection": "Crop Advice: Spray organic neem oil to protect Wheat/Paddy crops from pests.",
-                    "🌧️ Irrigation Alert": "Irrigation Alert: Light rain expected in 48 hours. Pause field irrigation.",
-                    "🚜 Market Prices": "Market Price: Today Wheat is trading at 2,250 Rupees per quintal.",
-                    "📜 Farmer Schemes": "Farmer Scheme: Complete your e-KYC for the upcoming PM-Kisan installment."
-                },
-                modeAudioUrban: "Urban Care mode activated",
-                modeAudioRural: "Rural and Farmer mode activated"
+                modeAudioUrban: "Urban Care mode activated", modeAudioRural: "Rural and Farmer mode activated"
+            },
+            bn: {
+                urbanTitle: "শহুরে যত্ন মোড", ruralTitle: "গ্রামীণ / কৃষক মোড", switchBtn: "মোড পরিবর্তন করুন",
+                statusIdle: "কথা বলতে মাইক চাপুন...", statusListening: "শুনছি... এখন বলুন",
+                welcomeGreeting: "স্বাগতম! আবহাওয়া AI Pro-তে আপনাকে স্বাগতম। আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি?",
+                camTitle: "AI শস্য ও আবহাওয়া স্ক্যানার", camSub: "ছবি তুলে বিস্তারিত জানুন",
+                urbanChips: ["🚗 ট্রাফিক ও আবহাওয়া", "😷 বায়ুর মান (AQI)", "☔ বৃষ্টির সতর্কতা", "👕 পোশাকের পরামর্শ"],
+                ruralChips: ["🌾 ফসল সুরক্ষা", "🌧️ সেচ সতর্কতা", "🚜 বাজারের দর", "📜 কৃষক পরিকল্পনা"],
+                modeAudioUrban: "শহুরে যত্ন মোড সক্রিয় হয়েছে", modeAudioRural: "গ্রামীণ ও কৃষক মোড সক্রিয় হয়েছে"
+            },
+            mr: {
+                urbanTitle: "शहरी काळजी मोड", ruralTitle: "ग्रामीण / शेतकरी मोड", switchBtn: "मोड बदला",
+                statusIdle: "बोलण्यासाठी मायक्रोफोन दाबा...", statusListening: "ऐकत आहे... आता बोला",
+                welcomeGreeting: "नमस्कार! हवामान AI Pro मध्ये आपले स्वागत आहे। आज मी तुम्हाला कशी मदत करू शकतो?",
+                camTitle: "AI पीक आणि हवामान स्कॅनर", camSub: "फोटो काढून माहिती मिळवा",
+                urbanChips: ["🚗 ट्रॅफिक आणि हवामान", "😷 हवेची गुणवत्ता (AQI)", "☔ पावसाचा इशारा", "👕 कपड्यांचा सल्ला"],
+                ruralChips: ["🌾 पीक संरक्षण", "🌧️ सिंचन इशारा", "🚜 बाजार भाव", "📜 शेतकरी योजना"],
+                modeAudioUrban: "शहरी काळजी मोड सुरू झाला आहे", modeAudioRural: "ग्रामीण आणि शेतकरी मोड सुरू झाला आहे"
+            },
+            te: {
+                urbanTitle: "అర్బన్ కేర్ మోడ్", ruralTitle: "గ్రామీణ / రైతు మోడ్", switchBtn: "మోడ్ మార్చండి",
+                statusIdle: "మాట్లాడటానికి మైక్ నొక్కండి...", statusListening: "వింటున్నాను... ఇప్పుడు మాట్లాడండి",
+                welcomeGreeting: "స్వాగతం! వాతావరణం AI Pro కి స్వాగతం। ఈ రోజు నేను మీకు ఎలా సహాయపడగలను?",
+                camTitle: "AI పంట మరియు వాతావరణ స్కానర్", camSub: "ఫోటో తీసి సమాచారం పొందండి",
+                urbanChips: ["🚗 ట్రాఫిక్ & వాతావరణం", "😷 గాలి నాణ్యత (AQI)", "☔ వర్ష హెచ్చరిక", "👕 దుస్తుల సలహా"],
+                ruralChips: ["🌾 పంట రక్షణ", "🌧️ నీటిపారుదల హెచ్చరిక", "🚜 మార్కెట్ ధరలు", "📜 రైతు పథకాలు"],
+                modeAudioUrban: "అర్బన్ కేర్ మోడ్ యాక్టివేట్ చేయబడింది", modeAudioRural: "గ్రామీణ రైతు మోడ్ యాక్టివేట్ చేయబడింది"
+            },
+            ta: {
+                urbanTitle: "நகர்ப்புற பராமரிப்பு முறை", ruralTitle: "கிராமப்புற / விவசாயி முறை", switchBtn: "முறையை மாற்றவும்",
+                statusIdle: "பேச மைக்கை அழுத்தவும்...", statusListening: "கேட்கிறது... இப்போது பேசுங்கள்",
+                welcomeGreeting: "வணக்கம்! வானிலை AI Pro-விற்கு வரவேற்கிறோம்। இன்று நான் உங்களுக்கு எவ்வாறு உதவ முடியும்?",
+                camTitle: "AI பயிர் மற்றும் வானிலை ஸ்கேனர்", camSub: "படம் எடுத்து விவரங்களை அறியவும்",
+                urbanChips: ["🚗 போக்குவரத்து & வானிலை", "😷 காற்று தரம் (AQI)", "☔ மழை எச்சரிக்கை", "👕 ஆடை ஆலோசனைகள்"],
+                ruralChips: ["🌾 பயிர் பாதுகாப்பு", "🌧️ பாசன எச்சரிக்கை", "🚜 சந்தை விலைகள்", "📜 விவசாயி திட்டங்கள்"],
+                modeAudioUrban: "நகர்ப்புற பராமரிப்பு முறை செயல்படுத்தப்பட்டது", modeAudioRural: "கிராமப்புற விவசாயி முறை செயல்படுத்தப்பட்டது"
+            },
+            gu: {
+                urbanTitle: "અર્બન કેર મોડ", ruralTitle: "ગ્રામીણ / ખેડૂત મોડ", switchBtn: "મોડ બદલો",
+                statusIdle: "બોલવા માટે માઇક દબાવો...", statusListening: "સાંભળી રહ્યા છીએ... હવે બોલો",
+                welcomeGreeting: "નમસ્તે! હવામાન AI Pro માં તમારું સ્વાગત છે। આજે હું તમને કેવી રીતે મદદ કરી શકું?",
+                camTitle: "AI પાક અને હવામાન સ્કેનર", camSub: "ફોટો પાડીને માહિતી મેળવો",
+                urbanChips: ["🚗 ટ્રાફિક અને હવામાન", "😷 હવાની ગુણવત્તા (AQI)", "☔ વરસાદની ચેતવણી", "👕 કપડાંની સલાહ"],
+                ruralChips: ["🌾 પાક સુરક્ષા", "🌧️ સિંચાઈ ચેતવણી", "🚜 બજાર ભાવ", "📜 ખેડૂત યોજના"],
+                modeAudioUrban: "અર્બન કેર મોડ શરૂ થયો છે", modeAudioRural: "ગ્રામીણ ખેડૂત મોડ શરૂ થયો છે"
+            },
+            kn: {
+                urbanTitle: "ಅರ್ಬನ್ ಕೇರ್ ಮೋಡ್", ruralTitle: "ಗ್ರಾಮೀಣ / ರೈತ ಮೋಡ್", switchBtn: "ಮೋಡ್ ಬದಲಾಯಿಸಿ",
+                statusIdle: "ಮಾತನಾಡಲು ಮೈಕ್ ಒತ್ತಿರಿ...", statusListening: "ಕೇಳುತ್ತಿದ್ದೇವೆ... ಈಗ ಮಾತನಾಡಿ",
+                welcomeGreeting: "ಸ್ವಾಗತ! ಹವಾಮಾನ AI Pro ಗೆ ಸುಸ್ವಾಗತ। ಇಂದು ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",
+                camTitle: "AI ಬೆಳೆ ಮತ್ತು ಹವಾಮಾನ ಸ್ಕ್ಯಾನರ್", camSub: "ಫೋಟೋ ತೆಗೆದು ಮಾಹಿತಿ ಪಡೆಯಿರಿ",
+                urbanChips: ["🚗 ಸಂಚಾರ ಮತ್ತು ಹವಾಮಾನ", "😷 ಗಾಳಿಯ ಗುಣಮಟ್ಟ (AQI)", "☔ ಮಳೆ ಎಚ್ಚರಿಕೆ", "👕 ಉಡುಪಿನ ಸಲಹೆ"],
+                ruralChips: ["🌾 ಬೆಳೆ ರಕ್ಷಣೆ", "🌧️ ನೀರಾವರಿ ಎಚ್ಚರಿಕೆ", "🚜 ಮಾರುಕಟ್ಟೆ ಬೆಲೆ", "📜 ರೈತ ಯೋಜನೆಗಳು"],
+                modeAudioUrban: "ಅರ್ಬನ್ ಕೇರ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ", modeAudioRural: "ಗ್ರಾಮೀಣ ರೈತ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ"
             }
         };
 
@@ -275,17 +300,20 @@
         
         function closeLanguageModal() {
             document.getElementById('lang-modal-overlay').classList.add('hidden');
-            document.getElementById('current-lang-text').innerText = selectedLang === 'hi' ? 'हिंदी' : 'English';
+            document.getElementById('current-lang-text').innerText = selectedLangLabel;
             updateUI();
             
-            // Speak Welcome Greeting immediately upon selecting language
-            const greeting = content[selectedLang].welcomeGreeting;
+            // Speak Regional Welcome Greeting
+            const langData = content[selectedLang] || content['hi'];
+            const greeting = langData.welcomeGreeting;
             document.getElementById('response-text').innerText = greeting;
             speakText(greeting);
         }
 
-        function selectLanguage(code, label) {
+        function selectLanguage(code, label, locale) {
             selectedLang = code;
+            selectedLangLabel = label;
+            voiceLocale = locale;
             document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('selected'));
             document.getElementById(`opt-${code}`).classList.add('selected');
         }
@@ -293,13 +321,13 @@
         function toggleAppMode() {
             isUrbanMode = !isUrbanMode;
             updateUI();
-            
-            const audioMsg = isUrbanMode ? content[selectedLang].modeAudioUrban : content[selectedLang].modeAudioRural;
+            const langData = content[selectedLang] || content['hi'];
+            const audioMsg = isUrbanMode ? langData.modeAudioUrban : langData.modeAudioRural;
             speakText(audioMsg);
         }
 
         function updateUI() {
-            const data = content[selectedLang];
+            const data = content[selectedLang] || content['hi'];
             const modeBadge = document.getElementById('mode-badge');
             const modeIcon = document.getElementById('mode-icon');
             const modeTitle = document.getElementById('mode-title');
@@ -324,10 +352,7 @@
         }
 
         function handleChipClick(chipText) {
-            const data = content[selectedLang];
-            const responseMap = isUrbanMode ? data.urbanResponses : data.ruralResponses;
-            const reply = responseMap[chipText] || `${chipText}: Updating live details...`;
-            
+            const reply = `${chipText}: Live update checked.`;
             document.getElementById('response-text').innerText = reply;
             speakText(reply);
         }
@@ -335,7 +360,7 @@
         function startVoiceRecognition() {
             const orb = document.getElementById('voice-orb');
             const status = document.getElementById('voice-status');
-            const data = content[selectedLang];
+            const data = content[selectedLang] || content['hi'];
 
             orb.classList.add('listening');
             status.innerText = data.statusListening;
@@ -343,34 +368,25 @@
             setTimeout(() => {
                 orb.classList.remove('listening');
                 status.innerText = data.statusIdle;
-                
-                const defaultReply = isUrbanMode ? data.urbanResponses["🚗 Traffic & Weather"] : data.ruralResponses["🌾 फसल सुरक्षा सलाह"];
-                document.getElementById('response-text').innerText = defaultReply;
-                speakText(defaultReply);
+                const reply = data.welcomeGreeting;
+                document.getElementById('response-text').innerText = reply;
+                speakText(reply);
             }, 3000);
         }
 
         function triggerCropScan() {
-            const msg = selectedLang === 'hi' ? "कैमरा स्कैनर खुल रहा है... कृपया पत्ते या आसमान की फोटो लें।" : "Opening camera scanner... Please capture leaf or sky.";
-            document.getElementById('response-text').innerText = msg;
-            speakText(msg);
+            const data = content[selectedLang] || content['hi'];
+            document.getElementById('response-text').innerText = data.camTitle + " Opening...";
+            speakText(data.camTitle);
         }
 
         function speakText(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
-                
-                if (selectedLang === 'hi') {
-                    utterance.lang = 'hi-IN';
-                    utterance.pitch = 1.0;
-                    utterance.rate = 0.95;
-                } else {
-                    utterance.lang = 'en-US';
-                    utterance.pitch = 1.0;
-                    utterance.rate = 1.0;
-                }
-                
+                utterance.lang = voiceLocale;
+                utterance.pitch = 1.0;
+                utterance.rate = 0.95;
                 window.speechSynthesis.speak(utterance);
             }
         }
