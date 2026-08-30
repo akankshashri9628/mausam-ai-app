@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Pro - Live Weather & Voice Dashboard</title>
+    <title>Mausam AI Pro - Inclusive Bharat Edition</title>
     
     <meta name="theme-color" content="#0d1117">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -12,12 +12,21 @@
     <style>
         :root {
             --bg-primary: #0b0f19;
-            --card-bg: rgba(22, 29, 47, 0.75);
-            --border-color: rgba(255, 255, 255, 0.12);
+            --card-bg: rgba(22, 29, 47, 0.85);
+            --border-color: rgba(255, 255, 255, 0.15);
             --accent-urban: #00d2ff;
             --accent-rural: #2ecc71;
             --text-main: #ffffff;
             --text-sub: #94a3b8;
+        }
+
+        body.high-contrast {
+            --bg-primary: #000000;
+            --card-bg: #111111;
+            --border-color: #ffff00;
+            --text-main: #ffff00;
+            --text-sub: #ffffff;
+            --accent-urban: #ffff00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -26,50 +35,66 @@
             background-color: var(--bg-primary);
             color: var(--text-main);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
             background: radial-gradient(circle at top, #1a233a 0%, #0b0f19 100%);
             padding-bottom: 30px;
         }
 
         .app-header {
-            width: 100%; max-width: 600px; padding: 15px 20px;
+            width: 100%; max-width: 650px; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
             position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85);
         }
 
         .brand { font-size: 1.2rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
-        .brand i { color: #00d2ff; }
+        .brand i { color: var(--accent-urban); }
 
-        .lang-btn {
+        .header-controls { display: flex; gap: 8px; align-items: center; }
+
+        .lang-select {
             background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
-            color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem;
-            cursor: pointer; display: flex; align-items: center; gap: 6px;
+            color: #fff; padding: 6px 10px; border-radius: 20px; font-size: 0.85rem; outline: none;
+        }
+        .lang-select option { background: #111827; color: #fff; }
+
+        .start-btn {
+            background: linear-gradient(135deg, #00d2ff, #0072ff);
+            border: none; color: #fff; padding: 8px 14px; border-radius: 20px;
+            font-weight: 600; font-size: 0.85rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,210,255,0.4);
         }
 
-        .main-container { width: 100%; max-width: 600px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .main-container { width: 100%; max-width: 650px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Accessibility Mode Bar */
+        .access-bar {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 10px; display: flex; justify-content: space-around; gap: 6px; flex-wrap: wrap;
+        }
+
+        .access-btn {
+            border: none; padding: 6px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;
+            cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s;
+        }
+        .btn-blind { background: #f1c40f; color: #000; }
+        .btn-deaf { background: #e74c3c; color: #fff; }
+        .btn-mute { background: #9b59b6; color: #fff; }
 
         .mode-banner {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 14px 18px; display: flex;
+            border-radius: 16px; padding: 12px 18px; display: flex;
             justify-content: space-between; align-items: center;
         }
 
-        .mode-badge { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.95rem; }
-        .mode-badge.urban { color: var(--accent-urban); }
-
         .mode-toggle-btn {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            border: 1px solid var(--border-color); color: #fff; padding: 8px 14px;
-            border-radius: 20px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 6px;
+            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
+            color: #fff; padding: 8px 14px; border-radius: 20px; font-size: 0.85rem; cursor: pointer;
         }
 
         .weather-hero-card {
             background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(22, 29, 47, 0.85));
             border: 1px solid var(--border-color); border-radius: 24px; padding: 20px;
-            display: flex; flex-direction: column; gap: 15px; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; gap: 15px;
         }
 
         .hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
@@ -82,33 +107,38 @@
 
         .weather-stats-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-            background: rgba(0, 0, 0, 0.2); padding: 12px; border-radius: 16px; text-align: center;
+            background: rgba(0, 0, 0, 0.25); padding: 12px; border-radius: 16px; text-align: center;
         }
 
         .stat-item { display: flex; flex-direction: column; gap: 4px; }
         .stat-item span { font-size: 0.75rem; color: var(--text-sub); }
         .stat-item strong { font-size: 0.95rem; }
 
-        .hourly-forecast { display: flex; gap: 12px; overflow-x: auto; padding-top: 5px; }
-        .hour-box {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-            border-radius: 14px; padding: 10px 14px; text-align: center; min-width: 65px;
-            display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem;
+        /* Mute/Gesture Visual Card Section */
+        .visual-actions {
+            display: none; grid-template-columns: repeat(3, 1fr); gap: 10px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            padding: 15px; border-radius: 18px; text-align: center;
         }
+        .action-card {
+            background: rgba(255, 255, 255, 0.08); padding: 12px; border-radius: 12px;
+            cursor: pointer; transition: transform 0.2s; border: 1px solid var(--border-color);
+        }
+        .action-card:hover { transform: scale(1.05); }
+        .action-card i { font-size: 1.5rem; color: var(--accent-urban); margin-bottom: 5px; }
 
         .voice-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 24px; padding: 25px 20px; text-align: center;
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-radius: 24px; padding: 20px; text-align: center;
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
         }
 
         .voice-orb {
-            width: 85px; height: 85px; border-radius: 50%;
+            width: 75px; height: 75px; border-radius: 50%;
             background: linear-gradient(135deg, #00d2ff, #3a7bd5);
             display: flex; justify-content: center; align-items: center;
-            font-size: 2rem; color: #fff; cursor: pointer;
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.4); transition: all 0.3s ease;
+            font-size: 1.8rem; color: #fff; cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); transition: all 0.3s ease;
         }
 
         .voice-orb.listening { animation: pulse 1.3s infinite; background: linear-gradient(135deg, #ff416c, #ff4b2b); }
@@ -116,22 +146,61 @@
 
         .response-card {
             background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+            border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 8px;
         }
+
+        .caption-box {
+            display: none; background: #000; color: #00ffcc; border: 2px solid #00ffcc;
+            padding: 12px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; line-height: 1.4;
+        }
+
+        .badge-tag {
+            display: inline-block; padding: 4px 10px; border-radius: 12px;
+            font-size: 0.75rem; font-weight: 600; width: fit-content;
+        }
+        .badge-tag.agri { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
+        .badge-tag.urban { background: rgba(0, 210, 255, 0.2); color: #00d2ff; border: 1px solid #00d2ff; }
     </style>
 </head>
-<body>
+<body onclick="handleGlobalClick(event)">
 
     <div class="app-header">
-        <div class="brand"><i class="fa-solid fa-cloud-sun-rain"></i> Mausam AI Pro</div>
-        <button class="lang-btn"><i class="fa-solid fa-language"></i> <span>हिंदी</span></button>
+        <div class="brand"><i class="fa-solid fa-cloud-sun-rain"></i> Mausam AI</div>
+        <div class="header-controls">
+            <select id="langSelect" class="lang-select" onchange="changeLanguage()">
+                <option value="hi-IN">🇮🇳 हिंदी (Hindi)</option>
+                <option value="en-US">🇬🇧 English</option>
+                <option value="hinglish">🇮🇳 Hinglish</option>
+                <option value="mr-IN">🇮🇳 मराठी</option>
+                <option value="ta-IN">🇮🇳 தமிழ்</option>
+                <option value="te-IN">🇮🇳 తెలుగు</option>
+                <option value="bn-IN">🇮🇳 বাংলা</option>
+                <option value="gu-IN">🇮🇳 ગુજરાતી</option>
+            </select>
+            <button class="start-btn" onclick="initializeAI()"><i class="fa-solid fa-play"></i> Start AI</button>
+        </div>
     </div>
 
     <div class="main-container">
+
+        <!-- Special Accessibility Feature Bar -->
+        <div class="access-bar">
+            <button class="access-btn btn-blind" onclick="toggleBlindMode()"><i class="fa-solid fa-eye-slash"></i> Audio/Blind Mode</button>
+            <button class="access-btn btn-deaf" onclick="toggleDeafMode()"><i class="fa-solid fa-ear-deaf"></i> Deaf/Captions</button>
+            <button class="access-btn btn-mute" onclick="toggleMuteMode()"><i class="fa-solid fa-hand-holding-heart"></i> Mute/Gesture Cards</button>
+        </div>
+
+        <!-- Mode Switcher -->
+        <div class="mode-banner">
+            <div id="mode-indicator" class="badge-tag urban">Urban Mode Active</div>
+            <button class="mode-toggle-btn" onclick="toggleMode()"><i class="fa-solid fa-arrows-rotate"></i> Switch to Kisaan Mode</button>
+        </div>
+
+        <!-- Weather Card -->
         <div class="weather-hero-card">
             <div class="hero-top">
                 <div class="location-box">
-                    <h2 id="live-city"><i class="fa-solid fa-location-dot" style="color: #00d2ff;"></i> GPS Location Loading...</h2>
+                    <h2 id="live-city"><i class="fa-solid fa-location-dot" style="color: #00d2ff;"></i> Locating GPS...</h2>
                     <p id="live-datetime">--</p>
                 </div>
                 <div class="temp-display">
@@ -145,62 +214,251 @@
                 <div class="stat-item"><span>Humidity</span><strong id="live-humidity">--%</strong></div>
                 <div class="stat-item"><span>Wind</span><strong id="live-wind">-- km/h</strong></div>
             </div>
-
-            <div class="hourly-forecast" id="hourly-forecast"></div>
         </div>
 
+        <!-- Mute/Visual Card Tap Section -->
+        <div class="visual-actions" id="visualActionBox">
+            <div class="action-card" onclick="triggerVisualQuery('rain')">
+                <i class="fa-solid fa-cloud-showers-heavy"></i>
+                <p style="font-size: 0.75rem;">क्या आज बारिश होगी?</p>
+            </div>
+            <div class="action-card" onclick="triggerVisualQuery('crop')">
+                <i class="fa-solid fa-wheat-awn"></i>
+                <p style="font-size: 0.75rem;">फसल सिंचाई सलाह</p>
+            </div>
+            <div class="action-card" onclick="triggerVisualQuery('temp')">
+                <i class="fa-solid fa-temperature-high"></i>
+                <p style="font-size: 0.75rem;">तापमान अलर्ट</p>
+            </div>
+        </div>
+
+        <!-- Voice Card -->
         <div class="voice-card">
-            <div class="voice-orb" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i></div>
-            <div class="voice-status" id="voice-status">Tap mic and ask weather</div>
+            <div class="voice-orb" id="mic-btn" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i></div>
+            <div id="voice-status" style="font-size: 0.9rem; color: var(--text-sub);">Tap mic or click Start above</div>
         </div>
 
+        <!-- Live Captions Box for Hard of Hearing -->
+        <div class="caption-box" id="deafCaptionBox">
+            <i class="fa-solid fa-closed-captioning"></i> Live Captions: <span id="captionText">--</span>
+        </div>
+
+        <!-- AI Advisory Response Card -->
         <div class="response-card">
-            <div style="font-weight: 600;"><i class="fa-solid fa-robot"></i> AI Advisory</div>
-            <div id="response-text" style="color: #cbd5e1; margin-top: 5px;">Aapka Live Weather Dashboard ready hai!</div>
+            <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-robot" style="color: #00d2ff;"></i> <span id="advisory-title">AI Mausam Mitr Advisory</span>
+            </div>
+            <div id="response-text" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.4;">
+                'Start AI' बटन पर क्लिक करें, AI आपका स्वागत करेगा और मौसम की सटीक जानकारी देगा!
+            </div>
         </div>
     </div>
 
     <script>
         const BACKEND_URL = "https://mausam-ai-app.onrender.com";
-        let currentWeatherData = null;
+        let currentData = null;
+        let isRuralMode = false;
+        let selectedLang = "hi-IN";
+        let blindModeActive = false;
+        let deafModeActive = false;
 
-        function fetchLiveWeatherByGPS() {
+        function changeLanguage() {
+            selectedLang = document.getElementById('langSelect').value;
+            if (currentData) generateAIAdvisory(currentData);
+        }
+
+        function speakText(text, lang) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang === 'hinglish' ? 'hi-IN' : lang;
+                utterance.rate = 0.9;
+                
+                if (navigator.vibrate) navigator.vibrate(100);
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        function initializeAI() {
+            fetchLiveLocation();
+        }
+
+        function toggleBlindMode() {
+            blindModeActive = !blindModeActive;
+            document.body.classList.toggle('high-contrast');
+            if(blindModeActive) {
+                speakText("Blind Audio Mode enabled. Touch screen anytime to listen weather.", selectedLang);
+            }
+        }
+
+        function toggleDeafMode() {
+            deafModeActive = !deafModeActive;
+            const captionBox = document.getElementById('deafCaptionBox');
+            captionBox.style.display = deafModeActive ? 'block' : 'none';
+            if(deafModeActive && currentData) {
+                document.getElementById('captionText').innerText = document.getElementById('response-text').innerText;
+            }
+        }
+
+        function toggleMuteMode() {
+            const visualBox = document.getElementById('visualActionBox');
+            visualBox.style.display = visualBox.style.display === 'grid' ? 'none' : 'grid';
+        }
+
+        function handleGlobalClick(e) {
+            if (blindModeActive && currentData) {
+                generateAIAdvisory(currentData);
+            }
+        }
+
+        function triggerVisualQuery(type) {
+            if(!currentData) return;
+            const temp = Math.round(currentData.weather.main.temp);
+            let response = "";
+            
+            if(type === 'rain') {
+                response = `आज बारिश की संभावना ${currentData.weather.weather[0].description} के अनुसार है।`;
+            } else if(type === 'crop') {
+                response = `किसान भाई, तापमान ${temp}°C है। फसल में हल्की सिंचाई करना सुरक्षित रहेगा।`;
+            } else {
+                response = `वर्तमान तापमान ${temp} डिग्री सेल्सियस है।`;
+            }
+
+            document.getElementById('response-text').innerText = response;
+            if(deafModeActive) document.getElementById('captionText').innerText = response;
+            speakText(response, selectedLang);
+        }
+
+        function fetchLiveLocation() {
+            document.getElementById('live-city').innerText = "Locating via GPS...";
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     pos => getWeatherData(pos.coords.latitude, pos.coords.longitude),
-                    err => getWeatherData(28.6139, 77.2090)
+                    err => {
+                        console.warn("GPS Permission Denied, fallback to IP API");
+                        fetch('https://ipapi.co/json/')
+                            .then(res => res.json())
+                            .then(ipData => getWeatherData(ipData.latitude, ipData.longitude))
+                            .catch(() => getWeatherData(26.8467, 80.9462)); // Lucknow Fallback
+                    },
+                    { timeout: 10000, enableHighAccuracy: true }
                 );
             } else {
-                getWeatherData(28.6139, 77.2090);
+                getWeatherData(26.8467, 80.9462);
             }
         }
 
         async function getWeatherData(lat, lon) {
             try {
-                const response = await fetch(`${BACKEND_URL}/api/weather?lat=${lat}&lon=${lon}`);
-                const data = await response.json();
+                const res = await fetch(`${BACKEND_URL}/api/weather?lat=${lat}&lon=${lon}`);
+                const data = await res.json();
                 if (data.weather) {
-                    currentWeatherData = data;
-                    renderWeatherData(data);
+                    currentData = data;
+                    renderWeather(data);
+                    generateAIAdvisory(data);
                 }
             } catch (err) {
-                console.error("Backend connection error:", err);
+                console.error(err);
+                document.getElementById('response-text').innerText = "Backend Connection Error. Check Render deployment.";
             }
         }
 
-        function renderWeatherData(data) {
+        function renderWeather(data) {
             const w = data.weather;
             document.getElementById('live-city').innerHTML = `<i class="fa-solid fa-location-dot" style="color: #00d2ff;"></i> ${w.name}, ${w.sys.country}`;
             document.getElementById('live-temp').innerText = `${Math.round(w.main.temp)}°C`;
             document.getElementById('live-condition').innerText = w.weather[0].description;
             document.getElementById('live-humidity').innerText = `${w.main.humidity}%`;
             document.getElementById('live-wind').innerText = `${Math.round(w.wind.speed * 3.6)} km/h`;
-            document.getElementById('live-aqi').innerText = data.aqi ? data.aqi.list[0].main.aqi : 1;
+            document.getElementById('live-aqi').innerText = data.aqi ? data.aqi.list[0].main.aqi : "1";
         }
 
-        window.onload = function() {
+        function generateAIAdvisory(data) {
+            const w = data.weather;
+            const city = w.name;
+            const temp = Math.round(w.main.temp);
+            const desc = w.weather[0].description;
+            
+            let advice = "";
+            let speechMsg = "";
+
+            if (!isRuralMode) {
+                if(selectedLang === 'hi-IN') {
+                    advice = `नमस्कार! ${city} में वर्तमान तापमान ${temp}°C है और आसमान में ${desc} है। मौसम सुहाना है, बाहर निकलने के लिए दिन उत्तम है!`;
+                    speechMsg = `हेलो! वेलकम टू मौसम AI प्रो। ${city} में तापमान ${temp} डिग्री सेल्सियस है।`;
+                } else if(selectedLang === 'hinglish') {
+                    advice = `Hey there! ${city} me temperature ${temp}°C hai aur weather me ${desc} hai. Driving aur outing ke liye day safe hai.`;
+                    speechMsg = `Hello! Welcome to Mausam AI Pro. ${city} temperature is ${temp} degrees.`;
+                } else {
+                    advice = `Welcome! ${city} weather is currently ${temp}°C with ${desc}. Safe conditions for local travel.`;
+                    speechMsg = `Welcome to Mausam AI Pro. Current temperature in ${city} is ${temp} degrees.`;
+                }
+            } else {
+                if(selectedLang === 'hi-IN') {
+                    advice = `राम राम किसान भाई! ${city} में तापमान ${temp}°C और नमी ${w.main.humidity}% है। फसल की सिंचाई और स्प्रे के लिए मौसम अनुकूल है।`;
+                    speechMsg = `नमस्ते किसान भाई! ${city} में तापमान ${temp} डिग्री है। फसल सुरक्षा एडवाइजरी रेडी है।`;
+                } else {
+                    advice = `Greetings Farmer Friend! ${city} temperature is ${temp}°C with ${w.main.humidity}% humidity. Favorable for crop care today.`;
+                    speechMsg = `Greetings Farmer Friend! Temperature in ${city} is ${temp} degrees.`;
+                }
+            }
+
+            document.getElementById('response-text').innerText = advice;
+            if(deafModeActive) document.getElementById('captionText').innerText = advice;
+            speakText(speechMsg, selectedLang);
+        }
+
+        function toggleMode() {
+            isRuralMode = !isRuralMode;
+            const indicator = document.getElementById('mode-indicator');
+            const btn = document.querySelector('.mode-toggle-btn');
+
+            if (isRuralMode) {
+                indicator.innerText = "Kisaan / Agri Mode Active";
+                indicator.className = "badge-tag agri";
+                btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> Switch to Urban Mode`;
+            } else {
+                indicator.innerText = "Urban Mode Active";
+                indicator.className = "badge-tag urban";
+                btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> Switch to Kisaan Mode`;
+            }
+
+            if (currentData) generateAIAdvisory(currentData);
+        }
+
+        function startSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert("Speech recognition not supported in this browser.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = selectedLang === 'hinglish' ? 'hi-IN' : selectedLang;
+
+            const micBtn = document.getElementById('mic-btn');
+            const statusText = document.getElementById('voice-status');
+
+            recognition.onstart = () => {
+                micBtn.classList.add('listening');
+                statusText.innerText = "सुन रहा हूँ... बोलिए!";
+            };
+
+            recognition.onresult = (event) => {
+                const query = event.results[0][0].transcript;
+                statusText.innerText = `आपने कहा: "${query}"`;
+                if (currentData) generateAIAdvisory(currentData);
+            };
+
+            recognition.onend = () => {
+                micBtn.classList.remove('listening');
+            };
+
+            recognition.start();
+        }
+
+        window.onload = () => {
             document.getElementById('live-datetime').innerText = new Date().toLocaleDateString('hi-IN');
-            fetchLiveWeatherByGPS();
         };
     </script>
 </body>
