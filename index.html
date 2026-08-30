@@ -3,205 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Pro - Hyperlocal Satellite Intelligence</title>
+    <title>Mausam AI Pro - Urban & Rural</title>
     <style>
         * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
         body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
         .phone-container { width: 100%; max-width: 410px; height: 860px; background: linear-gradient(180deg, #0b1329 0%, #0284c7 100%); border-radius: 40px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.4); border: 8px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         
-        /* Top Navigation & Language Selector */
         .app-header { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
         .app-header h2 { font-size: 18px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .lang-select { background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 8px; outline: none; }
         
-        /* Location Hierarchy Bar */
-        .geo-bar { background: rgba(15, 23, 42, 0.6); margin: 8px 12px 0 12px; padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
-        .geo-path { color: #38bdf8; font-weight: 700; display: flex; align-items: center; gap: 4px; }
-        .gps-btn { background: #0284c7; border: none; color: white; padding: 4px 8px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 10px; }
+        /* Master Mode Switcher */
+        .mode-switch { display: flex; margin: 10px 12px 4px 12px; background: rgba(15, 23, 42, 0.8); padding: 4px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .mode-btn { flex: 1; padding: 10px; border: none; background: transparent; color: #94a3b8; font-weight: 800; font-size: 13px; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        .mode-btn.active-rural { background: linear-gradient(135deg, #22c55e, #15803d); color: white; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
+        .mode-btn.active-urban { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
 
-        /* Voice AI Section */
-        .jarvis-container { padding: 12px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 8px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .orb-glow { width: 52px; height: 52px; margin: 0 auto 6px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 20px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 22px; }
-        .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 30px #f43f5e; }
+        /* Voice AI Container */
+        .jarvis-container { padding: 14px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 6px 12px; border-radius: 20px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .orb-glow { width: 64px; height: 64px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 28px; }
+        .orb-glow.rural-orb { background: radial-gradient(circle, #22c55e 0%, #15803d 70%); box-shadow: 0 0 25px #22c55e; }
+        .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%) !important; box-shadow: 0 0 35px #f43f5e !important; }
         @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-        .voice-msg { font-size: 11px; color: #7dd3fc; font-weight: 600; min-height: 20px; }
+        .voice-msg { font-size: 13px; color: #e0f2fe; font-weight: 700; min-height: 24px; }
 
-        /* Main Content Scrollable Area */
         .content-area { padding: 0 12px 12px 12px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
         .card { background: rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 12px; backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.12); }
-        .card-title { font-size: 12px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .card-title { font-size: 12px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display: flex; justify-content: space-between; }
 
-        /* Satellite Grid */
+        /* RURAL SIMPLE UI */
+        .crop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 10px; }
+        .crop-btn { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 4px; border-radius: 10px; text-align: center; font-size: 11px; font-weight: 700; cursor: pointer; color: white; }
+        .crop-btn.selected { border-color: #22c55e; background: rgba(34, 197, 94, 0.25); color: #4ade80; }
+        
+        .big-action-btn { background: linear-gradient(135deg, #22c55e, #16a34a); padding: 14px; border-radius: 14px; font-size: 15px; font-weight: 800; text-align: center; cursor: pointer; border: none; color: white; margin-top: 4px; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3); }
+
+        /* URBAN ADVANCED UI */
         .sat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-        .sat-item { background: rgba(15, 23, 42, 0.5); padding: 8px; border-radius: 10px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .sat-lbl { font-size: 9px; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
-        .sat-val { font-size: 11px; font-weight: 800; color: #4ade80; margin-top: 2px; }
+        .sat-item { background: rgba(15, 23, 42, 0.5); padding: 8px; border-radius: 10px; text-align: center; }
+        .sat-lbl { font-size: 9px; color: #94a3b8; font-weight: 700; }
+        .sat-val { font-size: 11px; font-weight: 800; color: #38bdf8; margin-top: 2px; }
 
-        /* Farm Status Grid */
-        .farm-info { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 11px; margin-bottom: 6px; }
-        .farm-pill { background: rgba(255, 255, 255, 0.05); padding: 6px 8px; border-radius: 8px; display: flex; justify-content: space-between; }
-
-        /* Irrigation Schedule */
-        .plan-box { display: flex; flex-direction: column; gap: 6px; }
-        .plan-row { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.4); padding: 8px 10px; border-radius: 8px; font-size: 11px; }
-        .water-saving { background: rgba(34, 197, 94, 0.15); border: 1px dashed #22c55e; color: #4ade80; padding: 8px; border-radius: 8px; text-align: center; font-size: 11px; font-weight: 800; margin-top: 4px; }
-
-        /* Risk Grid */
         .risk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-        .risk-card { background: rgba(15, 23, 42, 0.5); padding: 6px; border-radius: 8px; text-align: center; font-size: 10px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .risk-icon { font-size: 14px; margin-bottom: 2px; }
-        .risk-badge { font-size: 8px; font-weight: 800; padding: 2px 4px; border-radius: 4px; margin-top: 2px; display: inline-block; }
+        .risk-card { background: rgba(15, 23, 42, 0.5); padding: 6px; border-radius: 8px; text-align: center; font-size: 10px; }
+        .risk-badge { font-size: 8px; font-weight: 800; padding: 2px 4px; border-radius: 4px; display: inline-block; margin-top: 2px; }
         .risk-low { background: rgba(34, 197, 94, 0.2); color: #4ade80; }
         .risk-med { background: rgba(234, 179, 8, 0.2); color: #facc15; }
-        .risk-high { background: rgba(239, 68, 68, 0.2); color: #f87171; }
     </style>
 </head>
 <body>
 
 <div class="phone-container">
-    <!-- Header with Multi-Language Switch -->
     <div class="app-header">
-        <h2>Mausam AI Pro 🛰️</h2>
-        <select class="lang-select" id="langSelect" onchange="changeLanguage()">
-            <option value="hi-IN">🇮🇳 हिंदी (Hindi)</option>
-            <option value="en-IN">🇬🇧 English</option>
-            <option value="bn-IN">🇮🇳 বাংলা (Bengali)</option>
-            <option value="ta-IN">🇮🇳 தமிழ் (Tamil)</option>
-            <option value="te-IN">🇮🇳 తెలుగు (Telugu)</option>
-            <option value="mr-IN">🇮🇳 मराठी (Marathi)</option>
-            <option value="gu-IN">🇮🇳 ગુજરાતી (Gujarati)</option>
-            <option value="as-IN">🇮🇳 অসমীয়া (Assamese)</option>
-        </select>
+        <h2 id="appTitle">Mausam AI Kisan 🌾</h2>
+        <span style="font-size:11px; font-weight:700; color:#38bdf8;">📍 Lucknow</span>
     </div>
 
-    <!-- Hyperlocal Location Hierarchy -->
-    <div class="geo-bar">
-        <div class="geo-path" id="geoPath">📍 UP → Malihabad → Khasra #402</div>
-        <button class="gps-btn" onclick="locateFarm()">🎯 Live GPS</button>
+    <div class="mode-switch">
+        <button class="mode-btn active-rural" id="btnRural" onclick="switchMode('rural')">🌾 किसान मोड (Rural)</button>
+        <button class="mode-btn" id="btnUrban" onclick="switchMode('urban')">🌆 अर्बन मोड (Urban)</button>
     </div>
 
-    <!-- Voice AI Orb -->
     <div class="jarvis-container">
-        <div class="orb-glow" id="micBtn" onclick="toggleListening()">🎙️</div>
-        <div class="voice-msg" id="voiceStatus">Press "Ask Mausam" to Speak</div>
+        <div class="orb-glow rural-orb" id="micBtn" onclick="toggleListening()">🎙️</div>
+        <div class="voice-msg" id="voiceStatus">माइक दबाएं और बोलें...</div>
     </div>
 
     <div class="content-area">
-        <!-- Farm Status & Crop Stage -->
-        <div class="card">
-            <div class="card-title">🌾 YOUR FARM ENGINE</div>
-            <div class="farm-info">
-                <div class="farm-pill"><span>Crop:</span> <b style="color:#facc15">Wheat (गेहूँ)</b></div>
-                <div class="farm-pill"><span>Stage:</span> <b>Flowering</b></div>
-                <div class="farm-pill"><span>Rain Expected:</span> <b>11 mm</b></div>
-                <div class="farm-pill"><span>Irrigation:</span> <b style="color:#4ade80">LOW</b></div>
+        <div id="ruralSection">
+            <div class="card">
+                <div class="card-title" style="color:#4ade80">🌾 अपनी फसल चुनें (Choose Crop)</div>
+                <div class="crop-grid">
+                    <div class="crop-btn selected" onclick="selectCrop(this, 'गेहूं')">🌾 गेहूं</div>
+                    <div class="crop-btn" onclick="selectCrop(this, 'धान')">🌾 धान</div>
+                    <div class="crop-btn" onclick="selectCrop(this, 'सरसों')">🟡 सरसों</div>
+                    <div class="crop-btn" onclick="selectCrop(this, 'सब्जी')">🥦 सब्जी</div>
+                </div>
             </div>
+
+            <div class="card" style="text-align:center; padding:16px;">
+                <div style="font-size:14px; font-weight:700; color:#e0f2fe; margin-bottom:6px;">आज का मौसम & पानी की सलाह</div>
+                <div style="font-size:36px; font-weight:800; color:#4ade80;">32°C</div>
+                <div style="font-size:13px; color:#facc15; font-weight:700; margin-top:4px;">⛅ हल्की धूप • बारिश की संभावना नहीं</div>
+            </div>
+
+            <button class="big-action-btn" onclick="speakRuralAdvice()">🔊 आज पानी दें या नहीं? (1-Tap Advice)</button>
         </div>
 
-        <!-- Satellite Intelligence Metrics -->
-        <div class="card">
-            <div class="card-title">🛰️ SATELLITE DERIVED DATA (SENTINEL/MODIS)</div>
-            <div class="sat-grid">
-                <div class="sat-item"><div class="sat-lbl">NDVI Health</div><div class="sat-val">0.74 (Healthy)</div></div>
-                <div class="sat-item"><div class="sat-lbl">Soil Moisture</div><div class="sat-val">42%</div></div>
-                <div class="sat-item"><div class="sat-lbl">Surface Temp</div><div class="sat-val">29.4°C</div></div>
-                <div class="sat-item"><div class="sat-lbl">Crop Stress</div><div class="sat-val" style="color:#4ade80">Minimal</div></div>
-                <div class="sat-item"><div class="sat-lbl">Water Bodies</div><div class="sat-val">Optimal</div></div>
-                <div class="sat-item"><div class="sat-lbl">Land Change</div><div class="sat-val">Stable</div></div>
+        <div id="urbanSection" style="display:none;">
+            <div class="card">
+                <div class="card-title">🛰️ SATELLITE & TERRAIN INTELLIGENCE</div>
+                <div class="sat-grid">
+                    <div class="sat-item"><div class="sat-lbl">NDVI Health</div><div class="sat-val">0.74 (Healthy)</div></div>
+                    <div class="sat-item"><div class="sat-lbl">Soil Moisture</div><div class="sat-val">42%</div></div>
+                    <div class="sat-item"><div class="sat-lbl">Surface Temp</div><div class="sat-val">29.4°C</div></div>
+                    <div class="sat-item"><div class="sat-lbl">UV Index</div><div class="sat-val">Moderate</div></div>
+                    <div class="sat-item"><div class="sat-lbl">Air Quality</div><div class="sat-val" style="color:#4ade80">AQI 85 (Good)</div></div>
+                    <div class="sat-item"><div class="sat-lbl">Rain Forecast</div><div class="sat-val">11 mm</div></div>
+                </div>
             </div>
-        </div>
 
-        <!-- Precision Irrigation Plan -->
-        <div class="card">
-            <div class="card-title">💧 PRECISION IRRIGATION PLAN</div>
-            <div class="plan-box">
-                <div class="plan-row"><span>Tomorrow (कल):</span> <b style="color:#f87171">❌ No Irrigation Needed</b></div>
-                <div class="plan-row"><span>Tuesday (मंगलवार):</span> <b style="color:#facc15">⚠️ 20 Minutes</b></div>
-                <div class="plan-row"><span>Wednesday (बुधवार):</span> <b style="color:#4ade80">✅ 35 Minutes</b></div>
-            </div>
-            <div class="water-saving">💧 Estimated Water Saved: 1,850 Litres</div>
-        </div>
-
-        <!-- 8 Multi-Risk Assessment Grid -->
-        <div class="card">
-            <div class="card-title">🚨 MULTI-RISK ASSESSMENT</div>
-            <div class="risk-grid">
-                <div class="risk-card"><div class="risk-icon">🌧️</div>Heavy Rain<div class="risk-badge risk-med">Moderate</div></div>
-                <div class="risk-card"><div class="risk-icon">🌊</div>Flood Risk<div class="risk-badge risk-low">Low</div></div>
-                <div class="risk-card"><div class="risk-icon">🌾</div>Crop Stress<div class="risk-badge risk-low">Low</div></div>
-                <div class="risk-card"><div class="risk-icon">🔥</div>Heatwave<div class="risk-badge risk-low">Low</div></div>
-                <div class="risk-card"><div class="risk-icon">🌪️</div>Storm Risk<div class="risk-badge risk-med">Moderate</div></div>
-                <div class="risk-card"><div class="risk-icon">💧</div>Drought Risk<div class="risk-badge risk-low">Low</div></div>
-                <div class="risk-card"><div class="risk-icon">🦠</div>Disease Risk<div class="risk-badge risk-high">High</div></div>
-                <div class="risk-card"><div class="risk-icon">⛰️</div>Landslide<div class="risk-badge risk-low">Safe</div></div>
+            <div class="card">
+                <div class="card-title">🚨 ADVANCED RISK ASSESSMENTS</div>
+                <div class="risk-grid">
+                    <div class="risk-card">🌧️ Rain<div class="risk-badge risk-med">Moderate</div></div>
+                    <div class="risk-card">🌊 Flood<div class="risk-badge risk-low">Low</div></div>
+                    <div class="risk-card">🔥 Heatwave<div class="risk-badge risk-low">Low</div></div>
+                    <div class="risk-card">🌪️ Storm<div class="risk-badge risk-med">Moderate</div></div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    let currentMode = 'rural';
+    let currentCrop = 'गेहूं';
     let isListening = false;
     let recognition;
     let synth = window.speechSynthesis;
 
-    // Multilingual Dictionary & Voice Responses
-    const translations = {
-        'hi-IN': {
-            listening: "मैं सुन रहा हूँ, पूछिए...",
-            rainQuery: "कल आपके खेत में 11 मिलीमीटर बारिश की उम्मीद है, इसलिए कल सिंचाई न करें।",
-            defaultReply: "उपग्रह आंकड़ों के अनुसार आपकी गेहूं की फसल का स्वास्थ्य अच्छा है और मिट्टी में 42 प्रतिशत नमी है।",
-            statusLabel: "माइक दबाएं और पूछें..."
-        },
-        'en-IN': {
-            listening: "Listening, ask your question...",
-            rainQuery: "11 millimeter rainfall is expected on your farm tomorrow. Skip irrigation tomorrow.",
-            defaultReply: "Satellite metrics show optimal NDVI of 0.74 with 42% soil moisture.",
-            statusLabel: "Press Mic & Ask Mausam..."
-        },
-        'bn-IN': {
-            listening: "আমি শুনছি, বলুন...",
-            rainQuery: "আগামীকাল আপনার খামারে ১১ মিমি বৃষ্টির সম্ভাবনা রয়েছে। সেচ দেবেন না।",
-            defaultReply: "উপগ্রহ উপাত্ত অনুসারে আপনার ফসলের স্বাস্থ্য ভালো আছে।",
-            statusLabel: "মাইক চাপুন এবং জিজ্ঞাসা করুন..."
-        }
-    };
+    function switchMode(mode) {
+        currentMode = mode;
+        const btnRural = document.getElementById('btnRural');
+        const btnUrban = document.getElementById('btnUrban');
+        const ruralSec = document.getElementById('ruralSection');
+        const urbanSec = document.getElementById('urbanSection');
+        const mic = document.getElementById('micBtn');
+        const title = document.getElementById('appTitle');
 
-    function changeLanguage() {
-        const lang = document.getElementById('langSelect').value;
-        const dict = translations[lang] || translations['en-IN'];
-        document.getElementById('voiceStatus').innerText = dict.statusLabel;
-        if (recognition) recognition.lang = lang;
-        speak(dict.statusLabel);
+        if (mode === 'rural') {
+            btnRural.className = 'mode-btn active-rural';
+            btnUrban.className = 'mode-btn';
+            ruralSec.style.display = 'block';
+            urbanSec.style.display = 'none';
+            mic.classList.add('rural-orb');
+            title.innerText = "Mausam AI Kisan 🌾";
+            speak("किसान मोड चालू हो गया है। अपनी फसल चुनें या बोलकर पूछें।");
+        } else {
+            btnUrban.className = 'mode-btn active-urban';
+            btnRural.className = 'mode-btn';
+            urbanSec.style.display = 'block';
+            ruralSec.style.display = 'none';
+            mic.classList.remove('rural-orb');
+            title.innerText = "Mausam AI Pro 🌆";
+            speak("अर्बन मोड चालू हो गया है। सैटेलाइट और एडवांस्ड डेटा एक्टिव है।");
+        }
+    }
+
+    function selectCrop(element, cropName) {
+        document.querySelectorAll('.crop-btn').forEach(btn => btn.classList.remove('selected'));
+        element.classList.add('selected');
+        currentCrop = cropName;
+        speak(`आपने ${cropName} चुना है।`);
+    }
+
+    function speakRuralAdvice() {
+        speak(`आज ${currentCrop} में पानी देने की जरूरत नहीं है। नमी पर्याप्त है और मौसम साफ रहेगा।`);
     }
 
     // Speech Recognition
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognition) {
         recognition = new SpeechRecognition();
-        recognition.lang = document.getElementById('langSelect').value;
-        recognition.continuous = false;
-        recognition.interimResults = false;
+        recognition.lang = 'hi-IN';
 
         recognition.onstart = function() {
             isListening = true;
             document.getElementById('micBtn').classList.add('listening');
-            const lang = document.getElementById('langSelect').value;
-            const dict = translations[lang] || translations['en-IN'];
-            document.getElementById('voiceStatus').innerText = dict.listening;
+            document.getElementById('voiceStatus').innerText = "मैं आपकी बात सुन रहा हूँ...";
         };
 
         recognition.onresult = function(event) {
             const userSpeech = event.results[0][0].transcript;
-            document.getElementById('voiceStatus').innerText = `"${userSpeech}"`;
-            processQuery(userSpeech);
-        };
-
-        recognition.onerror = function() {
-            stopMic();
+            document.getElementById('voiceStatus').innerText = `आपने कहा: "${userSpeech}"`;
+            
+            if (userSpeech.includes("बारिश") || userSpeech.includes("पानी")) {
+                speak(`आज ${currentCrop} की फसल में पानी न दें, बारिश की संभावना बहुत कम है।`);
+            } else {
+                speak(`मौसम फिलहाल सामान्य है और तापमान 32 डिग्री सेल्सियस है।`);
+            }
         };
 
         recognition.onend = function() {
-            stopMic();
+            isListening = false;
+            document.getElementById('micBtn').classList.remove('listening');
         };
     }
 
@@ -211,50 +196,18 @@
             recognition.stop();
         } else {
             if (synth) synth.cancel();
-            recognition.lang = document.getElementById('langSelect').value;
             recognition.start();
         }
-    }
-
-    function stopMic() {
-        isListening = false;
-        document.getElementById('micBtn').classList.remove('listening');
-    }
-
-    function processQuery(query) {
-        const lang = document.getElementById('langSelect').value;
-        const dict = translations[lang] || translations['hi-IN'];
-        const text = query.toLowerCase();
-
-        let reply = dict.defaultReply;
-        if (text.includes("बारिश") || text.includes("rain") || text.includes("বৃষ্টি") || text.includes("कल")) {
-            reply = dict.rainQuery;
-        }
-
-        setTimeout(() => speak(reply), 300);
     }
 
     function speak(text) {
         if ('speechSynthesis' in window) {
             synth.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = document.getElementById('langSelect').value;
+            utterance.lang = 'hi-IN';
             utterance.rate = 0.9;
             document.getElementById('voiceStatus').innerText = text;
             synth.speak(utterance);
-        }
-    }
-
-    function locateFarm() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const lat = position.coords.latitude.toFixed(3);
-                const lon = position.coords.longitude.toFixed(3);
-                document.getElementById('geoPath').innerText = `📍 GPS: ${lat}°N, ${lon}°E (Farm Level)`;
-                speak("GPS Location Locked to Farm Field Level.");
-            }, () => {
-                alert("Geolocation Permission Denied.");
-            });
         }
     }
 </script>
