@@ -3,268 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Pro - Inclusive Bharat Edition</title>
+    <title>Mausam AI Pro - Universal Dual Engine (Rural & Urban)</title>
     
-    <meta name="theme-color" content="#0d1117">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#0b0f19">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-primary: #0b0f19;
-            --card-bg: rgba(22, 29, 47, 0.85);
-            --border-color: rgba(255, 255, 255, 0.15);
-            --accent-urban: #00d2ff;
-            --accent-rural: #2ecc71;
+            --bg-dark: #090d16;
+            --card-bg: rgba(23, 31, 50, 0.75);
+            --card-border: rgba(255, 255, 255, 0.12);
+            --accent-green: #10b981;
+            --accent-blue: #06b6d4;
+            --accent-red: #ef4444;
+            --accent-purple: #8b5cf6;
             --text-main: #ffffff;
-            --text-sub: #94a3b8;
+            --text-muted: #9ca3af;
         }
 
         body.high-contrast {
-            --bg-primary: #000000;
+            --bg-dark: #000000;
             --card-bg: #111111;
-            --border-color: #ffff00;
+            --card-border: #ffff00;
             --text-main: #ffff00;
-            --text-sub: #ffffff;
-            --accent-urban: #ffff00;
+            --text-muted: #ffffff;
+            --accent-blue: #ffff00;
+            --accent-green: #ffff00;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
 
         body {
-            background-color: var(--bg-primary);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
-            background: radial-gradient(circle at top, #1a233a 0%, #0b0f19 100%);
-            padding-bottom: 30px;
+            background: radial-gradient(circle at top, #131d33 0%, #090d16 100%);
+            padding-bottom: 40px;
         }
 
-        .app-header {
-            width: 100%; max-width: 650px; padding: 15px 20px;
+        /* Header */
+        .header {
+            width: 100%; max-width: 580px; padding: 16px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color);
-            position: sticky; top: 0; z-index: 100; background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border);
+            position: sticky; top: 0; z-index: 100; background: rgba(9, 13, 22, 0.85);
         }
 
-        .brand { font-size: 1.2rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px; }
-        .brand i { color: var(--accent-urban); }
-
-        .header-controls { display: flex; gap: 8px; align-items: center; }
-
-        .lang-select {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
-            color: #fff; padding: 6px 10px; border-radius: 20px; font-size: 0.85rem; outline: none;
-        }
-        .lang-select option { background: #111827; color: #fff; }
+        .brand { font-size: 1.25rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }
+        .brand i { color: var(--accent-blue); }
 
         .start-btn {
-            background: linear-gradient(135deg, #00d2ff, #0072ff);
-            border: none; color: #fff; padding: 8px 14px; border-radius: 20px;
-            font-weight: 600; font-size: 0.85rem; cursor: pointer; box-shadow: 0 0 15px rgba(0,210,255,0.4);
+            background: linear-gradient(135deg, var(--accent-blue), #3b82f6);
+            border: none; color: #fff; padding: 8px 18px; border-radius: 20px;
+            font-weight: 700; font-size: 0.85rem; cursor: pointer; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
         }
 
-        .main-container { width: 100%; max-width: 650px; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .container { width: 100%; max-width: 580px; padding: 18px; display: flex; flex-direction: column; gap: 16px; }
 
-        /* Accessibility Mode Bar */
-        .access-bar {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 10px; display: flex; justify-content: space-around; gap: 6px; flex-wrap: wrap;
+        /* SEVERE WEATHER HIGH ALERT BANNER */
+        .high-alert-card {
+            display: none; background: linear-gradient(135deg, #b91c1c, #ef4444);
+            border: 2px solid #f87171; border-radius: 18px; padding: 16px;
+            color: #ffffff; box-shadow: 0 0 25px rgba(239, 68, 68, 0.6);
+            animation: alertPulse 1.5s infinite;
         }
 
-        .access-btn {
-            border: none; padding: 6px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;
-            cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s;
+        @keyframes alertPulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+            50% { transform: scale(1.02); box-shadow: 0 0 30px rgba(239, 68, 68, 0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
         }
-        .btn-blind { background: #f1c40f; color: #000; }
-        .btn-deaf { background: #e74c3c; color: #fff; }
-        .btn-mute { background: #9b59b6; color: #fff; }
 
+        .alert-head { font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .alert-body { font-size: 0.9rem; font-weight: 600; line-height: 1.4; color: #fee2e2; }
+
+        /* Language Selector Bar */
+        .lang-bar { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: none; }
+        .lang-bar::-webkit-scrollbar { display: none; }
+        .lang-chip {
+            background: rgba(255, 255, 255, 0.06); border: 1px solid var(--card-border);
+            color: var(--text-muted); padding: 6px 14px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap; transition: 0.2s;
+        }
+        .lang-chip.active { background: var(--accent-blue); color: #fff; border-color: var(--accent-blue); }
+
+        /* Dual Mode Switcher Banner (Rural vs Urban) */
         .mode-banner {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 16px; padding: 12px 18px; display: flex;
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 18px; padding: 12px 18px; display: flex;
             justify-content: space-between; align-items: center;
         }
-
-        .mode-toggle-btn {
-            background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
-            color: #fff; padding: 8px 14px; border-radius: 20px; font-size: 0.85rem; cursor: pointer;
+        .mode-tag {
+            font-size: 0.85rem; font-weight: 700; padding: 6px 12px; border-radius: 12px;
+            background: rgba(6, 182, 212, 0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue);
+            display: flex; align-items: center; gap: 6px;
         }
+        .mode-tag.kisaan { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); border-color: var(--accent-green); }
 
-        .weather-hero-card {
-            background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(22, 29, 47, 0.85));
-            border: 1px solid var(--border-color); border-radius: 24px; padding: 20px;
-            display: flex; flex-direction: column; gap: 15px;
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.08); border: 1px solid var(--card-border);
+            color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; cursor: pointer;
+            transition: all 0.2s ease;
         }
+        .toggle-btn:hover { background: rgba(255, 255, 255, 0.18); }
 
-        .hero-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .location-box h2 { font-size: 1.3rem; font-weight: 700; }
-        .location-box p { font-size: 0.8rem; color: var(--text-sub); margin-top: 2px; }
+        /* Hero Weather Card */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.12), rgba(23, 31, 50, 0.9));
+            border: 1px solid var(--card-border); border-radius: 24px; padding: 22px;
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .hero-top { display: flex; justify-content: space-between; align-items: center; }
+        .location h2 { font-size: 1.35rem; font-weight: 800; }
+        .location p { font-size: 0.8rem; color: var(--text-muted); }
 
-        .temp-display { text-align: right; }
-        .temp-display .temp-num { font-size: 2.8rem; font-weight: 700; line-height: 1; }
-        .temp-display .temp-desc { font-size: 0.85rem; color: var(--accent-urban); font-weight: 600; text-transform: capitalize; }
+        .temp-box { text-align: right; }
+        .temp-num { font-size: 2.8rem; font-weight: 800; line-height: 1; }
+        .temp-desc { font-size: 0.85rem; color: var(--accent-blue); font-weight: 700; text-transform: capitalize; }
 
-        .weather-stats-grid {
+        .stats-grid {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
             background: rgba(0, 0, 0, 0.25); padding: 12px; border-radius: 16px; text-align: center;
         }
+        .stat span { font-size: 0.72rem; color: var(--text-muted); display: block; }
+        .stat strong { font-size: 0.95rem; font-weight: 700; }
 
-        .stat-item { display: flex; flex-direction: column; gap: 4px; }
-        .stat-item span { font-size: 0.75rem; color: var(--text-sub); }
-        .stat-item strong { font-size: 0.95rem; }
-
-        /* Mute/Gesture Visual Card Section */
-        .visual-actions {
-            display: none; grid-template-columns: repeat(3, 1fr); gap: 10px;
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            padding: 15px; border-radius: 18px; text-align: center;
+        /* Mode-Specific Quick Action Cards (Rural vs Urban Specific) */
+        .quick-cards-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
         }
-        .action-card {
-            background: rgba(255, 255, 255, 0.08); padding: 12px; border-radius: 12px;
-            cursor: pointer; transition: transform 0.2s; border: 1px solid var(--border-color);
+        .q-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            padding: 12px; border-radius: 16px; text-align: center; cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
         }
-        .action-card:hover { transform: scale(1.05); }
-        .action-card i { font-size: 1.5rem; color: var(--accent-urban); margin-bottom: 5px; }
+        .q-card:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+        .q-card i { font-size: 1.4rem; margin-bottom: 6px; }
+        .q-card.rural-card i { color: var(--accent-green); }
+        .q-card.urban-card i { color: var(--accent-blue); }
+        .q-card p { font-size: 0.75rem; font-weight: 600; line-height: 1.2; }
 
-        .voice-card {
-            background: var(--card-bg); border: 1px solid var(--border-color);
+        /* AI Voice Control Card */
+        .mic-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
             border-radius: 24px; padding: 20px; text-align: center;
-            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            display: flex; flex-direction: column; align-items: center; gap: 10px;
         }
-
-        .voice-orb {
-            width: 75px; height: 75px; border-radius: 50%;
-            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+        .mic-btn {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), #2563eb);
             display: flex; justify-content: center; align-items: center;
-            font-size: 1.8rem; color: #fff; cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); transition: all 0.3s ease;
+            font-size: 2rem; color: #fff; cursor: pointer;
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.4); transition: transform 0.2s ease;
         }
-
-        .voice-orb.listening { animation: pulse 1.3s infinite; background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        .mic-btn.listening { animation: pulse 1.2s infinite; background: linear-gradient(135deg, #ef4444, #dc2626); }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.08); } 100% { transform: scale(1); } }
 
-        .response-card {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: 18px; padding: 18px; display: flex; flex-direction: column; gap: 8px;
+        /* Advisory Text Box */
+        .advisory-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 10px;
         }
+        .advisory-title { font-weight: 700; font-size: 0.95rem; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; }
+        .advisory-body { font-size: 0.95rem; line-height: 1.5; color: #e2e8f0; }
 
+        /* Captions Box for Deaf Users */
         .caption-box {
             display: none; background: #000; color: #00ffcc; border: 2px solid #00ffcc;
-            padding: 12px; border-radius: 12px; font-size: 1.1rem; font-weight: bold; line-height: 1.4;
+            padding: 12px; border-radius: 12px; font-size: 1rem; font-weight: bold;
         }
 
-        .badge-tag {
-            display: inline-block; padding: 4px 10px; border-radius: 12px;
-            font-size: 0.75rem; font-weight: 600; width: fit-content;
+        /* Accessibility Bar */
+        .access-footer { display: flex; justify-content: center; gap: 12px; margin-top: 5px; }
+        .access-btn {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--card-border);
+            color: var(--text-muted); padding: 8px 14px; border-radius: 14px; font-size: 0.78rem;
+            cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 6px;
         }
-        .badge-tag.agri { background: rgba(46, 204, 113, 0.2); color: #2ecc71; border: 1px solid #2ecc71; }
-        .badge-tag.urban { background: rgba(0, 210, 255, 0.2); color: #00d2ff; border: 1px solid #00d2ff; }
     </style>
 </head>
 <body onclick="handleGlobalClick(event)">
 
-    <div class="app-header">
+    <div class="header">
         <div class="brand"><i class="fa-solid fa-cloud-sun-rain"></i> Mausam AI</div>
-        <div class="header-controls">
-            <select id="langSelect" class="lang-select" onchange="changeLanguage()">
-                <option value="hi-IN">🇮🇳 हिंदी (Hindi)</option>
-                <option value="en-US">🇬🇧 English</option>
-                <option value="hinglish">🇮🇳 Hinglish</option>
-                <option value="mr-IN">🇮🇳 मराठी</option>
-                <option value="ta-IN">🇮🇳 தமிழ்</option>
-                <option value="te-IN">🇮🇳 తెలుగు</option>
-                <option value="bn-IN">🇮🇳 বাংলা</option>
-                <option value="gu-IN">🇮🇳 ગુજરાતી</option>
-            </select>
-            <button class="start-btn" onclick="initializeAI()"><i class="fa-solid fa-play"></i> Start AI</button>
-        </div>
+        <button class="start-btn" onclick="initializeAI()"><i class="fa-solid fa-power-off"></i> Start Assistant</button>
     </div>
 
-    <div class="main-container">
+    <div class="container">
 
-        <!-- Special Accessibility Feature Bar -->
-        <div class="access-bar">
-            <button class="access-btn btn-blind" onclick="toggleBlindMode()"><i class="fa-solid fa-eye-slash"></i> Audio/Blind Mode</button>
-            <button class="access-btn btn-deaf" onclick="toggleDeafMode()"><i class="fa-solid fa-ear-deaf"></i> Deaf/Captions</button>
-            <button class="access-btn btn-mute" onclick="toggleMuteMode()"><i class="fa-solid fa-hand-holding-heart"></i> Mute/Gesture Cards</button>
+        <!-- Severe Weather High Alert Emergency Banner -->
+        <div class="high-alert-card" id="alertBanner">
+            <div class="alert-head">
+                <i class="fa-solid fa-triangle-exclamation"></i> HIGH WEATHER EMERGENCY ALERT
+            </div>
+            <div class="alert-body" id="alertMessage">
+                चेतावनी: क्षेत्र में तेज बारिश और आंधी की संभावना!
+            </div>
         </div>
 
-        <!-- Mode Switcher -->
+        <!-- Language Selector Pills -->
+        <div class="lang-bar">
+            <div class="lang-chip active" onclick="selectLang('hi-IN', this)">🇮🇳 हिंदी</div>
+            <div class="lang-chip" onclick="selectLang('hinglish', this)">🇮🇳 Hinglish</div>
+            <div class="lang-chip" onclick="selectLang('en-US', this)">🇬🇧 English</div>
+            <div class="lang-chip" onclick="selectLang('mr-IN', this)">🇮🇳 मराठी</div>
+            <div class="lang-chip" onclick="selectLang('bn-IN', this)">🇮🇳 বাংলা</div>
+            <div class="lang-chip" onclick="selectLang('ta-IN', this)">🇮🇳 தமிழ்</div>
+            <div class="lang-chip" onclick="selectLang('te-IN', this)">🇮🇳 తెలుగు</div>
+            <div class="lang-chip" onclick="selectLang('gu-IN', this)">🇮🇳 ગુજરાતી</div>
+        </div>
+
+        <!-- Mode Banner (Switching Rural Kisaan vs Urban City) -->
         <div class="mode-banner">
-            <div id="mode-indicator" class="badge-tag urban">Urban Mode Active</div>
-            <button class="mode-toggle-btn" onclick="toggleMode()"><i class="fa-solid fa-arrows-rotate"></i> Switch to Kisaan Mode</button>
+            <div id="mode-tag" class="mode-tag">
+                <i class="fa-solid fa-city"></i> Urban Mode Active
+            </div>
+            <button class="toggle-btn" onclick="toggleMode()"><i class="fa-solid fa-arrows-rotate"></i> Switch to Kisaan Mode</button>
         </div>
 
-        <!-- Weather Card -->
-        <div class="weather-hero-card">
+        <!-- Weather Display Card -->
+        <div class="hero-card">
             <div class="hero-top">
-                <div class="location-box">
-                    <h2 id="live-city"><i class="fa-solid fa-location-dot" style="color: #00d2ff;"></i> Locating GPS...</h2>
-                    <p id="live-datetime">--</p>
+                <div class="location">
+                    <h2 id="city-name"><i class="fa-solid fa-location-dot" style="color: var(--accent-blue);"></i> GPS Locating...</h2>
+                    <p id="today-date">--</p>
                 </div>
-                <div class="temp-display">
-                    <div class="temp-num" id="live-temp">--°C</div>
-                    <div class="temp-desc" id="live-condition">--</div>
+                <div class="temp-box">
+                    <div class="temp-num" id="temp-val">--°C</div>
+                    <div class="temp-desc" id="weather-desc">--</div>
                 </div>
             </div>
 
-            <div class="weather-stats-grid">
-                <div class="stat-item"><span>AQI</span><strong id="live-aqi">--</strong></div>
-                <div class="stat-item"><span>Humidity</span><strong id="live-humidity">--%</strong></div>
-                <div class="stat-item"><span>Wind</span><strong id="live-wind">-- km/h</strong></div>
+            <div class="stats-grid">
+                <div class="stat"><span>AQI Index</span><strong id="aqi-val">--</strong></div>
+                <div class="stat"><span>Humidity</span><strong id="humidity-val">--%</strong></div>
+                <div class="stat"><span>Wind Speed</span><strong id="wind-val">-- km/h</strong></div>
             </div>
         </div>
 
-        <!-- Mute/Visual Card Tap Section -->
-        <div class="visual-actions" id="visualActionBox">
-            <div class="action-card" onclick="triggerVisualQuery('rain')">
-                <i class="fa-solid fa-cloud-showers-heavy"></i>
-                <p style="font-size: 0.75rem;">क्या आज बारिश होगी?</p>
-            </div>
-            <div class="action-card" onclick="triggerVisualQuery('crop')">
-                <i class="fa-solid fa-wheat-awn"></i>
-                <p style="font-size: 0.75rem;">फसल सिंचाई सलाह</p>
-            </div>
-            <div class="action-card" onclick="triggerVisualQuery('temp')">
-                <i class="fa-solid fa-temperature-high"></i>
-                <p style="font-size: 0.75rem;">तापमान अलर्ट</p>
-            </div>
+        <!-- Mode-Specific Feature Action Cards -->
+        <div class="quick-cards-grid" id="actionCardsBox">
+            <!-- Dynamic Content Injected via JavaScript -->
         </div>
 
-        <!-- Voice Card -->
-        <div class="voice-card">
-            <div class="voice-orb" id="mic-btn" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i></div>
-            <div id="voice-status" style="font-size: 0.9rem; color: var(--text-sub);">Tap mic or click Start above</div>
+        <!-- One-Tap Big AI Mic Card -->
+        <div class="mic-card">
+            <div class="mic-btn" id="mic-btn" onclick="startSpeechRecognition()"><i class="fa-solid fa-microphone"></i></div>
+            <p id="mic-status" style="font-size: 0.85rem; color: var(--text-muted);">Tap mic to speak or click Start Assistant above</p>
         </div>
 
-        <!-- Live Captions Box for Hard of Hearing -->
+        <!-- Live Captions Box for Deaf Users -->
         <div class="caption-box" id="deafCaptionBox">
-            <i class="fa-solid fa-closed-captioning"></i> Live Captions: <span id="captionText">--</span>
+            <i class="fa-solid fa-closed-captioning"></i> Captions: <span id="captionText">--</span>
         </div>
 
         <!-- AI Advisory Response Card -->
-        <div class="response-card">
-            <div style="font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                <i class="fa-solid fa-robot" style="color: #00d2ff;"></i> <span id="advisory-title">AI Mausam Mitr Advisory</span>
+        <div class="advisory-card">
+            <div class="advisory-title">
+                <i class="fa-solid fa-robot"></i> <span id="advisoryHeader">AI Mausam Mitr Advisory</span>
             </div>
-            <div id="response-text" style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.4;">
-                'Start AI' बटन पर क्लिक करें, AI आपका स्वागत करेगा और मौसम की सटीक जानकारी देगा!
+            <div class="advisory-body" id="advisory-text">
+                'Start Assistant' बटन दबाएं, AI मौसम मित्र आपकी भाषा में लाइव मौसम और कृषि/शहर की सलाह देगा!
             </div>
         </div>
+
+        <!-- Accessibility Controls Footer -->
+        <div class="access-footer">
+            <button class="access-btn" onclick="toggleBlindMode()"><i class="fa-solid fa-eye-slash"></i> Blind Audio Mode</button>
+            <button class="access-btn" onclick="toggleDeafMode()"><i class="fa-solid fa-closed-captioning"></i> Live Captions</button>
+        </div>
+
     </div>
 
     <script>
         const BACKEND_URL = "https://mausam-ai-app.onrender.com";
         let currentData = null;
-        let isRuralMode = false;
-        let selectedLang = "hi-IN";
+        let isKisaanMode = false; // default Urban
+        let currentLang = "hi-IN";
         let blindModeActive = false;
         let deafModeActive = false;
 
-        function changeLanguage() {
-            selectedLang = document.getElementById('langSelect').value;
-            if (currentData) generateAIAdvisory(currentData);
+        function selectLang(langCode, el) {
+            document.querySelectorAll('.lang-chip').forEach(chip => chip.classList.remove('active'));
+            el.classList.add('active');
+            currentLang = langCode;
+            if (currentData) generateAdvisory(currentData);
         }
 
         function speakText(text, lang) {
@@ -273,75 +298,46 @@
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = lang === 'hinglish' ? 'hi-IN' : lang;
                 utterance.rate = 0.9;
-                
-                if (navigator.vibrate) navigator.vibrate(100);
+                if (navigator.vibrate) navigator.vibrate([150, 80, 150]);
                 window.speechSynthesis.speak(utterance);
             }
         }
 
         function initializeAI() {
-            fetchLiveLocation();
+            fetchLocation();
         }
 
         function toggleBlindMode() {
             blindModeActive = !blindModeActive;
             document.body.classList.toggle('high-contrast');
-            if(blindModeActive) {
-                speakText("Blind Audio Mode enabled. Touch screen anytime to listen weather.", selectedLang);
-            }
+            if (blindModeActive) speakText("Blind Audio Mode Active. Tap anywhere on screen to listen weather.", currentLang);
         }
 
         function toggleDeafMode() {
             deafModeActive = !deafModeActive;
             const captionBox = document.getElementById('deafCaptionBox');
             captionBox.style.display = deafModeActive ? 'block' : 'none';
-            if(deafModeActive && currentData) {
-                document.getElementById('captionText').innerText = document.getElementById('response-text').innerText;
+            if (deafModeActive && currentData) {
+                document.getElementById('captionText').innerText = document.getElementById('advisory-text').innerText;
             }
-        }
-
-        function toggleMuteMode() {
-            const visualBox = document.getElementById('visualActionBox');
-            visualBox.style.display = visualBox.style.display === 'grid' ? 'none' : 'grid';
         }
 
         function handleGlobalClick(e) {
-            if (blindModeActive && currentData) {
-                generateAIAdvisory(currentData);
-            }
+            if (blindModeActive && currentData) generateAdvisory(currentData);
         }
 
-        function triggerVisualQuery(type) {
-            if(!currentData) return;
-            const temp = Math.round(currentData.weather.main.temp);
-            let response = "";
-            
-            if(type === 'rain') {
-                response = `आज बारिश की संभावना ${currentData.weather.weather[0].description} के अनुसार है।`;
-            } else if(type === 'crop') {
-                response = `किसान भाई, तापमान ${temp}°C है। फसल में हल्की सिंचाई करना सुरक्षित रहेगा।`;
-            } else {
-                response = `वर्तमान तापमान ${temp} डिग्री सेल्सियस है।`;
-            }
-
-            document.getElementById('response-text').innerText = response;
-            if(deafModeActive) document.getElementById('captionText').innerText = response;
-            speakText(response, selectedLang);
-        }
-
-        function fetchLiveLocation() {
-            document.getElementById('live-city').innerText = "Locating via GPS...";
+        function fetchLocation() {
+            document.getElementById('city-name').innerText = "Locating via GPS...";
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     pos => getWeatherData(pos.coords.latitude, pos.coords.longitude),
                     err => {
-                        console.warn("GPS Permission Denied, fallback to IP API");
                         fetch('https://ipapi.co/json/')
                             .then(res => res.json())
                             .then(ipData => getWeatherData(ipData.latitude, ipData.longitude))
-                            .catch(() => getWeatherData(26.8467, 80.9462)); // Lucknow Fallback
+                            .catch(() => getWeatherData(26.8467, 80.9462));
                     },
-                    { timeout: 10000, enableHighAccuracy: true }
+                    { timeout: 8000, enableHighAccuracy: true }
                 );
             } else {
                 getWeatherData(26.8467, 80.9462);
@@ -355,75 +351,163 @@
                 if (data.weather) {
                     currentData = data;
                     renderWeather(data);
-                    generateAIAdvisory(data);
+                    checkSevereWeatherAlert(data);
+                    renderModeSpecificCards();
+                    generateAdvisory(data);
                 }
             } catch (err) {
-                console.error(err);
-                document.getElementById('response-text').innerText = "Backend Connection Error. Check Render deployment.";
+                document.getElementById('advisory-text').innerText = "Connecting to Server... Please wait 10 seconds.";
+            }
+        }
+
+        function checkSevereWeatherAlert(data) {
+            const windSpeed = Math.round(data.weather.wind.speed * 3.6);
+            const condition = data.weather.weather[0].main.toLowerCase();
+            const desc = data.weather.weather[0].description;
+            
+            const alertBanner = document.getElementById('alertBanner');
+            const alertMsg = document.getElementById('alertMessage');
+
+            if (windSpeed > 20 || condition.includes('rain') || condition.includes('thunderstorm') || condition.includes('squall')) {
+                let alertText = isKisaanMode ? 
+                    `🚨 खेत सुरक्षा चेतावनी: ${data.weather.name} में ${windSpeed} km/h हवाएं और ${desc} है। फसल सिंचाई और छिड़काव तुरंत रोकें!` : 
+                    `🚨 URBAN ALERT: Heavy weather warning in ${data.weather.name} (${windSpeed} km/h winds, ${desc}). Drive carefully!`;
+                
+                alertMsg.innerText = alertText;
+                alertBanner.style.display = 'block';
+                if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
+            } else {
+                alertBanner.style.display = 'none';
             }
         }
 
         function renderWeather(data) {
             const w = data.weather;
-            document.getElementById('live-city').innerHTML = `<i class="fa-solid fa-location-dot" style="color: #00d2ff;"></i> ${w.name}, ${w.sys.country}`;
-            document.getElementById('live-temp').innerText = `${Math.round(w.main.temp)}°C`;
-            document.getElementById('live-condition').innerText = w.weather[0].description;
-            document.getElementById('live-humidity').innerText = `${w.main.humidity}%`;
-            document.getElementById('live-wind').innerText = `${Math.round(w.wind.speed * 3.6)} km/h`;
-            document.getElementById('live-aqi').innerText = data.aqi ? data.aqi.list[0].main.aqi : "1";
+            document.getElementById('city-name').innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--accent-blue);"></i> ${w.name}, ${w.sys.country}`;
+            document.getElementById('temp-val').innerText = `${Math.round(w.main.temp)}°C`;
+            document.getElementById('weather-desc').innerText = w.weather[0].description;
+            document.getElementById('humidity-val').innerText = `${w.main.humidity}%`;
+            document.getElementById('wind-val').innerText = `${Math.round(w.wind.speed * 3.6)} km/h`;
+            document.getElementById('aqi-val').innerText = data.aqi ? data.aqi.list[0].main.aqi : "1";
         }
 
-        function generateAIAdvisory(data) {
+        // DUAL ENGINE CARD RENDERER (Rural vs Urban Specific Cards)
+        function renderModeSpecificCards() {
+            const box = document.getElementById('actionCardsBox');
+            if (isKisaanMode) {
+                box.innerHTML = `
+                    <div class="q-card rural-card" onclick="triggerQuickAction('crop_irrigation')">
+                        <i class="fa-solid fa-droplet"></i>
+                        <p>फसल सिंचाई सलाह</p>
+                    </div>
+                    <div class="q-card rural-card" onclick="triggerQuickAction('pesticide_spray')">
+                        <i class="fa-solid fa-spray-can"></i>
+                        <p>स्प्रे / खाद गाइड</p>
+                    </div>
+                    <div class="q-card rural-card" onclick="triggerQuickAction('mandi_weather')">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                        <p>मंडी सुरक्षा अलर्ट</p>
+                    </div>
+                `;
+            } else {
+                box.innerHTML = `
+                    <div class="q-card urban-card" onclick="triggerQuickAction('city_commute')">
+                        <i class="fa-solid fa-car"></i>
+                        <p>Traffic & Drive</p>
+                    </div>
+                    <div class="q-card urban-card" onclick="triggerQuickAction('aqi_health')">
+                        <i class="fa-solid fa-mask-face"></i>
+                        <p>AQI & Mask Advice</p>
+                    </div>
+                    <div class="q-card urban-card" onclick="triggerQuickAction('outdoor_walk')">
+                        <i class="fa-solid fa-person-running"></i>
+                        <p>Outdoor Fitness</p>
+                    </div>
+                `;
+            }
+        }
+
+        function triggerQuickAction(actionType) {
+            if (!currentData) return;
+            const temp = Math.round(currentData.weather.main.temp);
+            const humidity = currentData.weather.main.humidity;
+            let msg = "";
+
+            if (actionType === 'crop_irrigation') {
+                msg = `किसान भाई, तापमान ${temp}°C और नमी ${humidity}% है। ${humidity > 70 ? 'आज सिंचाई रोक दें, नमी पर्याप्त है।' : 'हल्की सिंचाई करना फसल के लिए अच्छा रहेगा।'}`;
+            } else if (actionType === 'pesticide_spray') {
+                msg = `आज हवा की गति ध्यान में रखकर ही कीटनाशक का छिड़काव करें। तेज हवा होने पर स्प्रे न करें।`;
+            } else if (actionType === 'mandi_weather') {
+                msg = `मंडी में फसल ले जाते समय तिरपाल (Plastic cover) साथ रखें, अचानक बारिश से सुरक्षा रहेगी।`;
+            } else if (actionType === 'city_commute') {
+                msg = `Urban Travel Update: Clear visibility for driving. Expect smooth city travel conditions.`;
+            } else if (actionType === 'aqi_health') {
+                msg = `AQI Index is optimal. Air quality is good for outdoor commuting and morning walk.`;
+            } else if (actionType === 'outdoor_walk') {
+                msg = `Temperature is ${temp}°C. Weather is pleasant for evening outdoor walk and fitness.`;
+            }
+
+            document.getElementById('advisory-text').innerText = msg;
+            if (deafModeActive) document.getElementById('captionText').innerText = msg;
+            speakText(msg, currentLang);
+        }
+
+        function generateAdvisory(data) {
             const w = data.weather;
             const city = w.name;
             const temp = Math.round(w.main.temp);
-            const desc = w.weather[0].description;
-            
+            const windSpeed = Math.round(w.wind.speed * 3.6);
             let advice = "";
-            let speechMsg = "";
+            let speech = "";
 
-            if (!isRuralMode) {
-                if(selectedLang === 'hi-IN') {
-                    advice = `नमस्कार! ${city} में वर्तमान तापमान ${temp}°C है और आसमान में ${desc} है। मौसम सुहाना है, बाहर निकलने के लिए दिन उत्तम है!`;
-                    speechMsg = `हेलो! वेलकम टू मौसम AI प्रो। ${city} में तापमान ${temp} डिग्री सेल्सियस है।`;
-                } else if(selectedLang === 'hinglish') {
-                    advice = `Hey there! ${city} me temperature ${temp}°C hai aur weather me ${desc} hai. Driving aur outing ke liye day safe hai.`;
-                    speechMsg = `Hello! Welcome to Mausam AI Pro. ${city} temperature is ${temp} degrees.`;
+            if (!isKisaanMode) {
+                if (currentLang === 'hi-IN') {
+                    advice = `नमस्कार! ${city} में तापमान ${temp}°C है। हवा की गति ${windSpeed} km/h है। शहर में ऑफिस या यात्रा के लिए मौसम अनुकूल है!`;
+                    speech = `हेलो! ${city} में तापमान ${temp} डिग्री सेल्सियस है।`;
+                } else if (currentLang === 'hinglish') {
+                    advice = `Hello! ${city} me temperature ${temp}°C hai aur wind speed ${windSpeed} km/h. Urban travel safe hai.`;
+                    speech = `Hello! ${city} temperature is ${temp} degrees.`;
                 } else {
-                    advice = `Welcome! ${city} weather is currently ${temp}°C with ${desc}. Safe conditions for local travel.`;
-                    speechMsg = `Welcome to Mausam AI Pro. Current temperature in ${city} is ${temp} degrees.`;
+                    advice = `Welcome! Current temperature in ${city} is ${temp}°C with wind speed ${windSpeed} km/h. Good for city travel.`;
+                    speech = `Welcome! Temperature in ${city} is ${temp} degrees.`;
                 }
             } else {
-                if(selectedLang === 'hi-IN') {
-                    advice = `राम राम किसान भाई! ${city} में तापमान ${temp}°C और नमी ${w.main.humidity}% है। फसल की सिंचाई और स्प्रे के लिए मौसम अनुकूल है।`;
-                    speechMsg = `नमस्ते किसान भाई! ${city} में तापमान ${temp} डिग्री है। फसल सुरक्षा एडवाइजरी रेडी है।`;
+                if (currentLang === 'hi-IN') {
+                    advice = `राम राम किसान भाई! ${city} में तापमान ${temp}°C और नमी ${w.main.humidity}% है। आज फसल सुरक्षा और खेत का काम पूरा करें।`;
+                    speech = `राम राम किसान भाई! ${city} में तापमान ${temp} डिग्री है। खेती की एडवाइजरी तैयार है।`;
                 } else {
-                    advice = `Greetings Farmer Friend! ${city} temperature is ${temp}°C with ${w.main.humidity}% humidity. Favorable for crop care today.`;
-                    speechMsg = `Greetings Farmer Friend! Temperature in ${city} is ${temp} degrees.`;
+                    advice = `Greetings Farmer Friend! Temperature in ${city} is ${temp}°C with humidity ${w.main.humidity}%. Favorable for crop care.`;
+                    speech = `Greetings farmer friend! Temperature in ${city} is ${temp} degrees.`;
                 }
             }
 
-            document.getElementById('response-text').innerText = advice;
-            if(deafModeActive) document.getElementById('captionText').innerText = advice;
-            speakText(speechMsg, selectedLang);
+            document.getElementById('advisory-text').innerText = advice;
+            if (deafModeActive) document.getElementById('captionText').innerText = advice;
+            speakText(speech, currentLang);
         }
 
         function toggleMode() {
-            isRuralMode = !isRuralMode;
-            const indicator = document.getElementById('mode-indicator');
-            const btn = document.querySelector('.mode-toggle-btn');
+            isKisaanMode = !isKisaanMode;
+            const tag = document.getElementById('mode-tag');
+            const btn = document.querySelector('.toggle-btn');
 
-            if (isRuralMode) {
-                indicator.innerText = "Kisaan / Agri Mode Active";
-                indicator.className = "badge-tag agri";
+            if (isKisaanMode) {
+                tag.innerHTML = `<i class="fa-solid fa-wheat-awn"></i> Kisaan Mode Active`;
+                tag.className = "mode-tag kisaan";
                 btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> Switch to Urban Mode`;
+                document.getElementById('advisoryHeader').innerText = "Kisaan Agri AI Advisory";
             } else {
-                indicator.innerText = "Urban Mode Active";
-                indicator.className = "badge-tag urban";
+                tag.innerHTML = `<i class="fa-solid fa-city"></i> Urban Mode Active`;
+                tag.className = "mode-tag";
                 btn.innerHTML = `<i class="fa-solid fa-arrows-rotate"></i> Switch to Kisaan Mode`;
+                document.getElementById('advisoryHeader').innerText = "Urban Lifestyle AI Advisory";
             }
 
-            if (currentData) generateAIAdvisory(currentData);
+            renderModeSpecificCards();
+            if (currentData) {
+                checkSevereWeatherAlert(currentData);
+                generateAdvisory(currentData);
+            }
         }
 
         function startSpeechRecognition() {
@@ -434,20 +518,20 @@
 
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const recognition = new SpeechRecognition();
-            recognition.lang = selectedLang === 'hinglish' ? 'hi-IN' : selectedLang;
+            recognition.lang = currentLang === 'hinglish' ? 'hi-IN' : currentLang;
 
             const micBtn = document.getElementById('mic-btn');
-            const statusText = document.getElementById('voice-status');
+            const statusText = document.getElementById('mic-status');
 
             recognition.onstart = () => {
                 micBtn.classList.add('listening');
-                statusText.innerText = "सुन रहा हूँ... बोलिए!";
+                statusText.innerText = "Listening... Bolie!";
             };
 
             recognition.onresult = (event) => {
                 const query = event.results[0][0].transcript;
-                statusText.innerText = `आपने कहा: "${query}"`;
-                if (currentData) generateAIAdvisory(currentData);
+                statusText.innerText = `Aapne kaha: "${query}"`;
+                if (currentData) generateAdvisory(currentData);
             };
 
             recognition.onend = () => {
@@ -458,7 +542,8 @@
         }
 
         window.onload = () => {
-            document.getElementById('live-datetime').innerText = new Date().toLocaleDateString('hi-IN');
+            document.getElementById('today-date').innerText = new Date().toLocaleDateString('hi-IN');
+            renderModeSpecificCards();
         };
     </script>
 </body>
