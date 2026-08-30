@@ -17,7 +17,7 @@
         .mode-btn { flex: 1; padding: 10px 5px; border: none; background: transparent; font-size: 12px; font-weight: 700; border-radius: 12px; cursor: pointer; color: #94a3b8; transition: all 0.3s ease; }
         .mode-btn.active { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
         .jarvis-container { padding: 16px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 10px 14px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .orb-glow { width: 60px; height: 60px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; }
+        .orb-glow { width: 60px; height: 60px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; font-size: 24px; }
         .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 35px #f43f5e; }
         @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
         .wave-box { display: flex; justify-content: center; align-items: center; gap: 4px; height: 20px; margin-top: 8px; }
@@ -55,13 +55,13 @@
     </div>
 
     <div class="mode-switch">
-        <button class="mode-btn active" onclick="switchMode('daily')">🌆 Daily Mode</button>
-        <button class="mode-btn" onclick="switchMode('farmer')">🌾 Farmer Mode</button>
+        <button class="mode-btn active" id="btnDaily" onclick="switchMode('daily')">🌆 Daily Mode</button>
+        <button class="mode-btn" id="btnFarmer" onclick="switchMode('farmer')">🌾 Farmer Mode</button>
     </div>
 
     <div class="jarvis-container">
         <div class="orb-glow" id="micBtn" onclick="toggleListening()">🎙️</div>
-        <div class="voice-msg" id="voiceStatus">Tap microphone to talk to AI</div>
+        <div class="voice-msg" id="voiceStatus">माइक दबाएं और पूछें...</div>
         
         <div class="wave-box" id="waveBox">
             <div class="wave-bar"></div>
@@ -71,29 +71,29 @@
         </div>
 
         <select class="crop-select" id="cropSelect" style="display:none;" onchange="onCropChange()">
-            <option value="wheat">🌾 Fasal Select Karein: Gehu (Wheat)</option>
-            <option value="rice">🌾 Dhan (Rice)</option>
-            <option value="mustard">🟡 Sarson (Mustard)</option>
-            <option value="vegetables">🥦 Sabziyan (Vegetables)</option>
+            <option value="गेहूं">🌾 गेहूं (Wheat)</option>
+            <option value="धान">🌾 धान (Rice)</option>
+            <option value="सरसों">🟡 सरसों (Mustard)</option>
+            <option value="सब्सियां">🥦 सब्जियां (Vegetables)</option>
         </select>
     </div>
 
     <div class="quick-actions">
-        <div class="action-chip" onclick="quickAsk('Barish ki kya sambhavna hai?')">☔ Barish Alert</div>
-        <div class="action-chip" onclick="quickAsk('Aaj fasal me paani dena chahiye?')">🌾 Sinchai Advisory</div>
-        <div class="action-chip" onclick="quickAsk('Aaj baahar jaane ke liye kapde kaise pehne?')">👕 Travel Tips</div>
-        <div class="action-chip" onclick="quickAsk('Kisaan ke liye aaj ki khaas salah?')">💡 Kisaan Advice</div>
+        <div class="action-chip" onclick="quickAsk('barish')">☔ बारिश अलर्ट</div>
+        <div class="action-chip" onclick="quickAsk('sinchai')">🌾 सिंचाई सलाह</div>
+        <div class="action-chip" onclick="quickAsk('travel')">👕 ट्रैवल टिप्स</div>
+        <div class="action-chip" onclick="quickAsk('kisaan')">💡 किसान सलाह</div>
     </div>
 
     <div class="content-area">
         <div class="weather-card">
-            <div class="weather-desc" id="weatherCond">Partly Cloudy</div>
+            <div class="weather-desc" id="weatherCond">हल्की धूप और बादल</div>
             <div class="temp-main" id="tempVal">32°C</div>
             
             <div class="stats-grid">
-                <div class="stat-item">Hawa <div class="stat-val" id="windVal">12 km/h</div></div>
-                <div class="stat-item">Nami <div class="stat-val" id="humidityVal">68%</div></div>
-                <div class="stat-item">UV Index <div class="stat-val" id="uvVal">Moderate</div></div>
+                <div class="stat-item">हवा <div class="stat-val" id="windVal">12 km/h</div></div>
+                <div class="stat-item">नमी <div class="stat-val" id="humidityVal">68%</div></div>
+                <div class="stat-item">UV इंडेक्स <div class="stat-val" id="uvVal">सामान्य</div></div>
             </div>
         </div>
     </div>
@@ -101,63 +101,145 @@
 
 <script>
     let isListening = false;
-    
+    let currentMode = 'daily';
+    let recognition;
+    let synth = window.speechSynthesis;
+    let selectedVoice = null;
+
+    // Load Clean Natural Voices
+    function loadVoices() {
+        if (!synth) return;
+        let voices = synth.getVoices();
+        // Priority for Hindi Natural Voice or Indian English Voice
+        selectedVoice = voices.find(v => v.lang === 'hi-IN') || 
+                        voices.find(v => v.lang.includes('hi')) || 
+                        voices.find(v => v.lang === 'en-IN') || 
+                        voices[0];
+    }
+    if (synth) {
+        loadVoices();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+    }
+
+    // Speech Recognition Setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.lang = 'hi-IN';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = function() {
+            isListening = true;
+            document.getElementById('micBtn').classList.add('listening');
+            document.getElementById('waveBox').classList.add('wave-active');
+            document.getElementById('voiceStatus').innerText = "मैं आपकी बात सुन रहा हूँ...";
+        };
+
+        recognition.onresult = function(event) {
+            const userSpeech = event.results[0][0].transcript;
+            document.getElementById('voiceStatus').innerText = `आपने कहा: "${userSpeech}"`;
+            processUserQuery(userSpeech);
+        };
+
+        recognition.onerror = function(event) {
+            document.getElementById('voiceStatus').innerText = "आवाज समझ नहीं आई, कृपया फिर से बोलें।";
+            stopMicUI();
+        };
+
+        recognition.onend = function() {
+            stopMicUI();
+        };
+    } else {
+        document.getElementById('voiceStatus').innerText = "आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।";
+    }
+
+    function toggleListening() {
+        if (!recognition) return;
+        if (isListening) {
+            recognition.stop();
+        } else {
+            if (synth) synth.cancel();
+            recognition.start();
+        }
+    }
+
+    function stopMicUI() {
+        isListening = false;
+        document.getElementById('micBtn').classList.remove('listening');
+        document.getElementById('waveBox').classList.remove('wave-active');
+    }
+
+    // Natural Hindi Responses for Clean Pronunciation
+    function processUserQuery(query) {
+        const text = query.toLowerCase();
+        let reply = "";
+
+        if (text.includes("मौसम") || text.includes("weather") || text.includes("कैसा") || text.includes("आज")) {
+            reply = "आज लखनऊ में मौसम सुहावना है। तापमान लगभग 32 डिग्री सेल्सियस है और हल्की धूप खिली रहेगी।";
+        } else if (text.includes("बारिश") || text.includes("rain") || text.includes("पानी")) {
+            reply = "आज बारिश होने की संभावना बहुत कम है। आप बिना छाते के बाहर जा सकते हैं।";
+        } else if (text.includes("गेहूं") || text.includes("फसल") || text.includes("सिंचाई") || text.includes("किसान")) {
+            reply = "मौसम में नमी अच्छी है। फसल में फिलहाल सिंचाई की जरूरत नहीं है, दो दिन बाद पानी दे सकते हैं।";
+        } else if (text.includes("कपड़े") || text.includes("घूमने") || text.includes("बाहर")) {
+            reply = "आज हल्के सूती कपड़े पहनना सही रहेगा। शाम को बाहर जाने के लिए मौसम बहुत बढ़िया है।";
+        } else {
+            reply = `आपने पूछा ${query}। मौसम फिलहाल सामान्य है और तापमान 32 डिग्री सेल्सियस है।`;
+        }
+
+        setTimeout(() => speak(reply), 300);
+    }
+
+    function quickAsk(type) {
+        if(type === 'barish') processUserQuery("बारिश");
+        if(type === 'sinchai') processUserQuery("सिंचाई");
+        if(type === 'travel') processUserQuery("कपड़े");
+        if(type === 'kisaan') processUserQuery("किसान");
+    }
+
+    function switchMode(mode) {
+        currentMode = mode;
+        document.getElementById('btnDaily').classList.toggle('active', mode === 'daily');
+        document.getElementById('btnFarmer').classList.toggle('active', mode === 'farmer');
+        document.getElementById('cropSelect').style.display = (mode === 'farmer') ? 'block' : 'none';
+        
+        const text = (mode === 'farmer') ? "किसान मोड एक्टिव हो गया है।" : "डेली मोड एक्टिव है।";
+        speak(text);
+    }
+
+    function onCropChange() {
+        const crop = document.getElementById('cropSelect').value;
+        speak(`आपने ${crop} चुना है। इस मौसम में इस फसल को हल्की नमी की जरूरत है।`);
+    }
+
+    // Upgraded Natural Text-To-Speech Function
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            synth.cancel(); // Stop any active speech
+            
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'hi-IN';
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            
+            utterance.rate = 0.9; // Smooth natural speed
+            utterance.pitch = 1.0;
+            
+            document.getElementById('voiceStatus').innerText = text;
+            synth.speak(utterance);
+        }
+    }
+
     function updateClock() {
         const now = new Date();
         document.getElementById('liveTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
     setInterval(updateClock, 1000);
     updateClock();
-
-    function switchMode(mode) {
-        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-        if(mode === 'farmer') {
-            event.target.classList.add('active');
-            document.getElementById('cropSelect').style.display = 'block';
-            speak("Kisaan mode active ho gaya hai. Apni fasal chuniye.");
-        } else {
-            event.target.classList.add('active');
-            document.getElementById('cropSelect').style.display = 'none';
-            speak("Daily weather mode active hai.");
-        }
-    }
-
-    function toggleListening() {
-        isListening = !isListening;
-        const mic = document.getElementById('micBtn');
-        const wave = document.getElementById('waveBox');
-        const status = document.getElementById('voiceStatus');
-
-        if(isListening) {
-            mic.classList.add('listening');
-            wave.classList.add('wave-active');
-            status.innerText = "Aapki baat sun raha hoon...";
-            speak("Boliye, mai aapki kya madad karoon?");
-        } else {
-            mic.classList.remove('listening');
-            wave.classList.remove('wave-active');
-            status.innerText = "Tap microphone to talk to AI";
-        }
-    }
-
-    function quickAsk(text) {
-        document.getElementById('voiceStatus').innerText = text;
-        speak(text + " - Mausam ke hisaab se aaj sthiti bilkul samanya hai.");
-    }
-
-    function onCropChange() {
-        const crop = document.getElementById('cropSelect').value;
-        speak("Aapne " + crop + " chuna hai. Aaj nami acchi hai, filhaal sinchai rok sakte hain.");
-    }
-
-    function speak(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'hi-IN';
-            window.speechSynthesis.speak(utterance);
-        }
-    }
 </script>
 
 </body>
