@@ -1,238 +1,163 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mausam AI Companion - Pro Edition</title>
-  <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
-    body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-    
-    .phone-container { width: 100%; max-width: 390px; height: 820px; background: linear-gradient(180deg, #0f172a 0%, #0284c7 100%); border-radius: 44px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35); border: 10px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; color: white; }
-    
-    .app-header { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 14px 16px 10px 16px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
-    .app-header h2 { font-size: 19px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    /* Live Header Widget */
-    .live-bar { display: flex; justify-content: space-between; align-items: center; margin: 10px 14px 0 14px; padding: 8px 12px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.15); }
-    .live-location { font-size: 12px; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 4px; }
-    .live-time-box { text-align: right; }
-    .live-clock { font-size: 13px; font-weight: 800; color: #ffffff; }
-    .live-date { font-size: 10px; color: #94a3b8; }
-
-    .mode-switch { display: flex; margin: 10px 14px 0 14px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); border-radius: 16px; padding: 4px; border: 1px solid rgba(255, 255, 255, 0.1); }
-    .mode-btn { flex: 1; padding: 10px 5px; border: none; background: transparent; font-size: 12px; font-weight: 700; border-radius: 12px; cursor: pointer; color: #94a3b8; transition: all 0.3s ease; }
-    .mode-btn.active { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
-
-    .jarvis-container { padding: 14px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 10px 14px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
-    
-    .orb-glow { width: 55px; height: 55px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; }
-    .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 35px #f43f5e; }
-    @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
-
-    .voice-msg { font-size: 12px; color: #7dd3fc; margin-top: 4px; min-height: 28px; font-weight: 600; line-height: 1.3; }
-
-    .content-area { padding: 0 14px 14px 14px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-    
-    .card { background: rgba(255, 255, 255, 0.95); color: #0f172a; padding: 14px; border-radius: 20px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border-left: 6px solid #0284c7; }
-    .card.care { border-left-color: #ec4899; background: #fff5f8; }
-    .card.rural { border-left-color: #10b981; background: #f0fdf4; }
-    .card h4 { font-size: 13px; font-weight: 800; color: #0f172a; display: flex; justify-content: space-between; align-items: center; }
-    .card p { font-size: 12px; color: #334155; line-height: 1.4; margin-top: 5px; }
-    .metric-big { font-size: 20px; font-weight: 800; color: #0284c7; margin: 4px 0; }
-    
-    .hourly-bar { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; background: rgba(15, 23, 42, 0.05); padding: 8px; border-radius: 12px; }
-    .hour-item { text-align: center; font-size: 10px; color: #475569; flex: 1; font-weight: 600; }
-    .hour-item span { display: block; font-weight: 800; font-size: 11px; color: #0f172a; margin-top: 2px; }
-
-    .radar-pill { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); color: white; padding: 8px 12px; border-radius: 16px; font-size: 11px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255, 255, 255, 0.1); }
-    .radar-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; animation: blink 1s infinite; margin-right: 6px; }
-    @keyframes blink { 50% { opacity: 0.3; } }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mausam AI Companion - Pro Edition</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; }
+        body { background-color: #030712; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
+        .phone-container { width: 100%; max-width: 390px; height: 820px; background: linear-gradient(180deg, #0f172a 0%, #0284c7 100%); border-radius: 44px; box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.35); border: 10px solid #1e293b; display: flex; flex-direction: column; overflow: hidden; position: relative; color: white; }
+        .app-header { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); padding: 14px 16px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+        .app-header h2 { font-size: 20px; font-weight: 800; background: linear-gradient(90deg, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .live-bar { display: flex; justify-content: space-between; align-items: center; margin: 10px 14px 0 14px; padding: 8px 12px; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .live-location { font-size: 13px; font-weight: 700; color: #38bdf8; }
+        .live-clock { font-size: 13px; font-weight: 800; color: #ffffff; }
+        .mode-switch { display: flex; margin: 10px 14px 0 14px; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); border-radius: 16px; padding: 4px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .mode-btn { flex: 1; padding: 10px 5px; border: none; background: transparent; font-size: 12px; font-weight: 700; border-radius: 12px; cursor: pointer; color: #94a3b8; transition: all 0.3s ease; }
+        .mode-btn.active { background: linear-gradient(135deg, #38bdf8, #0284c7); color: white; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4); }
+        .jarvis-container { padding: 16px; text-align: center; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); margin: 10px 14px; border-radius: 24px; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .orb-glow { width: 60px; height: 60px; margin: 0 auto 8px auto; background: radial-gradient(circle, #38bdf8 0%, #0284c7 70%); border-radius: 50%; box-shadow: 0 0 25px #38bdf8; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.4s; }
+        .orb-glow.listening { animation: orbPulse 1.2s infinite ease-in-out; background: radial-gradient(circle, #f43f5e 0%, #e11d48 70%); box-shadow: 0 0 35px #f43f5e; }
+        @keyframes orbPulse { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        .wave-box { display: flex; justify-content: center; align-items: center; gap: 4px; height: 20px; margin-top: 8px; }
+        .wave-bar { width: 4px; height: 6px; background: #38bdf8; border-radius: 4px; transition: 0.2s; }
+        .wave-active .wave-bar { animation: wave 1s infinite ease-in-out; }
+        .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.1s; }
+        @keyframes wave { 0%, 100% { height: 6px; } 50% { height: 22px; background: #f43f5e; } }
+        .crop-select { width: 100%; padding: 8px 12px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 12px; margin-top: 8px; outline: none; font-size: 12px; }
+        .crop-select option { background: #0f172a; color: white; }
+        .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 14px; }
+        .action-chip { background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; text-align: center; cursor: pointer; backdrop-filter: blur(8px); transition: 0.2s; }
+        .action-chip:hover { background: rgba(56, 189, 248, 0.3); border-color: #38bdf8; }
+        .voice-msg { font-size: 12px; color: #7dd3fc; margin-top: 6px; font-weight: 600; min-height: 28px; }
+        .content-area { padding: 0 14px 14px 14px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .weather-card { background: rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 14px; backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .temp-main { font-size: 42px; font-weight: 800; text-align: center; margin: 4px 0; background: linear-gradient(180deg, #ffffff, #bae6fd); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .weather-desc { text-align: center; font-size: 13px; font-weight: 600; color: #e0f2fe; text-transform: capitalize; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+        .stat-item { background: rgba(15, 23, 42, 0.4); padding: 8px; border-radius: 12px; text-align: center; font-size: 11px; }
+        .stat-val { font-weight: 700; font-size: 12px; color: #38bdf8; margin-top: 2px; }
+    </style>
 </head>
 <body>
 
 <div class="phone-container">
-  <div class="app-header">
-    <h2>✨ Mausam AI Jarvis</h2>
-  </div>
-
-  <!-- Live Clock & Location Widget -->
-  <div class="live-bar">
-    <div class="live-location" id="location-text">📍 Lucknow, UP</div>
-    <div class="live-time-box">
-      <div class="live-clock" id="live-clock">00:00:00 AM</div>
-      <div class="live-date" id="live-date">Loading...</div>
-    </div>
-  </div>
-
-  <div class="mode-switch">
-    <button class="mode-btn active" id="btn-rural" onclick="switchSegment('rural')">🌾 Rural (किसान)</button>
-    <button class="mode-btn" id="btn-urban" onclick="switchSegment('urban')">🏙️ Urban (Care)</button>
-  </div>
-
-  <div class="jarvis-container">
-    <div class="orb-glow" id="micOrb" onclick="activateConversationalAI()">
-      <span style="font-size: 22px;">🎙️</span>
-    </div>
-    <p class="voice-msg" id="voiceStatus">"नमस्ते! मौसम सलाह के लिए पूछें।"</p>
-  </div>
-
-  <div class="content-area" id="dynamicContent">
-    <div id="activeAdvisory"></div>
-    
-    <div class="card">
-      <h4>⏱️ Hourly Forecast (पूर्वानुमान)</h4>
-      <div class="hourly-bar">
-        <div class="hour-item">12 PM<span>31°C</span>☁️</div>
-        <div class="hour-item">03 PM<span>33°C</span>☀️</div>
-        <div class="hour-item">06 PM<span>29°C</span>🌧️</div>
-        <div class="hour-item">09 PM<span>27°C</span>🌧️</div>
-      </div>
+    <div class="app-header">
+        <h2>Mausam AI Pro ⚡</h2>
     </div>
 
-    <div class="radar-pill">
-      <span><span class="radar-dot"></span> Radar Active</span>
-      <b style="color: #38bdf8;" id="zone-text">Lucknow Zone</b>
+    <div class="live-bar">
+        <div class="live-location" id="locationName">📍 Lucknow, UP</div>
+        <div class="live-clock" id="liveTime">--:-- PM</div>
     </div>
-  </div>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" onclick="switchMode('daily')">🌆 Daily Mode</button>
+        <button class="mode-btn" onclick="switchMode('farmer')">🌾 Farmer Mode</button>
+    </div>
+
+    <div class="jarvis-container">
+        <div class="orb-glow" id="micBtn" onclick="toggleListening()">🎙️</div>
+        <div class="voice-msg" id="voiceStatus">Tap microphone to talk to AI</div>
+        
+        <div class="wave-box" id="waveBox">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+
+        <select class="crop-select" id="cropSelect" style="display:none;" onchange="onCropChange()">
+            <option value="wheat">🌾 Fasal Select Karein: Gehu (Wheat)</option>
+            <option value="rice">🌾 Dhan (Rice)</option>
+            <option value="mustard">🟡 Sarson (Mustard)</option>
+            <option value="vegetables">🥦 Sabziyan (Vegetables)</option>
+        </select>
+    </div>
+
+    <div class="quick-actions">
+        <div class="action-chip" onclick="quickAsk('Barish ki kya sambhavna hai?')">☔ Barish Alert</div>
+        <div class="action-chip" onclick="quickAsk('Aaj fasal me paani dena chahiye?')">🌾 Sinchai Advisory</div>
+        <div class="action-chip" onclick="quickAsk('Aaj baahar jaane ke liye kapde kaise pehne?')">👕 Travel Tips</div>
+        <div class="action-chip" onclick="quickAsk('Kisaan ke liye aaj ki khaas salah?')">💡 Kisaan Advice</div>
+    </div>
+
+    <div class="content-area">
+        <div class="weather-card">
+            <div class="weather-desc" id="weatherCond">Partly Cloudy</div>
+            <div class="temp-main" id="tempVal">32°C</div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">Hawa <div class="stat-val" id="windVal">12 km/h</div></div>
+                <div class="stat-item">Nami <div class="stat-val" id="humidityVal">68%</div></div>
+                <div class="stat-item">UV Index <div class="stat-val" id="uvVal">Moderate</div></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-  let currentSegment = 'rural';
-  let currentTemp = "31";
-
-  // 1. REAL-TIME DIGITAL CLOCK
-  function updateLiveClock() {
-    const now = new Date();
-    const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-    document.getElementById('live-clock').innerText = now.toLocaleTimeString('en-US', timeOptions);
+    let isListening = false;
     
-    const dateOptions = { weekday: 'short', day: 'numeric', month: 'short' };
-    document.getElementById('live-date').innerText = now.toLocaleDateString('en-US', dateOptions);
-  }
-  setInterval(updateLiveClock, 1000);
-  updateLiveClock();
-
-  // 2. REAL-TIME WEATHER API (Open-Meteo Free API)
-  async function fetchLiveWeather() {
-    let lat = 26.8467, lon = 80.9462; // Default Lucknow
-    
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (pos) => {
-        lat = pos.coords.latitude;
-        lon = pos.coords.longitude;
-        await getWeather(lat, lon);
-      }, () => getWeather(lat, lon));
-    } else {
-      getWeather(lat, lon);
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('liveTime').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
-  }
+    setInterval(updateClock, 1000);
+    updateClock();
 
-  async function getWeather(lat, lon) {
-    try {
-      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-      const data = await res.json();
-      if (data && data.current_weather) {
-        currentTemp = Math.round(data.current_weather.temperature);
-        if (currentSegment === 'rural') renderKisan();
-        else renderUrbanCare();
-      }
-    } catch (e) {
-      console.log("Using default cached weather");
-    }
-  }
-
-  // 3. SEGMENT SWITCHER
-  function switchSegment(segment) {
-    currentSegment = segment;
-    document.getElementById('btn-rural').classList.toggle('active', segment === 'rural');
-    document.getElementById('btn-urban').classList.toggle('active', segment === 'urban');
-
-    if (segment === 'rural') {
-      document.getElementById('voiceStatus').innerText = "नमस्ते! कृषि और फसल मौसम सलाह लें।";
-      renderKisan();
-      speak("ग्रामीण मोड एक्टिवेटेड। नमस्ते किसान भाइयों!", "hi-IN");
-    } else {
-      document.getElementById('voiceStatus').innerText = "Hi! Aap Hindi ya English me weather puchen.";
-      renderUrbanCare();
-      speak("अर्बन पर्सनल केयर मोड एक्टिवेटेड। आप मौसम का हाल पूछ सकते हैं।", "hi-IN");
-    }
-  }
-
-  function renderKisan() {
-    document.getElementById('activeAdvisory').innerHTML = `
-      <div class="card rural">
-        <h4 style="color:#059669;">🌾 ग्रामीण व फसल मौसम सलाह <span>📍 Rural</span></h4>
-        <div class="metric-big" style="color:#059669;">${currentTemp}°C | 🌧️ 85% बारिश</div>
-        <p><b>मिट्टी की नमी:</b> 45% (उच्च स्तर)</p>
-        <p><b>मौसम सलाह:</b> आज भारी बारिश का अनुमान है। फसल कटाई और सिंचाई रोक दें।</p>
-      </div>
-    `;
-  }
-
-  function renderUrbanCare() {
-    document.getElementById('activeAdvisory').innerHTML = `
-      <div class="card care">
-        <h4 style="color: #db2777;">💖 Personal Weather Care Companion <span>📍 Urban</span></h4>
-        <div class="metric-big" style="color: #db2777;">${currentTemp}°C | UV Index 7 (High)</div>
-        <p><b>🌧️ Rain Forecast:</b> Shaam 6 baje ke baad 85% barish ke chance hain.</p>
-        <p><b>💧 Care Tip:</b> Dhoop aur umas jyada hai, please paani pite rahein aur umbrella saath rakhein.</p>
-      </div>
-    `;
-  }
-
-  // 4. SPEECH RECOGNITION & DEVANAGARI AUDIO ENGINE FIX
-  function activateConversationalAI() {
-    const status = document.getElementById('voiceStatus');
-    const micOrb = document.getElementById('micOrb');
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      alert("Please open in Google Chrome.");
-      return;
-    }
-
-    micOrb.classList.add('listening');
-    status.innerText = "Listening...";
-
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'hi-IN';
-
-    recognition.onresult = function(event) {
-      micOrb.classList.remove('listening');
-      const text = event.results[0][0].transcript.toLowerCase();
-      status.innerText = `Asked: "${text}"`;
-
-      if (currentSegment === 'rural') {
-        renderKisan();
-        speak(`किसान भाइयों, आज तापमान ${currentTemp} डिग्री रहेगा और भारी बारिश की संभावना है। फसल कटाई और सिंचाई रोक दें।`, "hi-IN");
-      } else {
-        renderUrbanCare();
-        if (text.includes("weather") || text.includes("today") || text.includes("rain")) {
-          speak(`Hello! Today the temperature is ${currentTemp} degrees. Heavy rain is expected after 6 PM. Please carry an umbrella!`, "en-US");
+    function switchMode(mode) {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        if(mode === 'farmer') {
+            event.target.classList.add('active');
+            document.getElementById('cropSelect').style.display = 'block';
+            speak("Kisaan mode active ho gaya hai. Apni fasal chuniye.");
         } else {
-          // Devanagari Hindi text to prevent spelling spelling output!
-          speak(`नमस्ते! आज तापमान ${currentTemp} डिग्री रहेगा और शाम 6 बजे के बाद बारिश हो सकती है। कृपया पानी पीते रहें और छतरी साथ रखें।`, "hi-IN");
+            event.target.classList.add('active');
+            document.getElementById('cropSelect').style.display = 'none';
+            speak("Daily weather mode active hai.");
         }
-      }
-    };
+    }
 
-    recognition.onerror = () => micOrb.classList.remove('listening');
-    recognition.start();
-  }
+    function toggleListening() {
+        isListening = !isListening;
+        const mic = document.getElementById('micBtn');
+        const wave = document.getElementById('waveBox');
+        const status = document.getElementById('voiceStatus');
 
-  function speak(text, langCode) {
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.lang = langCode;
-    speech.rate = 0.95;
-    window.speechSynthesis.speak(speech);
-  }
+        if(isListening) {
+            mic.classList.add('listening');
+            wave.classList.add('wave-active');
+            status.innerText = "Aapki baat sun raha hoon...";
+            speak("Boliye, mai aapki kya madad karoon?");
+        } else {
+            mic.classList.remove('listening');
+            wave.classList.remove('wave-active');
+            status.innerText = "Tap microphone to talk to AI";
+        }
+    }
 
-  // Initial Execution
-  renderKisan();
-  fetchLiveWeather();
+    function quickAsk(text) {
+        document.getElementById('voiceStatus').innerText = text;
+        speak(text + " - Mausam ke hisaab se aaj sthiti bilkul samanya hai.");
+    }
+
+    function onCropChange() {
+        const crop = document.getElementById('cropSelect').value;
+        speak("Aapne " + crop + " chuna hai. Aaj nami acchi hai, filhaal sinchai rok sakte hain.");
+    }
+
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'hi-IN';
+            window.speechSynthesis.speak(utterance);
+        }
+    }
 </script>
 
 </body>
