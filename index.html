@@ -126,7 +126,6 @@
 
     <div class="app-shell">
 
-        <!-- SCREEN 1: WELCOME & LANGUAGE SELECTION -->
         <div class="app-screen active" id="screenLanguage">
             <div class="pro-card">
                 <div class="pro-title"><i class="fa-solid fa-cloud-sun"></i> Mausam AI Pro</div>
@@ -143,7 +142,6 @@
             </div>
         </div>
 
-        <!-- SCREEN 2: MODE DASHBOARD (Urban vs Kisaan) -->
         <div class="app-screen" id="screenDashboard">
             <div class="top-bar">
                 <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenLanguage')"><i class="fa-solid fa-arrow-left"></i> <span id="lblChangeLang">Language</span></button>
@@ -170,14 +168,12 @@
             </div>
         </div>
 
-        <!-- SCREEN 3: ACTIVE WEATHER & VOICE WORKSPACE -->
         <div class="app-screen" id="screenWorkspace">
             <header class="top-bar">
                 <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenDashboard')"><i class="fa-solid fa-arrow-left"></i> <span id="lblBackDash">Modes</span></button>
                 <span style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);" id="lblActiveModeBadge">Active Mode</span>
             </header>
 
-            <!-- Weather Display Banner -->
             <section class="weather-banner">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
                     <div>
@@ -196,14 +192,12 @@
                 </div>
             </section>
 
-            <!-- Non-Verbal Quick Tiles -->
             <div class="quick-dock" id="quickDockContainer">
                 <div class="dock-tile" onclick="AppEngine.handleQuery('rain')" id="tileRain">🌧️ Baarish?</div>
                 <div class="dock-tile" onclick="AppEngine.handleQuery('sun')" id="tileSun">☀️ Dhoop?</div>
                 <div class="dock-tile" onclick="AppEngine.handleQuery('clothes')" id="tileClothes">👕 Kapde?</div>
             </div>
 
-            <!-- Voice & Closed Caption Console -->
             <div class="voice-console">
                 <button class="mic-btn" onclick="AppEngine.triggerVoice()"><i class="fa-solid fa-microphone"></i></button>
                 <div style="font-size: 12px; font-weight: 700;" id="lblMicTip">Tap mic for natural Pro Voice update</div>
@@ -214,7 +208,6 @@
                 </div>
             </div>
 
-            <!-- Dynamic Contextual Cards -->
             <div class="cards-grid" id="cardsContainer"></div>
         </div>
 
@@ -258,7 +251,7 @@
                 }
             },
             hinglish: {
-                code: 'hi-IN', // हिंदी स्पीच इंजन इस्तेमाल होगा ताकि स्पेलिंग न बोलकर सही शब्द बोले
+                code: 'hi-IN',
                 welcomeDesc: 'Apni bhasha chunein taaki hum aapko natural aawaz mein mausam ki jankari de sakein.',
                 changeLang: 'Language',
                 blind: 'Blind',
@@ -334,4 +327,194 @@
                 blind: 'ব্লাইন্ড',
                 deaf: 'ডেফ সিসি',
                 dashHeader: 'অপারেটিং মোড নির্বাচন করুন',
-                dashSub: 'আপনার প্রয়োজন অ
+                dashSub: 'আপনার প্রয়োজন অনুযায়ী মোড বেছে নিন।',
+                urbanTitle: 'শহর মোড',
+                urbanDesc: 'ট্রাফিক ও যাতায়াত আপডেট।',
+                ruralTitle: 'কৃষক মোড',
+                ruralDesc: 'সেচ ও ফসল পরামর্শ।',
+                backDash: 'মোডসমূহ',
+                micTip: 'প্রাকৃতিক কণ্ঠে আবহাওয়া শুনতে মাইক ট্যাপ করুন',
+                captionHeader: 'লাইভ ভিজ্যুয়াল ক্লোজড-ক্যাপশন',
+                tileRain: '🌧️ বৃষ্টি হবে?',
+                tileSun: '☀️ রোদ থাকবে?',
+                tileClothes: '👕 জামাকাপড় শুকাবেন?',
+                welcomeSpeech: 'স্বাগতম! আপনার মোড নির্বাচন করুন।',
+                urbanSpeech: 'শহর মোড সক্রিয় করা হয়েছে। ট্রাফিক এবং বায়ুর গুণমান নিচে দেখুন।',
+                ruralSpeech: 'কৃষক মোড সক্রিয় করা হয়েছে। সেচ ও স্প্রে পরামর্শ নিচে দেখুন।',
+                urbanCards: [
+                    { title: '🚗 ট্রাফিক আপডেট', desc: 'রাস্তা পরিষ্কার আছে। দৃশ্যমানতা ভালো আছে।' },
+                    { title: '😷 বায়ুর গুণমান (AQI)', desc: 'AQI ৪৫ (ভালো)। সকালের হাঁটার জন্য বাতাস বিশুদ্ধ।' }
+                ],
+                ruralCards: [
+                    { title: '🌱 সেচ পরামর্শ', desc: 'আবহাওয়া অনুকূল রয়েছে। প্রয়োজন অনুযায়ী সেচ দিন।' },
+                    { title: '🧪 কীটনাশক স্প্রে', desc: 'বাতাসের গতি স্বাভাবিক। স্প্রে করার উপযুক্ত সময়।' }
+                ],
+                responses: {
+                    rain: 'আজ আকাশ পরিষ্কার থাকবে, বৃষ্টির কোনো সম্ভাবনা নেই।',
+                    sun: 'আজ রোদ উজ্জ্বল থাকবে এবং তাপমাত্রা স্বাভাবিক থাকবে।',
+                    clothes: 'আজ জামাকাপড় সহজেই শুকিয়ে যাবে।'
+                }
+            },
+            mr: {
+                code: 'mr-IN',
+                welcomeDesc: 'तुमची भाषा निवडा जेणेकरून योग्य हवामान माहिती मिळू शकेल.',
+                changeLang: 'भाषा',
+                blind: 'ब्लाईंड',
+                deaf: 'देख सीसी',
+                dashHeader: 'ऑपरेटिंग मोड निवडा',
+                dashSub: 'तुमच्या गरजेनुसार पर्याय निवडा.',
+                urbanTitle: 'शहरी मोड',
+                urbanDesc: 'रहदारी आणि प्रवास अद्यतन.',
+                ruralTitle: 'शेतकरी मोड',
+                ruralDesc: 'सिंचन व पिकांचा सल्ला.',
+                backDash: 'मोड्स',
+                micTip: 'नैसर्गिक आवाजात हवामान ऐकण्यासाठी मायिक टॅप करा',
+                captionHeader: 'थेट व्हिज्युअल बंद-कॅप्शन',
+                tileRain: '🌧️ पाऊस पडेल?',
+                tileSun: '☀️ ऊन असेल?',
+                tileClothes: '👕 कपडे सुकवा?',
+                welcomeSpeech: 'स्वागत आहे! तुमचा मोड निवडा.',
+                urbanSpeech: 'शहरी मोड सक्रिय केला आहे. रहदारी आणि हवा गुणवत्ता माहिती तयार आहे.',
+                ruralSpeech: 'शेतकरी मोड सक्रिय केला आहे. सिंचन आणि फवारणी सल्ला तयार आहे.',
+                urbanCards: [
+                    { title: '🚗 रहदारी अद्यतन', desc: 'रस्ते मोकळे आहेत. दृश्यमानता चांगली आहे.' },
+                    { title: '😷 हवेची गुणवत्ता (AQI)', desc: 'AQI ४५ (उत्तम) आहे. सकाळी चालण्यासाठी हवा शुद्ध आहे.' }
+                ],
+                ruralCards: [
+                    { title: '🌱 सिंचन सल्ला', desc: 'हवामान अनुकूल आहे. आवश्यकतेनुसार पिकांना सिंचन करा.' },
+                    { title: '🧪 फवारणी सल्ला', desc: 'वाऱ्याचा वेग सामान्य आहे. फवारणीसाठी योग्य वेळ आहे.' }
+                ],
+                responses: {
+                    rain: 'आज हवामान निरभ्र राहील, पावसाची कोणतीही शक्यता नाही.',
+                    sun: 'आज ऊन छान राहील आणि तापमान सामान्य राहील.',
+                    clothes: 'आज कपडे सहज वाळतील, काळजी करू नका.'
+                }
+            },
+            ta: {
+                code: 'ta-IN',
+                welcomeDesc: 'சரியான வானிலை தகவல்களைப் பெற உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.',
+                changeLang: 'மொழி',
+                blind: 'பார்வையற்றோர்',
+                deaf: 'செவித்திறன்',
+                dashHeader: 'முறையைத் தேர்ந்தெடுக்கவும்',
+                dashSub: 'உங்கள் தேவையைத் தேர்ந்தெடுக்கவும்.',
+                urbanTitle: 'நகர்ப்புற முறை',
+                urbanDesc: 'போக்குவரத்து மற்றும் பயணம்.',
+                ruralTitle: 'விவசாயி முறை',
+                ruralDesc: 'பாசன ஆலோசனை.',
+                backDash: 'முறைகள்',
+                micTip: 'வானிலை கேட்க மைக்கைத் தட்டவும்',
+                captionHeader: 'நேரலை வசனம்',
+                tileRain: '🌧️ மழை வருமா?',
+                tileSun: '☀️ வெயில் அடிக்குமா?',
+                tileClothes: '👕 துணி காயலாமா?',
+                welcomeSpeech: 'நல்வரவு! உங்கள் முறையைத் தேர்ந்தெடுக்கவும்.',
+                urbanSpeech: 'நகர்ப்புற முறை செயல்படுத்தப்பட்டது. போக்குவரத்து மற்றும் காற்று தர விவரங்கள் தயார்.',
+                ruralSpeech: 'விவசாயி முறை செயல்படுத்தப்பட்டது. பாசன மற்றும் பூச்சிக்கொல்லி ஆலோசனை தயார்.',
+                urbanCards: [
+                    { title: '🚗 போக்குவரத்து புதுப்பிப்பு', desc: 'சாலைகள் தெளிவாக உள்ளன.' },
+                    { title: '😷 காற்று தரம் (AQI)', desc: 'AQI 45 (நன்று).' }
+                ],
+                ruralCards: [
+                    { title: '🌱 பாசன ஆலோசனை', desc: 'வானிலை சாதகமாக உள்ளது.' },
+                    { title: '🧪 பூச்சிக்கொல்லி ஆலோசனை', desc: 'காற்று வேகம் இயல்பாக உள்ளது.' }
+                ],
+                responses: {
+                    rain: 'இன்று மழைக்கு வாய்ப்பில்லை, வானம் தெளிவாக இருக்கும்.',
+                    sun: 'இன்று வெயில் நன்றாக இருக்கும்.',
+                    clothes: 'இன்று துணிகள் எளிதில் உலர்ந்துவிடும்.'
+                }
+            }
+        };
+
+        let currentLang = 'hi';
+        let currentDomain = 'urban';
+
+        const AppEngine = {
+            goToScreen: function(screenId) {
+                document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(screenId).classList.add('active');
+            },
+            selectLanguage: function(lang) {
+                currentLang = lang;
+                this.updateTexts();
+                this.goToScreen('screenDashboard');
+                this.speak(Dictionary[currentLang].welcomeSpeech);
+            },
+            setDomain: function(domain) {
+                currentDomain = domain;
+                this.updateWorkspace();
+                this.goToScreen('screenWorkspace');
+                
+                const d = Dictionary[currentLang];
+                const msg = domain === 'urban' ? d.urbanSpeech : d.ruralSpeech;
+                document.getElementById('captionOutput').innerText = msg;
+                this.speak(msg);
+            },
+            updateTexts: function() {
+                const d = Dictionary[currentLang];
+                document.getElementById('lblWelcomeDesc').innerText = d.welcomeDesc;
+                document.getElementById('lblChangeLang').innerText = d.changeLang;
+                document.getElementById('lblBlind').innerText = d.blind;
+                document.getElementById('lblDeaf').innerText = d.deaf;
+                document.getElementById('lblDashHeader').innerHTML = `<i class="fa-solid fa-sliders" style="color: var(--accent-primary);"></i> ${d.dashHeader}`;
+                document.getElementById('lblDashSub').innerText = d.dashSub;
+                document.getElementById('lblUrbanTitle').innerText = d.urbanTitle;
+                document.getElementById('lblUrbanDesc').innerText = d.urbanDesc;
+                document.getElementById('lblRuralTitle').innerText = d.ruralTitle;
+                document.getElementById('lblRuralDesc').innerText = d.ruralDesc;
+                document.getElementById('lblBackDash').innerText = d.backDash;
+                document.getElementById('lblMicTip').innerText = d.micTip;
+                document.getElementById('lblCaptionHeader').innerText = d.captionHeader;
+                document.getElementById('tileRain').innerText = d.tileRain;
+                document.getElementById('tileSun').innerText = d.tileSun;
+                document.getElementById('tileClothes').innerText = d.tileClothes;
+            },
+            updateWorkspace: function() {
+                this.updateTexts();
+                const d = Dictionary[currentLang];
+                document.getElementById('lblActiveModeBadge').innerText = currentDomain === 'urban' ? d.urbanTitle : d.ruralTitle;
+
+                let cardsHtml = '';
+                let cardsList = currentDomain === 'urban' ? d.urbanCards : d.ruralCards;
+                cardsList.forEach(c => {
+                    cardsHtml += `<div class="info-box" onclick="AppEngine.speak('${c.desc}')">
+                        <div style="font-size: 13px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">${c.desc}</div>
+                    </div>`;
+                });
+                document.getElementById('cardsContainer').innerHTML = cardsHtml;
+            },
+            handleQuery: function(type) {
+                const text = Dictionary[currentLang].responses[type];
+                document.getElementById('captionOutput').innerText = text;
+                this.speak(text);
+            },
+            triggerVoice: function() {
+                const text = currentDomain === 'urban' ? Dictionary[currentLang].urbanCards[0].desc : Dictionary[currentLang].ruralCards[0].desc;
+                document.getElementById('captionOutput').innerText = text;
+                this.speak(text);
+            },
+            speak: function(text) {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    let utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = Dictionary[currentLang].code;
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+        };
+
+        function toggleBlindMode() {
+            document.body.classList.toggle('theme-blind');
+            document.getElementById('btnBlind').classList.toggle('active');
+        }
+        function toggleDeafMode() { document.getElementById('btnDeaf').classList.toggle('active'); }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('liveClockDisplay').innerText = now.toLocaleString();
+        }, 1000);
+    </script>
+</body>
+</html>
