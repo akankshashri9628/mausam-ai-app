@@ -48,7 +48,7 @@
         .pro-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--accent-secondary); display: flex; align-items: center; justify-content: center; gap: 10px; }
         .pro-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
 
-        /* Language Grid */
+        /* Language Grid (Optimized for 5 Languages) */
         .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .lang-btn {
             background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
@@ -56,6 +56,7 @@
             transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         .lang-btn:hover { background: var(--accent-primary); border-color: var(--accent-secondary); transform: translateY(-2px); }
+        .lang-btn.full-width { grid-column: span 2; }
 
         /* Top Bar & Controls */
         .top-bar {
@@ -126,6 +127,7 @@
 
     <div class="app-shell">
 
+        <!-- SCREEN 1: WELCOME & LANGUAGE SELECTION -->
         <div class="app-screen active" id="screenLanguage">
             <div class="pro-card">
                 <div class="pro-title"><i class="fa-solid fa-cloud-sun"></i> Mausam AI Pro</div>
@@ -133,15 +135,15 @@
                 
                 <div class="lang-grid">
                     <button class="lang-btn" onclick="AppEngine.selectLanguage('hi')">🇮🇳 हिंदी</button>
-                    <button class="lang-btn" onclick="AppEngine.selectLanguage('hinglish')">🇮🇳 Hinglish</button>
                     <button class="lang-btn" onclick="AppEngine.selectLanguage('en')">🌐 English</button>
                     <button class="lang-btn" onclick="AppEngine.selectLanguage('bn')">🇮🇳 বাংলা</button>
                     <button class="lang-btn" onclick="AppEngine.selectLanguage('mr')">🇮🇳 मराठी</button>
-                    <button class="lang-btn" onclick="AppEngine.selectLanguage('ta')">🇮🇳 தமிழ்</button>
+                    <button class="lang-btn full-width" onclick="AppEngine.selectLanguage('ta')">🇮🇳 தமிழ்</button>
                 </div>
             </div>
         </div>
 
+        <!-- SCREEN 2: MODE DASHBOARD (Urban vs Kisaan) -->
         <div class="app-screen" id="screenDashboard">
             <div class="top-bar">
                 <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenLanguage')"><i class="fa-solid fa-arrow-left"></i> <span id="lblChangeLang">Language</span></button>
@@ -168,12 +170,14 @@
             </div>
         </div>
 
+        <!-- SCREEN 3: ACTIVE WEATHER & VOICE WORKSPACE -->
         <div class="app-screen" id="screenWorkspace">
             <header class="top-bar">
                 <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenDashboard')"><i class="fa-solid fa-arrow-left"></i> <span id="lblBackDash">Modes</span></button>
                 <span style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);" id="lblActiveModeBadge">Active Mode</span>
             </header>
 
+            <!-- Weather Display Banner -->
             <section class="weather-banner">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
                     <div>
@@ -192,12 +196,14 @@
                 </div>
             </section>
 
+            <!-- Non-Verbal Quick Tiles -->
             <div class="quick-dock" id="quickDockContainer">
                 <div class="dock-tile" onclick="AppEngine.handleQuery('rain')" id="tileRain">🌧️ Baarish?</div>
                 <div class="dock-tile" onclick="AppEngine.handleQuery('sun')" id="tileSun">☀️ Dhoop?</div>
                 <div class="dock-tile" onclick="AppEngine.handleQuery('clothes')" id="tileClothes">👕 Kapde?</div>
             </div>
 
+            <!-- Voice & Closed Caption Console -->
             <div class="voice-console">
                 <button class="mic-btn" onclick="AppEngine.triggerVoice()"><i class="fa-solid fa-microphone"></i></button>
                 <div style="font-size: 12px; font-weight: 700;" id="lblMicTip">Tap mic for natural Pro Voice update</div>
@@ -208,6 +214,7 @@
                 </div>
             </div>
 
+            <!-- Dynamic Contextual Cards -->
             <div class="cards-grid" id="cardsContainer"></div>
         </div>
 
@@ -248,41 +255,6 @@
                     rain: 'मौसम विभाग के अनुसार आज आसमान साफ रहेगा, बारिश की कोई संभावना नहीं है।',
                     sun: 'आज तेज धूप खिली रहेगी और तापमान सामान्य बना रहेगा।',
                     clothes: 'आज धूप और हवा अच्छी है, कपड़े आसानी से सूख जाएंगे।'
-                }
-            },
-            hinglish: {
-                code: 'hi-IN',
-                welcomeDesc: 'Apni bhasha chunein taaki hum aapko natural aawaz mein mausam ki jankari de sakein.',
-                changeLang: 'Language',
-                blind: 'Blind',
-                deaf: 'Deaf CC',
-                dashHeader: 'Operating Mode Chunein',
-                dashSub: 'Apne use case ke mutabiq mode select karein.',
-                urbanTitle: 'Urban Mode',
-                urbanDesc: 'Traffic, AQI aur daily commute updates.',
-                ruralTitle: 'Kisaan Mode',
-                ruralDesc: 'Crop irrigation aur spray advisory insights.',
-                backDash: 'Modes',
-                micTip: 'Natural voice mein mausam sunne ke liye mic tap karein',
-                captionHeader: 'Live Visual Closed-Caption',
-                tileRain: '🌧️ Baarish Hogi?',
-                tileSun: '☀️ Dhoop Rahegi?',
-                tileClothes: '👕 Kapde Sukhayein?',
-                welcomeSpeech: 'Welcome! Ab apna mode select karein.',
-                urbanSpeech: 'Urban mode activate kar diya gaya hai. Traffic aur AQI ki jankari yahan hai.',
-                ruralSpeech: 'Kisaan mode activate kar diya gaya hai. Fasal sinchai aur spray advisory yahan hai.',
-                urbanCards: [
-                    { title: '🚗 Traffic Updates', desc: 'Raste saaf hain. Visibility achhi hai, normal commute karein.' },
-                    { title: '😷 Air Quality (AQI)', desc: 'AQI 45 good hai. Subah ki walk ke liye hawa shuddh hai.' }
-                ],
-                ruralCards: [
-                    { title: '🌱 Fasal Sinchai Advisory', desc: 'Mausam anukool hai. Khet mein zaroorat ke mutabiq sinchai karein.' },
-                    { title: '🧪 Spray Advisory', desc: 'Hawa speed normal hai. Keetnashak spray karne ke liye samay sahi hai.' }
-                ],
-                responses: {
-                    rain: 'Mausam bilkul saaf rahega, baarish ki koi sambhavna nahi hai.',
-                    sun: 'Aaj tez dhoop khili rahegi aur temperature normal rahega.',
-                    clothes: 'Aaj dhoop aur hawa achhi hai, kapde aasani se sukh jayenge.'
                 }
             },
             en: {
