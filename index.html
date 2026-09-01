@@ -7,12 +7,13 @@
     <style>
         :root {
             --bg-color: #05070a;
-            --card-bg: rgba(20, 30, 48, 0.75);
+            --card-bg: rgba(20, 30, 48, 0.8);
             --text-primary: #e0f2fe;
             --text-secondary: #7dd3fc;
             --accent-color: #22d3ee;
             --accent-glow: rgba(34, 211, 238, 0.4);
             --yellow-warning: #facc15;
+            --green-agri: #10b981;
             --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
@@ -56,7 +57,7 @@
             display: none;
             flex-direction: column;
             height: 100%;
-            padding: 25px;
+            padding: 22px;
             box-sizing: border-box;
             background: linear-gradient(135deg, #111827 0%, #0b0f19 100%);
             overflow-y: auto;
@@ -65,17 +66,17 @@
         body.blind-mode .screen { background: #000; }
         .screen.active { display: flex; }
 
-        h1 { font-size: 1.6rem; font-weight: 700; color: var(--accent-color); }
-        p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
+        h1 { font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
+        p { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px; }
 
         /* Selection Cards */
-        .card-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .card-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
         
         .action-card {
             background: var(--card-bg);
             border: 1px solid rgba(56, 189, 248, 0.2);
             border-radius: 16px;
-            padding: 16px 20px;
+            padding: 14px 18px;
             color: var(--text-primary);
             cursor: pointer;
             transition: all 0.25s ease;
@@ -92,14 +93,13 @@
 
         /* AI Orb */
         .ai-orb {
-            width: 55px; height: 55px;
+            width: 50px; height: 50px;
             background: radial-gradient(circle, var(--accent-color) 0%, #0284c7 100%);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             box-shadow: 0 0 20px var(--accent-glow);
             cursor: pointer;
-            font-size: 1.4rem;
-            transition: transform 0.2s;
+            font-size: 1.3rem;
         }
         .ai-orb:active { transform: scale(0.93); }
 
@@ -107,10 +107,10 @@
         #deaf-box {
             background: rgba(0, 0, 0, 0.8);
             color: var(--yellow-warning);
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 10px;
-            font-size: 0.85rem;
-            margin-bottom: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 12px;
             display: none;
             border: 1px solid var(--yellow-warning);
         }
@@ -120,26 +120,26 @@
             text-align: center;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
         /* Universal Action Buttons */
         .u-buttons {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .u-btn {
             background: var(--card-bg);
             border: 1px solid rgba(250, 204, 21, 0.3);
             color: var(--yellow-warning);
-            width: 65px; height: 65px;
+            width: 55px; height: 55px;
             border-radius: 50%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            font-size: 0.6rem; cursor: pointer;
+            font-size: 0.55rem; cursor: pointer;
         }
 
         /* Forecast Scroll */
@@ -147,10 +147,17 @@
         .f-card {
             background: rgba(255,255,255,0.04);
             border-radius: 12px;
-            padding: 10px;
-            min-width: 70px;
+            padding: 8px;
+            min-width: 65px;
             text-align: center;
             border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .back-btn {
+            background: none; border: 1px solid var(--text-secondary);
+            color: var(--text-secondary); padding: 8px 15px;
+            border-radius: 10px; cursor: pointer; margin-top: 15px;
+            align-self: center; font-size: 0.8rem;
         }
     </style>
 </head>
@@ -159,13 +166,13 @@
 <div class="phone-frame">
 
     <div id="screen-lang" class="screen active">
-        <div style="text-align: center; margin-top: 20px;">
-            <span style="font-size: 2.8rem;">🌐</span>
-            <h1 style="margin-top: 10px;">Mausam AI Pro</h1>
-            <p>Smart Automation Portal</p>
+        <div style="text-align: center; margin-top: 10px;">
+            <span style="font-size: 2.5rem;">🌐</span>
+            <h1 style="margin-top: 5px;">Mausam AI Pro</h1>
+            <p>Smart Automation (SIH 2026)</p>
         </div>
         
-        <p style="margin-top: 15px; text-align: center;">अपनी भाषा चुनें / Choose Preferred Language</p>
+        <p style="margin-top: 10px; text-align: center;">अपनी भाषा चुनें / Choose Preferred Language</p>
         
         <div class="card-grid">
             <div class="action-card" onclick="setLanguage('en-US', 'English')">
@@ -186,50 +193,90 @@
         </div>
     </div>
 
+    <div id="screen-profile" class="screen">
+        <div style="text-align: center; margin-top: 20px;">
+            <span style="font-size: 2.5rem;">👥</span>
+            <h1 style="margin-top: 10px;">Select Your Profile</h1>
+            <p>Choose your usage mode for tailored weather data</p>
+        </div>
+
+        <div class="card-grid" style="margin-top: 25px;">
+            <div class="action-card" onclick="selectProfile('urban')" style="border-color: var(--accent-color);">
+                <div>
+                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--accent-color);">🏙️ Urban Mode</span>
+                    <span class="card-desc">Live Traffic Maps, AQI & Commute Alerts</span>
+                </div>
+                <span>➔</span>
+            </div>
+            <div class="action-card" onclick="selectProfile('rural')" style="border-color: var(--green-agri);">
+                <div>
+                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--green-agri);">🌾 Rural / Kisaan Mode</span>
+                    <span class="card-desc">AI Crop Doctor, Pesticide Timing & Soil Advisory</span>
+                </div>
+                <span>➔</span>
+            </div>
+        </div>
+        <button class="back-btn" onclick="goToScreen('screen-lang')">⬅ Change Language</button>
+    </div>
+
     <div id="screen-home" class="screen">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <div>
-                <div id="live-date" style="font-size: 0.75rem; color: var(--text-secondary);">Tue, Sep 1</div>
-                <h1 style="font-size: 1.2rem;" id="app-title-header">Mausam Live</h1>
+                <div id="profile-tag" style="font-size: 0.7rem; color: var(--green-agri); font-weight: 700;">KISAAN MODE</div>
+                <h1 style="font-size: 1.1rem;" id="app-title-header">Agricultural Hub</h1>
             </div>
             <div class="ai-orb" onclick="speakWeather()" title="Ask AI">🎙️</div>
         </div>
 
-        <div id="deaf-box">Subtitles: Live IMD weather data synchronized successfully.</div>
+        <div id="deaf-box">Subtitles: Live meteorological data synchronized successfully.</div>
 
         <div class="weather-panel">
-            <div style="font-size: 3.5rem;">⛅</div>
-            <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-color);" id="main-temp">32°C</div>
-            <div style="font-size: 1rem;" id="main-condition">Partly Cloudy</div>
-            <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 4px;">Lucknow, India</div>
+            <div style="font-size: 2.8rem;" id="weather-emoji">⛅</div>
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-color);" id="main-temp">32°C</div>
+            <div style="font-size: 0.9rem;" id="main-condition">Partly Cloudy</div>
+            <div style="font-size: 0.75rem; opacity: 0.7; margin-top: 2px;" id="location-text">Lucknow, India</div>
         </div>
+
+        <div id="dynamic-features" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px;">
+            </div>
 
         <div class="u-buttons">
             <button class="u-btn" onclick="toggleBlindMode()">
-                <span style="font-size: 1.2rem;">👁️</span>Blind
+                <span style="font-size: 1rem;">👁️</span>Blind
             </button>
             <button class="u-btn" onclick="toggleDeafMode()">
-                <span style="font-size: 1.2rem;">🧏</span>Deaf
+                <span style="font-size: 1rem;">🧏</span>Deaf
             </button>
-            <button class="u-btn" onclick="goToScreen('screen-lang')" style="border-color: var(--accent-color); color: var(--accent-color);">
-                <span style="font-size: 1.2rem;">🌐</span>Lang
+            <button class="u-btn" onclick="goToScreen('screen-profile')" style="border-color: var(--accent-color); color: var(--accent-color);">
+                <span style="font-size: 1rem;">🔄</span>Profile
             </button>
         </div>
 
-        <p style="font-size: 0.8rem; margin-bottom: 8px;">7-Day Forecast</p>
+        <p style="font-size: 0.75rem; margin-bottom: 6px;">7-Day Forecast</p>
         <div class="forecast-box">
-            <div class="f-card"><div style="font-size:0.75rem">Wed</div><div style="font-size:1rem">🌧️</div><div style="font-weight:600">31°</div></div>
-            <div class="f-card"><div style="font-size:0.75rem">Thu</div><div style="font-size:1rem">⛅</div><div style="font-weight:600">33°</div></div>
-            <div class="f-card"><div style="font-size:0.75rem">Fri</div><div style="font-size:1rem">⛈️</div><div style="font-weight:600">30°</div></div>
-            <div class="f-card"><div style="font-size:0.75rem">Sat</div><div style="font-size:1rem">☀️</div><div style="font-weight:600">32°</div></div>
-            <div class="f-card"><div style="font-size:0.75rem">Sun</div><div style="font-size:1rem">☀️</div><div style="font-weight:600">34°</div></div>
+            <div class="f-card"><div style="font-size:0.7rem">Wed</div><div style="font-size:0.9rem">🌧️</div><div style="font-weight:600; font-size:0.8rem">31°</div></div>
+            <div class="f-card"><div style="font-size:0.7rem">Thu</div><div style="font-size:0.9rem">⛅</div><div style="font-weight:600; font-size:0.8rem">33°</div></div>
+            <div class="f-card"><div style="font-size:0.7rem">Fri</div><div style="font-size:0.9rem">⛈️</div><div style="font-weight:600; font-size:0.8rem">30°</div></div>
+            <div class="f-card"><div style="font-size:0.7rem">Sat</div><div style="font-size:0.9rem">☀️</div><div style="font-weight:600; font-size:0.8rem">32°</div></div>
+            <div class="f-card"><div style="font-size:0.7rem">Sun</div><div style="font-size:0.9rem">☀️</div><div style="font-weight:600; font-size:0.8rem">34°</div></div>
         </div>
+    </div>
+
+    <div id="screen-detail" class="screen">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h1 id="detail-title" style="font-size: 1.2rem;">Feature Details</h1>
+            <div class="ai-orb" onclick="speakLocalized(document.getElementById('detail-desc').innerText, selectedLang)" style="width:40px; height:40px; font-size:1rem;">🔊</div>
+        </div>
+        <div id="detail-desc" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.2); padding: 15px; border-radius: 14px; font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary);">
+            </div>
+        <button class="back-btn" onclick="goToScreen('screen-home')">⬅ Back to Dashboard</button>
     </div>
 
 </div>
 
 <script>
     let selectedLang = 'en-US';
+    let currentProfile = 'rural';
     let synth = window.speechSynthesis;
 
     function goToScreen(screenId) {
@@ -239,39 +286,72 @@
 
     function setLanguage(langCode, langName) {
         selectedLang = langCode;
-        
-        // Dynamic text adaptation based on language choice
-        if(langCode === 'hi-IN') {
-            document.getElementById('app-title-header').innerText = "मौसम लाइव";
-            document.getElementById('main-condition').innerText = "आंशिक रूप से बादल";
-            speakLocalized("भाषा हिंदी चुनी गई है। मौसम अपडेट लोड हो रहा है।", 'hi-IN');
-        } else if(langCode === 'bn-IN') {
-            document.getElementById('app-title-header').innerText = "মৌসম লাইভ";
-            document.getElementById('main-condition').innerText = "আংশিক মেঘলা";
-            speakLocalized("বাংলা ভাষা নির্বাচন করা হয়েছে।", 'bn-IN');
+        speakLocalized(`Language selected: ${langName}`, langCode);
+        goToScreen('screen-profile');
+    }
+
+    function selectProfile(profile) {
+        currentProfile = profile;
+        const tag = document.getElementById('profile-tag');
+        const header = document.getElementById('app-title-header');
+        const container = document.getElementById('dynamic-features');
+
+        if(profile === 'urban') {
+            tag.innerText = "URBAN COMMUTE HUB";
+            tag.style.color = "var(--accent-color)";
+            header.innerText = "City & Traffic Advisory";
+            container.innerHTML = `
+                <div class="action-card" onclick="openDetail('Live Traffic & Map View', 'Traffic congestion is low on Ring Road. Alternate route recommended near City Center due to evening rush. Clear skies for transit.')">
+                    <div><span style="font-weight:600">🗺️ Live Traffic Map & Route</span><span class="card-desc">Check congestion & safe transit paths</span></div>
+                    <span>➔</span>
+                </div>
+                <div class="action-card" onclick="openDetail('Air Quality Index (AQI): 112', 'AQI is 112 (Moderate). Pollutants like PM2.5 are slightly elevated. Sensitive groups should limit prolonged outdoor exertion.')">
+                    <div><span style="font-weight:600">💨 Air Quality Index (AQI)</span><span class="card-desc">Moderate pollution levels & health advisory</span></div>
+                    <span>➔</span>
+                </div>
+            `;
+            speakLocalized("Urban mode activated. Checking live traffic and air quality.", selectedLang);
         } else {
-            document.getElementById('app-title-header').innerText = "Mausam Live";
-            document.getElementById('main-condition').innerText = "Partly Cloudy";
-            speakLocalized("English language selected. Weather data is live.", 'en-US');
+            tag.innerText = "KISAAN AGRICULTURAL HUB";
+            tag.style.color = "var(--green-agri)";
+            header.innerText = "Crop & Weather Advisory";
+            container.innerHTML = `
+                <div class="action-card" onclick="openDetail('AI Crop Doctor (Leaf Scan)', 'Upload or snap a photo of your crop. AI detects nitrogen deficiency and fungal spots instantly, suggesting organic pesticide dosages.')">
+                    <div><span style="font-weight:600">📸 AI Crop Doctor (Photo Scan)</span><span class="card-desc">Detect plant diseases & get pesticide advice</span></div>
+                    <span>➔</span>
+                </div>
+                <div class="action-card" onclick="openDetail('Pesticide & Irrigation Schedule', 'Soil moisture is optimal at 68%. No irrigation needed today. Apply urea fertilizer tomorrow morning before 8 AM.')">
+                    <div><span style="font-weight:600">🧪 Pesticide & Fertilizer Timing</span><span class="card-desc">Know exact timings for watering and spraying</span></div>
+                    <span>➔</span>
+                </div>
+            `;
+            speakLocalized("Rural Kisaan mode activated. Soil moisture is optimal.", selectedLang);
         }
 
         goToScreen('screen-home');
+    }
+
+    function openDetail(title, desc) {
+        document.getElementById('detail-title').innerText = title;
+        document.getElementById('detail-desc').innerText = desc;
+        goToScreen('screen-detail');
+        speakLocalized(desc, selectedLang);
     }
 
     function speakLocalized(text, lang) {
         if(!synth) return;
         synth.cancel();
         let utter = new SpeechSynthesisUtterance(text);
-        utter.lang = lang; // Perfect accent pronunciation fix
+        utter.lang = lang;
         utter.rate = 0.95;
         synth.speak(utter);
     }
 
     function speakWeather() {
-        if(selectedLang === 'hi-IN') {
-            speakLocalized("वर्तमान तापमान 32 डिग्री सेल्सियस है। हल्की बारिश की संभावना है।", 'hi-IN');
+        if(currentProfile === 'urban') {
+            speakLocalized("Urban update: Temperature 32 degrees Celsius, air quality index is 112, traffic is clear.", selectedLang);
         } else {
-            speakLocalized("Current temperature is 32 degrees Celsius with partly cloudy skies.", selectedLang);
+            speakLocalized("Kisaan update: Soil moisture is adequate. Safe weather window for crops over the next 48 hours.", selectedLang);
         }
     }
 
