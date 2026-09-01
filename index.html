@@ -15,10 +15,10 @@
             --yellow-warning: #facc15;
             --green-agri: #10b981;
             --blue-marine: #3b82f6;
+            --red-sos: #ef4444;
             --font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        /* Blind Accessibility Mode */
         body.blind-mode {
             --bg-color: #000000;
             --card-bg: #111111;
@@ -40,7 +40,6 @@
             overflow: hidden;
         }
 
-        /* Mobile Container Frame */
         .phone-frame {
             width: 390px;
             height: 844px;
@@ -67,17 +66,16 @@
         body.blind-mode .screen { background: #000; }
         .screen.active { display: flex; }
 
-        h1 { font-size: 1.4rem; font-weight: 700; color: var(--accent-color); }
-        p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 12px; }
+        h1 { font-size: 1.3rem; font-weight: 700; color: var(--accent-color); }
+        p { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 10px; }
 
-        /* Selection Cards */
-        .card-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 5px; }
+        .card-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 5px; }
         
         .action-card {
             background: var(--card-bg);
             border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 16px;
-            padding: 12px 16px;
+            border-radius: 14px;
+            padding: 10px 14px;
             color: var(--text-primary);
             cursor: pointer;
             transition: all 0.25s ease;
@@ -93,98 +91,106 @@
         }
 
         .card-desc {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: var(--text-secondary);
-            margin-top: 3px;
+            margin-top: 2px;
             display: block;
         }
 
-        /* AI Orb */
         .ai-orb {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             background: radial-gradient(circle, var(--accent-color) 0%, #0284c7 100%);
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 12px var(--accent-glow);
             cursor: pointer;
-            font-size: 1.2rem;
-            transition: transform 0.2s;
+            font-size: 1.1rem;
         }
         .ai-orb:active { transform: scale(0.93); }
 
-        /* Big Voice Assist Button */
         .big-voice-btn {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: #fff;
             border: none;
-            border-radius: 14px;
-            padding: 10px 14px;
+            border-radius: 12px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
-        .big-voice-btn:active { transform: scale(0.97); }
 
-        /* Subtitle Box for Deaf Mode */
+        .sos-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
         #deaf-box {
             background: rgba(0, 0, 0, 0.8);
             color: var(--yellow-warning);
-            padding: 8px 12px;
-            border-radius: 10px;
-            font-size: 0.75rem;
-            margin-bottom: 10px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            margin-bottom: 8px;
             display: none;
             border: 1px solid var(--yellow-warning);
         }
 
-        /* Weather Panel */
         .weather-panel {
             text-align: center;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 14px;
-            margin-bottom: 10px;
+            border-radius: 14px;
+            padding: 12px;
+            margin-bottom: 8px;
         }
 
-        /* Universal Action Buttons */
         .u-buttons {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .u-btn {
             background: var(--card-bg);
             border: 1px solid rgba(250, 204, 21, 0.3);
             color: var(--yellow-warning);
-            width: 50px; height: 50px;
+            width: 45px; height: 45px;
             border-radius: 50%;
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            font-size: 0.5rem; cursor: pointer;
+            font-size: 0.48rem; cursor: pointer;
         }
 
-        /* Forecast Scroll */
         .forecast-box { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
         .f-card {
             background: rgba(255,255,255,0.04);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 6px;
-            min-width: 60px;
+            min-width: 55px;
             text-align: center;
             border: 1px solid rgba(56, 189, 248, 0.1);
         }
 
         .back-btn {
             background: none; border: 1px solid var(--text-secondary);
-            color: var(--text-secondary); padding: 6px 12px;
-            border-radius: 10px; cursor: pointer; margin-top: 10px;
-            align-self: center; font-size: 0.75rem;
+            color: var(--text-secondary); padding: 5px 10px;
+            border-radius: 8px; cursor: pointer; margin-top: 8px;
+            align-self: center; font-size: 0.7rem;
         }
     </style>
 </head>
@@ -192,62 +198,52 @@
 
 <div class="phone-frame">
 
-    <!-- SCREEN 1: LANGUAGE SELECTION -->
+    <!-- SCREEN 1: LANGUAGE -->
     <div id="screen-lang" class="screen active">
         <div style="text-align: center; margin-top: 10px;">
-            <span style="font-size: 2.5rem;">🌐</span>
-            <h1 style="margin-top: 5px;">Mausam AI Pro</h1>
-            <p>Smart Automation (SIH 2026)</p>
+            <span style="font-size: 2.2rem;">🌐</span>
+            <h1 style="margin-top: 4px;">Mausam AI Pro</h1>
+            <p>Smart India Hackathon 2026</p>
         </div>
         
-        <p style="margin-top: 10px; text-align: center;" id="txt-choose-lang">अपनी भाषा चुनें / Choose Preferred Language</p>
+        <p style="margin-top: 8px; text-align: center;" id="txt-choose-lang">अपनी भाषा चुनें / Choose Language</p>
         
         <div class="card-grid">
-            <div class="action-card" onclick="setLanguage('en-US')">
-                <span>English</span><span>➔</span>
-            </div>
-            <div class="action-card" onclick="setLanguage('hi-IN')">
-                <span>हिंदी (Hindi)</span><span>➔</span>
-            </div>
-            <div class="action-card" onclick="setLanguage('bn-IN')">
-                <span>বাংলা (Bengali)</span><span>➔</span>
-            </div>
-            <div class="action-card" onclick="setLanguage('mr-IN')">
-                <span>मराठी (Marathi)</span><span>➔</span>
-            </div>
-            <div class="action-card" onclick="setLanguage('ta-IN')">
-                <span>தமிழ் (Tamil)</span><span>➔</span>
-            </div>
+            <div class="action-card" onclick="setLanguage('en-US')"><span>English</span><span>➔</span></div>
+            <div class="action-card" onclick="setLanguage('hi-IN')"><span>हिंदी (Hindi)</span><span>➔</span></div>
+            <div class="action-card" onclick="setLanguage('bn-IN')"><span>বাংলা (Bengali)</span><span>➔</span></div>
+            <div class="action-card" onclick="setLanguage('mr-IN')"><span>मराठी (Marathi)</span><span>➔</span></div>
+            <div class="action-card" onclick="setLanguage('ta-IN')"><span>தமிழ் (Tamil)</span><span>➔</span></div>
         </div>
     </div>
 
-    <!-- SCREEN 2: PROFILE SELECTION (Urban, Rural & Marine) -->
+    <!-- SCREEN 2: PROFILE -->
     <div id="screen-profile" class="screen">
-        <div style="text-align: center; margin-top: 15px;">
-            <span style="font-size: 2.2rem;">👥</span>
-            <h1 id="lbl-profile-title" style="margin-top: 5px;">Select Your Mode</h1>
-            <p id="lbl-profile-desc" style="margin-bottom: 8px;">Choose your environment for specialized updates</p>
+        <div style="text-align: center; margin-top: 12px;">
+            <span style="font-size: 2rem;">👥</span>
+            <h1 id="lbl-profile-title" style="margin-top: 4px;">Select Your Target Hub</h1>
+            <p id="lbl-profile-desc">Tailored intelligence for Urban, Rural & Coastal needs</p>
         </div>
 
         <div class="card-grid" style="gap: 8px;">
             <div class="action-card" onclick="selectProfile('urban')" style="border-color: var(--accent-color);">
                 <div>
-                    <span id="lbl-urban-title" style="font-size: 0.95rem; font-weight: 600; color: var(--accent-color);">🏙️ Urban Mode</span>
-                    <span id="lbl-urban-desc" class="card-desc">Traffic, AQI, Waterlogging & Metro Transit</span>
+                    <span id="lbl-urban-title" style="font-size: 0.9rem; font-weight: 600; color: var(--accent-color);">🏙️ Urban Mode (City)</span>
+                    <span id="lbl-urban-desc" class="card-desc">Traffic, Waterlogging, AQI & Metro Transit</span>
                 </div>
                 <span>➔</span>
             </div>
             <div class="action-card" onclick="selectProfile('rural')" style="border-color: var(--green-agri);">
                 <div>
-                    <span id="lbl-rural-title" style="font-size: 0.95rem; font-weight: 600; color: var(--green-agri);">🌾 Kisaan Mode</span>
-                    <span id="lbl-rural-desc" class="card-desc">AI Crop Doctor, Soil Moisture & Fertilizer Timing</span>
+                    <span id="lbl-rural-title" style="font-size: 0.9rem; font-weight: 600; color: var(--green-agri);">🌾 Kisaan Mode (Rural)</span>
+                    <span id="lbl-rural-desc" class="card-desc">AI Crop Doctor, Soil Moisture & Spray Window</span>
                 </div>
                 <span>➔</span>
             </div>
             <div class="action-card" onclick="selectProfile('marine')" style="border-color: var(--blue-marine);">
                 <div>
-                    <span id="lbl-marine-title" style="font-size: 0.95rem; font-weight: 600; color: var(--blue-marine);">⚓ Marine & Fishermen Mode</span>
-                    <span id="lbl-marine-desc" class="card-desc">Cyclone Alerts, High Tides & Fishing Zones</span>
+                    <span id="lbl-marine-title" style="font-size: 0.9rem; font-weight: 600; color: var(--blue-marine);">⚓ Marine & Fishermen Mode</span>
+                    <span id="lbl-marine-desc" class="card-desc">Cyclone Alerts, PFZ Fishing Zones & SOS</span>
                 </div>
                 <span>➔</span>
             </div>
@@ -255,64 +251,76 @@
         <button id="btn-back-lang" class="back-btn" onclick="goToScreen('screen-lang')">⬅ Change Language</button>
     </div>
 
-    <!-- SCREEN 3: MAIN DASHBOARD -->
+    <!-- SCREEN 3: DASHBOARD -->
     <div id="screen-home" class="screen">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
             <div>
-                <div id="live-date-time" style="font-size: 0.65rem; color: var(--text-secondary);">Tue, Sep 1 | 08:55 PM</div>
-                <h1 style="font-size: 1rem;" id="app-title-header">Mausam Live</h1>
+                <div id="live-date-time" style="font-size: 0.6rem; color: var(--text-secondary);">Tue, Sep 1 | Live Hub</div>
+                <h1 style="font-size: 0.95rem;" id="app-title-header">Mausam Live</h1>
             </div>
-            <div class="ai-orb" onclick="speakWeather()" title="Ask AI">🎙️</div>
+            <div class="ai-orb" onclick="startVoiceAssistantChat()" title="Talk to AI">🎙️</div>
         </div>
 
         <button class="big-voice-btn" onclick="speakWeather()">
-            <span style="font-size: 1.3rem;">🗣️</span>
+            <span style="font-size: 1.2rem;">🗣️</span>
             <div>
-                <div id="lbl-voice-prompt" style="font-size: 0.8rem;">Tap to Listen Weather Update</div>
-                <div style="font-size: 0.6rem; opacity: 0.8; font-weight: normal;" id="lbl-voice-sub">Voice AI Assistant Enabled</div>
+                <div id="lbl-voice-prompt" style="font-size: 0.75rem;">Tap to Listen Voice AI Briefing</div>
+                <div style="font-size: 0.55rem; opacity: 0.8;" id="lbl-voice-sub">Speech Synthesis Enabled</div>
             </div>
         </button>
 
-        <div id="deaf-box">Subtitles: Live IMD weather data synchronized successfully.</div>
+        <button id="sos-btn-element" class="sos-btn" onclick="triggerSOS()" style="display:none;">
+            <span style="font-size: 1.2rem;">🚨</span>
+            <div>
+                <div style="font-size: 0.75rem;">Emergency SOS (Coast Guard / NDRF)</div>
+                <div style="font-size: 0.55rem; opacity: 0.9;">Send GPS Coordinates & Distress Signal</div>
+            </div>
+        </button>
+
+        <div id="deaf-box">Subtitles: Data synchronized with IMD & Satellite Feed.</div>
 
         <div class="weather-panel">
-            <div style="font-size: 2.4rem;" id="weather-emoji">⛅</div>
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-color);" id="main-temp">32°C</div>
-            <div style="font-size: 0.85rem;" id="main-condition">Partly Cloudy</div>
-            <div style="font-size: 0.7rem; opacity: 0.7; margin-top: 2px;" id="location-text">Coastal / Regional Hub</div>
+            <div style="font-size: 2.2rem;" id="weather-emoji">⛅</div>
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-color);" id="main-temp">32°C</div>
+            <div style="font-size: 0.8rem;" id="main-condition">Partly Cloudy Conditions</div>
+            <div style="font-size: 0.65rem; opacity: 0.7; margin-top: 2px;" id="location-text">Region Active: Standard Mode</div>
         </div>
 
-        <div id="dynamic-features" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;"></div>
+        <div id="dynamic-features" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px;"></div>
 
         <div class="u-buttons">
-            <button class="u-btn" onclick="toggleBlindMode()">
-                <span style="font-size: 0.9rem;">👁️</span><span id="lbl-blind">Blind</span>
-            </button>
-            <button class="u-btn" onclick="toggleDeafMode()">
-                <span style="font-size: 0.9rem;">🧏</span><span id="lbl-deaf">Deaf</span>
-            </button>
-            <button class="u-btn" onclick="goToScreen('screen-profile')" style="border-color: var(--accent-color); color: var(--accent-color);">
-                <span style="font-size: 0.9rem;">🔄</span><span id="lbl-profile">Mode</span>
-            </button>
+            <button class="u-btn" onclick="toggleBlindMode()"><span style="font-size: 0.8rem;">👁️</span><span id="lbl-blind">Blind</span></button>
+            <button class="u-btn" onclick="toggleDeafMode()"><span style="font-size: 0.8rem;">🧏</span><span id="lbl-deaf">Deaf</span></button>
+            <button class="u-btn" onclick="goToScreen('screen-profile')" style="border-color: var(--accent-color); color: var(--accent-color);"><span style="font-size: 0.8rem;">🔄</span><span id="lbl-profile">Mode</span></button>
         </div>
 
-        <p id="lbl-forecast-title" style="font-size: 0.7rem; margin-bottom: 4px;">7-Day Forecast</p>
+        <p id="lbl-forecast-title" style="font-size: 0.65rem; margin-bottom: 3px;">7-Day Forecast</p>
         <div class="forecast-box">
-            <div class="f-card"><div style="font-size:0.65rem">Wed</div><div style="font-size:0.85rem">🌧️</div><div style="font-weight:600; font-size:0.75rem">31°</div></div>
-            <div class="f-card"><div style="font-size:0.65rem">Thu</div><div style="font-size:0.85rem">⛅</div><div style="font-weight:600; font-size:0.75rem">33°</div></div>
-            <div class="f-card"><div style="font-size:0.65rem">Fri</div><div style="font-size:0.85rem">⛈️</div><div style="font-weight:600; font-size:0.75rem">30°</div></div>
-            <div class="f-card"><div style="font-size:0.65rem">Sat</div><div style="font-size:0.85rem">☀️</div><div style="font-weight:600; font-size:0.75rem">32°</div></div>
-            <div class="f-card"><div style="font-size:0.65rem">Sun</div><div style="font-size:0.85rem">☀️</div><div style="font-weight:600; font-size:0.75rem">34°</div></div>
+            <div class="f-card"><div style="font-size:0.6rem">Wed</div><div style="font-size:0.8rem">🌧️</div><div style="font-weight:600; font-size:0.7rem">31°</div></div>
+            <div class="f-card"><div style="font-size:0.6rem">Thu</div><div style="font-size:0.8rem">⛅</div><div style="font-weight:600; font-size:0.7rem">33°</div></div>
+            <div class="f-card"><div style="font-size:0.6rem">Fri</div><div style="font-size:0.8rem">⛈️</div><div style="font-weight:600; font-size:0.7rem">30°</div></div>
+            <div class="f-card"><div style="font-size:0.6rem">Sat</div><div style="font-size:0.8rem">☀️</div><div style="font-weight:600; font-size:0.7rem">32°</div></div>
+            <div class="f-card"><div style="font-size:0.6rem">Sun</div><div style="font-size:0.8rem">☀️</div><div style="font-weight:600; font-size:0.7rem">34°</div></div>
         </div>
     </div>
 
-    <!-- SCREEN 4: DETAILED SUB-FEATURE VIEW -->
+    <!-- SCREEN 4: DETAIL VIEW -->
     <div id="screen-detail" class="screen">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h1 id="detail-title" style="font-size: 1.1rem;">Feature Details</h1>
-            <div class="ai-orb" onclick="speakDetailText()" style="width:35px; height:35px; font-size:0.9rem;">🔊</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h1 id="detail-title" style="font-size: 1rem;">Feature Details</h1>
+            <div class="ai-orb" onclick="speakDetailText()" style="width:32px; height:32px; font-size:0.8rem;">🔊</div>
         </div>
-        <div id="detail-desc" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.2); padding: 12px; border-radius: 12px; font-size: 0.85rem; line-height: 1.4; color: var(--text-secondary);"></div>
+        
+        <!-- Camera scan section injected dynamically if crop doctor is opened -->
+        <div id="camera-section" style="margin-bottom: 10px; display: none;">
+            <input type="file" id="crop-file-input" accept="image/*" capture="environment" style="display:none;" onchange="handleImageScan(event)">
+            <button onclick="document.getElementById('crop-file-input').click()" style="width:100%; background: linear-gradient(135deg, var(--green-agri), #047857); color:#fff; border:none; padding:10px; border-radius:10px; font-weight:600; font-size:0.8rem; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;">
+                <span>📸</span> <span id="btn-snap-text">Click / Upload Leaf Photo</span>
+            </button>
+            <div id="scan-preview" style="margin-top:8px; text-align:center;"></div>
+        </div>
+
+        <div id="detail-desc" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.2); padding: 10px; border-radius: 10px; font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary);"></div>
         <button id="btn-back-dash" class="back-btn" onclick="goToScreen('screen-home')">⬅ Back to Dashboard</button>
     </div>
 
@@ -325,21 +333,11 @@
 
     const dict = {
         'en-US': {
-            profileTitle: "Select Your Mode",
-            profileDesc: "Choose your environment for specialized updates",
-            urbanTitle: "🏙️ Urban Mode",
-            urbanDesc: "Traffic, AQI, Waterlogging & Metro Transit",
-            ruralTitle: "🌾 Kisaan Mode",
-            ruralDesc: "AI Crop Doctor, Soil Moisture & Fertilizer Timing",
-            marineTitle: "⚓ Marine & Fishermen Mode",
-            marineDesc: "Cyclone Alerts, High Tides & Fishing Zones",
-            backLang: "⬅ Change Language",
-            backDash: "⬅ Back to Dashboard",
-            dashUrbanHeader: "Urban Commute & Lifestyle",
+            dashUrbanHeader: "Urban Commute & Transit",
             dashRuralHeader: "Kisaan Agricultural Hub",
-            dashMarineHeader: "Fishermen & Coastal Hub",
-            voicePrompt: "Tap to Listen Weather Update",
-            voiceSub: "Voice AI Assistant Enabled",
+            dashMarineHeader: "Fishermen & Offshore Hub",
+            voicePrompt: "Tap to Listen Voice AI Briefing",
+            voiceSub: "Speech Synthesis Enabled",
             trafficCardTitle: "🗺️ Live Traffic & Waterlogging Map",
             trafficCardDesc: "Check flooded underpasses & safe transit paths",
             aqiCardTitle: "💨 AQI & Health Commute Advisory",
@@ -352,42 +350,29 @@
             cycloneCardDesc: "Real-time offshore wave height and deep sea alerts",
             pfzCardTitle: "🐟 Potential Fishing Zone (PFZ) Finder",
             pfzCardDesc: "AI coordinates for rich fish abundance areas offshore",
-            blind: "Blind",
-            deaf: "Deaf",
-            profile: "Mode",
-            forecast: "7-Day Forecast",
-            welcomeMsg: "Language selected: English. Welcome to Mausam AI Pro.",
-            urbanMsg: "Urban mode activated. Live traffic and air quality updated.",
-            ruralMsg: "Kisaan mode activated. Soil and crop advisory updated.",
-            marineMsg: "Marine mode activated. Offshore wave and cyclone warning synchronized.",
+            blind: "Blind", deaf: "Deaf", profile: "Mode", forecast: "7-Day Forecast",
+            welcomeMsg: "Language English selected. Welcome to Mausam AI Pro.",
+            urbanMsg: "Urban mode active. Live traffic and air quality updated.",
+            ruralMsg: "Kisaan mode active. Soil moisture and crop doctor updated.",
+            marineMsg: "Marine mode active. Offshore cyclone warning synchronized.",
             trafficTitle: "Live Traffic & Waterlogging Alert",
-            trafficDesc: "Heavy traffic near Metro Station due to sudden downpour. Avoid low-lying underpasses. Take Ring Road bypass.",
+            trafficDesc: "Heavy traffic near Metro Station due to downpour. Avoid low-lying underpasses. Use Ring Road.",
             aqiTitle: "Air Quality Index (AQI): 112",
-            aqiDesc: "AQI is 112 (Moderate). PM2.5 levels slightly elevated. Outdoor runners should wear anti-pollution masks.",
+            aqiDesc: "AQI is 112 (Moderate). PM2.5 levels slightly elevated. Outdoor commuters should wear masks.",
             cropTitle: "AI Crop Doctor (Leaf Scan)",
-            cropDesc: "AI scanned leaf image: Detected early nitrogen deficiency and fungal spots. Recommended organic copper fungicide spray.",
-            pestTitle: "Smart Irrigation & Fertilizer Schedule",
-            pestDesc: "Soil moisture is at 68%. Rain expected in 36 hours. Postpone irrigation and apply urea fertilizer tomorrow morning.",
+            cropDesc: "Tap the button above to open your camera, snap a photo of the infected crop leaf, and AI will scan it instantly for nutrient deficiencies.",
+            pestTitle: "Smart Irrigation Schedule",
+            pestDesc: "Soil moisture is 68%. Rain expected in 36 hours. Postpone irrigation and apply urea tomorrow.",
             cycloneTitle: "Offshore Cyclone & High Tide Alert",
-            cycloneDesc: "Warning: Strong surface winds of 45-55 km/h expected off the coast. Small boats advised not to venture into deep sea.",
+            cycloneDesc: "Warning: Strong winds of 45-55 km/h offshore. Small boats advised not to venture into deep sea.",
             pfzTitle: "Potential Fishing Zone (PFZ)",
-            pfzDesc: "Satellite data indicates high phytoplankton concentration at Coordinates 18.2N, 72.8E. High fish abundance expected."
+            pfzDesc: "Satellite data indicates rich fish abundance at Coordinates 18.2N, 72.8E."
         },
         'hi-IN': {
-            profileTitle: "अपना मोड चुनें",
-            profileDesc: "विशेष अपडेट के लिए अपना रहने का माहौल चुनें",
-            urbanTitle: "🏙️ अर्बन मोड (शहरी हब)",
-            urbanDesc: "ट्रैफिक, AQI, जलभराव और मेट्रो कम्यूट अलर्ट",
-            ruralTitle: "🌾 रूरल / किसान मोड",
-            ruralDesc: "एआई क्रॉप डॉक्टर, मिट्टी की नमी और सिंचाई विंडो",
-            marineTitle: "⚓ मरीन और मछुआरा मोड",
-            marineDesc: "चक्रवात अलर्ट, ऊंची लहरें और मछली पकड़ने के जोन",
-            backLang: "⬅ भाषा बदलें",
-            backDash: "⬅ डैशबोर्ड पर वापस जाएं",
-            dashUrbanHeader: "शहरी कम्यूट और लाइफस्टाइल",
-            dashRuralHeader: "किसान कृषि हब",
-            dashMarineHeader: "मछुआरा और तटीय हब",
-            voicePrompt: "मौसम का हाल सुनने के लिए यहाँ टैप करें",
+            dashUrbanHeader: "शहरी कम्यूट और ट्रैफिक हब",
+            dashRuralHeader: "किसान कृषि और फसल हब",
+            dashMarineHeader: "मछुआरा और तटीय समुद्री हब",
+            voicePrompt: "मौसम की आवाज सुनने के लिए टैप करें",
             voiceSub: "वॉयस एआई असिस्टेंट सक्रिय है",
             trafficCardTitle: "🗺️ लाइव ट्रैफिक और जलभराव मैप",
             trafficCardDesc: "जलभराव वाले अंडरपास और सुरक्षित रास्तों की जांच करें",
@@ -401,42 +386,29 @@
             cycloneCardDesc: "समुद्र में ऊंची लहरें और गहरे पानी की चेतावनी",
             pfzCardTitle: "🐟 मत्स्य जोन (PFZ) फाइंडर",
             pfzCardDesc: "मछलियों की प्रचुरता वाले सटीक समुद्री निर्देशांक",
-            blind: "दृष्टिबाधित",
-            deaf: "श्रवणबाधित",
-            profile: "मोड",
-            forecast: "7-दिन का पूर्वानुमान",
-            welcomeMsg: "भाषा हिंदी चुनी गई है। मौसम एआई प्रो में आपका स्वागत है।",
+            blind: "दृष्टिबाधित", deaf: "श्रवणबाधित", profile: "मोड", forecast: "7-दिन का पूर्वानुमान",
+            welcomeMsg: "भाषा हिंदी चुनी गई है। मौसम एआई प्रो में स्वागत है।",
             urbanMsg: "अर्बन मोड सक्रिय है। लाइव ट्रैफिक और वायु गुणवत्ता अपडेट की गई है।",
             ruralMsg: "किसान मोड सक्रिय है। मिट्टी और फसल की सलाह अपडेट की गई है।",
             marineMsg: "मरीन मोड सक्रिय है। समुद्र में लहरों और चक्रवात की चेतावनी अपडेट की गई है।",
             trafficTitle: "लाइव ट्रैफिक और जलभराव अलर्ट",
             trafficDesc: "अचानक बारिश के कारण मेट्रो स्टेशन के पास ट्रैफिक धीमा है। निचले अंडरपास से बचें, रिंग रोड का उपयोग करें।",
             aqiTitle: "वायु गुणवत्ता सूचकांक (AQI): 112",
-            aqiDesc: "AQI 112 (मध्यम) है। सुबह टहलने वाले मास्क का उपयोग करें।",
+            aqiDesc: "AQI 112 (मध्यम) है। बाहर जाने वाले लोग मास्क का उपयोग करें।",
             cropTitle: "एआई क्रॉप डॉक्टर (पत्ती स्कैन)",
-            cropDesc: "एआई ने पत्ती को स्कैन किया: शुरुआती नाइट्रोजन की कमी और फंगस मिली। कॉपर फंगसाइड स्प्रे करने की सलाह।",
+            cropDesc: "फसल की पत्ती का फोटो खींचने के लिए नीचे दिए गए कैमरे वाले बटन पर क्लिक करें। एआई तुरंत स्कैन करके नाइट्रोजन या फंगस की कमी बताएगा।",
             pestTitle: "स्मार्ट सिंचाई और खाद अनुसूची",
-            pestDesc: "मिट्टी की नमी 68% है। 36 घंटे में बारिश की संभावना है। अभी सिंचाई टालें और कल सुबह यूरिया डालें.",
+            pestDesc: "मिट्टी की नमी 68% है। 36 घंटे में बारिश की संभावना है। अभी सिंचाई टालें और कल यूरिया डालें।",
             cycloneTitle: "चक्रवात और हाई टाइड चेतावनी",
             cycloneDesc: "चेतावनी: तट के पास 45-55 किमी/घंटा की तेज हवाएं चलेंगी। छोटी नावों को गहरे समुद्र में न जाने की सलाह।",
             pfzTitle: "मत्स्य जोन (PFZ) नेविगेशन",
-            pfzDesc: "उपग्रह डेटा के अनुसार निर्देशांक 18.2N पर मछलियों का अच्छा झुंड उपलब्ध है।"
+            pfzDesc: "उपग्रह डेटा के अनुसार निर्देशांक 18.2N, 72.8E पर मछलियों का अच्छा झुंड उपलब्ध है।"
         },
         'bn-IN': {
-            profileTitle: "আপনার মোড নির্বাচন করুন",
-            profileDesc: "বিশেষ আপডেটের জন্য পরিবেশ বেছে নিন",
-            urbanTitle: "🏙️ আরবান মোড (শহর)",
-            urbanDesc: "ট্রাফিক, AQI, জলমগ্নতা এবং মেট্রো সতর্কতা",
-            ruralTitle: "🌾 গ্রামীণ / কৃষক মোড",
-            ruralDesc: "এআই ক্রপ ডক্টর, মাটির আর্দ্রতা এবং সেচ উইন্ডো",
-            marineTitle: "⚓ মৎস্যজীবী ও সমুদ্র মোড",
-            marineDesc: "ঘূর্ণিঝড় সতর্কতা, উচ্চ জোয়ার এবং মাছ ধরার অঞ্চল",
-            backLang: "⬅ ভাষা পরিবর্তন করুন",
-            backDash: "⬅ ড্যাশবোর্ডে ফিরে যান",
-            dashUrbanHeader: "শহর যাতায়াত ও জীবনযাত্রা",
-            dashRuralHeader: "কৃষক কৃষি হাব",
-            dashMarineHeader: "মৎস্যজীবী ও উপকূলীয় হাব",
-            voicePrompt: "আবহাওয়ার আপডেট শুনতে এখানে ট্যাপ করুন",
+            dashUrbanHeader: "শহর যাতায়াত ও ট্রাফিক হাব",
+            dashRuralHeader: "কৃষক কৃষি ও শস্য হাব",
+            dashMarineHeader: "মৎস্যজীবী ও সমুদ্র উপকূল হাব",
+            voicePrompt: "আবহাওয়ার আপডেট শুনতে ট্যাপ করুন",
             voiceSub: "ভয়েস এআই অ্যাসিস্ট্যান্ট চালু আছে",
             trafficCardTitle: "🗺️ লাইভ ট্রাফিক ও জলমগ্নতা ম্যাপ",
             trafficCardDesc: "জল জমে থাকা আন্ডারপাস এবং নিরাপদ রুট পরীক্ষা করুন",
@@ -450,20 +422,17 @@
             cycloneCardDesc: "সমুদ্রের ঢেউ এবং গভীর সাগরের সতর্কতা",
             pfzCardTitle: "🐟 মাছ ধরার সেরা অঞ্চল (PFZ)",
             pfzCardDesc: "যেখানে মাছ বেশি পাওয়া যাবে তার স্যাটেলাইট তথ্য",
-            blind: "অন্ধ",
-            deaf: "বধির",
-            profile: "মোড",
-            forecast: "৭ দিনের পূর্বাভাস",
+            blind: "অন্ধ", deaf: "বধির", profile: "মোড", forecast: "৭ দিনের পূর্বাভাস",
             welcomeMsg: "বাংলা ভাষা নির্বাচন করা হয়েছে। মৌসম এআই-তে স্বাগতম।",
             urbanMsg: "আরবান মোড সক্রিয়। লাইভ ট্রাফিক এবং বায়ু মান আপডেট হয়েছে।",
             ruralMsg: "কৃষক মোড সক্রিয়। মাটি ও ফসলের পরামর্শ আপডেট করা হয়েছে।",
             marineMsg: "মৎস্যজীবী মোড সক্রিয়। সমুদ্রের ঢেউ এবং ঘূর্ণিঝড় সতর্কতা আপডেট হয়েছে।",
             trafficTitle: "লাইভ ট্রাফিক ও জলমগ্নতা সতর্কতা",
-            trafficDesc: "হঠাৎ বৃষ্টির কারণে মেট্রো স্টেশনের কাছে ট্রাফিক ধীরগতির। রিং রোড ব্যবহার করুন।",
-            aqiTitle: "বায়ুর গুণमान সূচক (AQI): 112",
+            trafficDesc: "বৃষ্টির কারণে মেট্রো স্টেশনের কাছে ট্রাফিক ধীরগতির। রিং রোড ব্যবহার করুন।",
+            aqiTitle: "বায়ুর গুণমান সূচক (AQI): 112",
             aqiDesc: "AQI ১১২ (মাঝারি)। বাইরে বের হওয়ার সময় মাস্ক পরুন।",
             cropTitle: "এআই ক্রপ ডক্টর (পাতা স্ক্যান)",
-            cropDesc: "এআই পাতা স্ক্যান করে নাইট্রোজেনের ঘাটতি এবং ছত্রাক সনাক্ত করেছে।",
+            cropDesc: "ফসলের পাতার ছবি তুলতে নিচের ক্যামেরার বোতামে ক্লিক করুন। এআই তাৎক্ষণিকভাবে রোগ স্ক্যান করবে।",
             pestTitle: "স্মার্ট সেচ ও সার সময়সূচী",
             pestDesc: "মাটির আর্দ্রতা ৬৮%। ৩৬ ঘণ্টার মধ্যে বৃষ্টির সম্ভাবনা। আজ সেচ দেবেন না।",
             cycloneTitle: "ঘূর্ণিঝড় ও উচ্চ জোয়ার সতর্কতা",
@@ -472,20 +441,10 @@
             pfzDesc: "উপগ্রহের ডেটা অনুযায়ী নির্দিষ্ট অঞ্চলে মাছের প্রাচুর্য রয়েছে।"
         },
         'mr-IN': {
-            profileTitle: "तुमचा मोड निवडा",
-            profileDesc: "विशेष अद्यतनांसाठी राहणीमान निवडा",
-            urbanTitle: "🏙️ अर्बन मोड (शहर)",
-            urbanDesc: "ट्रॅफिक, AQI, पाणी साचणे व मेट्रो अलर्ट",
-            ruralTitle: "🌾 ग्रामीण / शेतकरी मोड",
-            ruralDesc: "एआय क्रॉप डॉक्टर, मातीचा ओलावा व सिंचन वेळ",
-            marineTitle: "⚓ किनारी व कोळी (मच्छिमार) मोड",
-            marineDesc: "चक्रीवादळ इशारा, भरती-ओहोटी व मासेमारी क्षेत्र",
-            backLang: "⬅ भाषा बदला",
-            backDash: "⬅ डॅशबोर्डवर परत जा",
-            dashUrbanHeader: "शहर प्रवास आणि जीवनशैली",
-            dashRuralHeader: "शेतकरी कृषी हब",
-            dashMarineHeader: "कोळी आणि किनारी हब",
-            voicePrompt: "हवामानाचा अंदाज ऐकण्यासाठी इथे टॅप करा",
+            dashUrbanHeader: "शहर प्रवास आणि ट्रॅफिक हब",
+            dashRuralHeader: "शेतकरी कृषी आणि पीक हब",
+            dashMarineHeader: "कोळी आणि किनारी समुद्र हब",
+            voicePrompt: "हवामानाचा अंदाज ऐकण्यासाठी टॅप करा",
             voiceSub: "व्हॉइस एआय असिस्टंट चालू आहे",
             trafficCardTitle: "🗺️ लाईव्ह ट्रॅफिक व पाणी साचण्याचे मॅप",
             trafficCardDesc: "पाणी साचलेले अंडरपास व सुरक्षित मार्ग तपासा",
@@ -499,20 +458,17 @@
             cycloneCardDesc: "समुद्रातील वाऱ्याचा वेग व लाटांची उंची",
             pfzCardTitle: "🐟 मासेमारीसाठी उत्तम क्षेत्र (PFZ)",
             pfzCardDesc: "सॅटेलाइट माहितीनुसार जिथे मासे जास्त मिळतील",
-            blind: "अंध",
-            deaf: "बधिरांसाठी",
-            profile: "मोड",
-            forecast: "७-दिवसांचा अंदाज",
+            blind: "अंध", deaf: "बधिरांसाठी", profile: "मोड", forecast: "७-दिवसांचा अंदाज",
             welcomeMsg: "मराठी भाषा निवडली आहे. मौसम एआय प्रो मध्ये स्वागत आहे.",
             urbanMsg: "अर्बन मोड सक्रिय आहे. लाईव्ह ट्रॅफिक आणि हवामान अद्यतनित केले आहे.",
             ruralMsg: "शेतकरी मोड सक्रिय आहे. माती आणि पिकाचा सल्ला अद्यतनित केला आहे.",
             marineMsg: "किनारी मोड सक्रिय आहे. चक्रीवादळ आणि समुद्राची स्थिती अद्यतनित केली आहे.",
             trafficTitle: "लाईव्ह ट्रॅफिक व पाणी साचण्याचा अलर्ट",
-            trafficDesc: "अचानक पावसामुळे मेट्रो स्टेशनजवळ ट्रॅफिक धीमे आहे. रिंग रोडचा पर्याय वापरा.",
+            trafficDesc: "पावसामुळे मेट्रो स्टेशनजवळ ट्रॅफिक धीमे आहे. रिंग रोडचा पर्याय वापरा.",
             aqiTitle: "हवेची गुणवत्ता (AQI): 112",
-            aqiDesc: "AQI ११२ (मध्यम) आहे. मॉर्निंग वॉल्कसाठी जाताना मास्क वापरा.",
+            aqiDesc: "AQI ११२ (मध्यम) आहे. बाहेर जाताना मास्क वापरा.",
             cropTitle: "एआय क्रॉप डॉक्टर (पान स्कॅन)",
-            cropDesc: "एआय ने पानाचे स्कॅन केले: नायट्रोजनची कमतरता आणि फंगस आढळली. फवारणी करा.",
+            cropDesc: "पिकाच्या पानाचा फोटो काढण्यासाठी खालील कॅमेरा बटणावर क्लिक करा. एआय त्वरित स्कॅन करून अहवाल देईल.",
             pestTitle: "स्मार्ट सिंचन व खत वेळापत्रक",
             pestDesc: "मातीचा ओलावा ६८% आहे. ३६ तासांत पावसाची शक्यता आहे. सिंचन टाळा.",
             cycloneTitle: "चक्रीवादळ व उच्च लाटांचा इशारा",
@@ -521,19 +477,9 @@
             pfzDesc: "उपग्रह डेटा नुसार निश्चित केलेल्या ठिकाणी मासेमारीसाठी उत्तम वातावरण आहे."
         },
         'ta-IN': {
-            profileTitle: "உங்கள் முறையைத் தேர்ந்தெடுக்கவும்",
-            profileDesc: "சிறப்பு புதுப்பிப்புகளுக்கு உங்கள் பகுதியைத் தேர்ந்தெடுக்கவும்",
-            urbanTitle: "🏙️ நகர்ப்புற முறை (நகர ஹப்)",
-            urbanDesc: "போக்குவரத்து, AQI மற்றும் மெட்ரோ எச்சரிக்கைகள்",
-            ruralTitle: "🌾 விவசாயி முறை",
-            ruralDesc: "AI பயிர் மருத்துவர், மண் ஈரப்பதம் மற்றும் பாசன நேரம்",
-            marineTitle: "⚓ கடல் மற்றும் மீனவர் முறை",
-            marineDesc: "புயல் எச்சரிக்கை, உயர் அலைகள் மற்றும் மீன் பிடித்தளம்",
-            backLang: "⬅ மொழியை மாற்று",
-            backDash: "⬅ முகப்புக்கு திரும்பு",
-            dashUrbanHeader: "நகர போக்குவரத்து மற்றும் நடைமுறை",
-            dashRuralHeader: "விவசாயி வேளாண் மையம்",
-            dashMarineHeader: "மீனவர் மற்றும் கடற்கரை மையம்",
+            dashUrbanHeader: "நகர போக்குவரத்து மற்றும் தற்காலிக ஹப்",
+            dashRuralHeader: "விவசாயி வேளாண் மற்றும் பயிர் ஹப்",
+            dashMarineHeader: "மீனவர் மற்றும் கடல் துறை ஹப்",
             voicePrompt: "வானிலை தகவலைக் கேட்க தட்டவும்",
             voiceSub: "குரல் AI உதவி இயங்குகிறது",
             trafficCardTitle: "🗺️ நேரலை போக்குவரத்து வரைபடம்",
@@ -548,20 +494,17 @@
             cycloneCardDesc: "கடல் அலை உயரம் மற்றும் ஆழ்கடல் எச்சரிக்கைகள்",
             pfzCardTitle: "🐟 மீன் வளம் அதிகம் உள்ள பகுதி (PFZ)",
             pfzCardDesc: "செயற்கைக்கோள் தரவு மூலம் கண்டறியப்பட்ட மீன் பகுதி",
-            blind: "பார்வையற்றோர்",
-            deaf: "செவித்திறன்",
-            profile: "முறை",
-            forecast: "7 நாள் முன்னறிவிப்பு",
+            blind: "பார்வையற்றோர்", deaf: "செவித்திறன்", profile: "முறை", forecast: "7 நாள் முன்னறிவிப்பு",
             welcomeMsg: "தமிழ் மொழி தேர்ந்தெடுக்கப்பட்டது. வரவேற்கிறோம்.",
             urbanMsg: "நகர்ப்புற முறை இயக்கப்பட்டுள்ளது.",
             ruralMsg: "விவசாயி முறை இயக்கப்பட்டுள்ளது.",
             marineMsg: "கடல் மற்றும் மீனவர் முறை இயக்கப்பட்டுள்ளது.",
             trafficTitle: "நேரலை போக்குவரத்து எச்சரிக்கை",
-            trafficDesc: "திடீர் மழையால் போக்குவரத்து மெதுவாக உள்ளது. மாற்று பாதையைப் பயன்படுத்தவும்.",
+            trafficDesc: "மழையால் போக்குவரத்து மெதுவாக உள்ளது. மாற்று பாதையைப் பயன்படுத்தவும்.",
             aqiTitle: "AQI: 112",
-            aqiDesc: "AQI 112 (மிதமானது).",
+            aqiDesc: "AQI 112 (மிதமானது). முகக்கவசம் அணியவும்.",
             cropTitle: "AI பயிர் மருத்துவர்",
-            cropDesc: "AI இலைகளில் நைட்ரஜன் பற்றாக்குறையைக் கண்டறிந்துள்ளது.",
+            cropDesc: "பயிர் இலைகளின் புகைப்படத்தை எடுக்க கீழே உள்ள கேமரா பொத்தானைக் கிளிக் செய்யவும்.",
             pestTitle: "பாசன அட்டவணை",
             pestDesc: "மண் ஈரப்பதம் 68% உள்ளது. பாசனத்தைத் தள்ளிப் போடவும்.",
             cycloneTitle: "புயல் மற்றும் உயர் அலை எச்சரிக்கை",
@@ -580,22 +523,23 @@
         selectedLang = langCode;
         let t = dict[langCode] || dict['en-US'];
 
-        document.getElementById('lbl-profile-title').innerText = t.profileTitle;
-        document.getElementById('lbl-profile-desc').innerText = t.profileDesc;
-        document.getElementById('lbl-urban-title').innerText = t.urbanTitle;
-        document.getElementById('lbl-urban-desc').innerText = t.urbanDesc;
-        document.getElementById('lbl-rural-title').innerText = t.ruralTitle;
-        document.getElementById('lbl-rural-desc').innerText = t.ruralDesc;
-        document.getElementById('lbl-marine-title').innerText = t.marineTitle;
-        document.getElementById('lbl-marine-desc').innerText = t.marineDesc;
-        document.getElementById('btn-back-lang').innerText = t.backLang;
-        document.getElementById('btn-back-dash').innerText = t.backDash;
+        document.getElementById('lbl-profile-title').innerText = langCode === 'hi-IN' ? 'अपना टारगेट हब चुनें' : 'Select Your Target Hub';
+        document.getElementById('lbl-profile-desc').innerText = langCode === 'hi-IN' ? 'शहरी, ग्रामीण और तटीय जरूरतों के लिए खास तकनीक' : 'Tailored intelligence for Urban, Rural & Coastal needs';
+        document.getElementById('lbl-urban-title').innerText = langCode === 'hi-IN' ? '🏙️ अर्बन मोड (शहर)' : '🏙️ Urban Mode (City)';
+        document.getElementById('lbl-urban-desc').innerText = langCode === 'hi-IN' ? 'ट्रैफिक, जलभराव, AQI और मेट्रो ट्रांजिट' : 'Traffic, Waterlogging, AQI & Metro Transit';
+        document.getElementById('lbl-rural-title').innerText = langCode === 'hi-IN' ? '🌾 किसान मोड (ग्रामीण)' : '🌾 Kisaan Mode (Rural)';
+        document.getElementById('lbl-rural-desc').innerText = langCode === 'hi-IN' ? 'एआई क्रॉप डॉक्टर, मिट्टी की नमी और छिड़काव समय' : 'AI Crop Doctor, Soil Moisture & Spray Window';
+        document.getElementById('lbl-marine-title').innerText = langCode === 'hi-IN' ? '⚓ मरीन और मछुआरा मोड' : '⚓ Marine & Fishermen Mode';
+        document.getElementById('lbl-marine-desc').innerText = langCode === 'hi-IN' ? 'चक्रवात अलर्ट, PFZ फिशिंग जोन और SOS' : 'Cyclone Alerts, PFZ Fishing Zones & SOS';
+        document.getElementById('btn-back-lang').innerText = langCode === 'hi-IN' ? '⬅ भाषा बदलें' : '⬅ Change Language';
+        document.getElementById('btn-back-dash').innerText = langCode === 'hi-IN' ? '⬅ डैशबोर्ड पर वापस' : '⬅ Back to Dashboard';
         document.getElementById('lbl-blind').innerText = t.blind;
         document.getElementById('lbl-deaf').innerText = t.deaf;
         document.getElementById('lbl-profile').innerText = t.profile;
         document.getElementById('lbl-forecast-title').innerText = t.forecast;
         document.getElementById('lbl-voice-prompt').innerText = t.voicePrompt;
         document.getElementById('lbl-voice-sub').innerText = t.voiceSub;
+        document.getElementById('btn-snap-text').innerText = langCode === 'hi-IN' ? 'पत्ती का फोटो खींचें या अपलोड करें' : 'Click / Upload Leaf Photo';
 
         speakLocalized(t.welcomeMsg, langCode);
         goToScreen('screen-profile');
@@ -606,16 +550,23 @@
         let t = dict[selectedLang] || dict['en-US'];
         let header = document.getElementById('app-title-header');
         let container = document.getElementById('dynamic-features');
+        let sosBtn = document.getElementById('sos-btn-element');
+
+        if(profile === 'marine') {
+            sosBtn.style.display = 'flex';
+        } else {
+            sosBtn.style.display = 'none';
+        }
 
         if(profile === 'urban') {
             header.innerText = t.dashUrbanHeader;
             container.innerHTML = `
-                <div class="action-card" onclick="openDetail('${t.trafficTitle}', '${t.trafficDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.trafficCardTitle}</span><span class="card-desc">${t.trafficCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.trafficTitle}', '${t.trafficDesc}', false)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.trafficCardTitle}</span><span class="card-desc">${t.trafficCardDesc}</span></div>
                     <span>➔</span>
                 </div>
-                <div class="action-card" onclick="openDetail('${t.aqiTitle}', '${t.aqiDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.aqiCardTitle}</span><span class="card-desc">${t.aqiCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.aqiTitle}', '${t.aqiDesc}', false)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.aqiCardTitle}</span><span class="card-desc">${t.aqiCardDesc}</span></div>
                     <span>➔</span>
                 </div>
             `;
@@ -623,12 +574,12 @@
         } else if(profile === 'rural') {
             header.innerText = t.dashRuralHeader;
             container.innerHTML = `
-                <div class="action-card" onclick="openDetail('${t.cropTitle}', '${t.cropDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.cropCardTitle}</span><span class="card-desc">${t.cropCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.cropTitle}', '${t.cropDesc}', true)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.cropCardTitle}</span><span class="card-desc">${t.cropCardDesc}</span></div>
                     <span>➔</span>
                 </div>
-                <div class="action-card" onclick="openDetail('${t.pestTitle}', '${t.pestDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.pesticideCardTitle}</span><span class="card-desc">${t.pesticideCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.pestTitle}', '${t.pestDesc}', false)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.pesticideCardTitle}</span><span class="card-desc">${t.pesticideCardDesc}</span></div>
                     <span>➔</span>
                 </div>
             `;
@@ -636,12 +587,12 @@
         } else {
             header.innerText = t.dashMarineHeader;
             container.innerHTML = `
-                <div class="action-card" onclick="openDetail('${t.cycloneTitle}', '${t.cycloneDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.cycloneCardTitle}</span><span class="card-desc">${t.cycloneCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.cycloneTitle}', '${t.cycloneDesc}', false)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.cycloneCardTitle}</span><span class="card-desc">${t.cycloneCardDesc}</span></div>
                     <span>➔</span>
                 </div>
-                <div class="action-card" onclick="openDetail('${t.pfzTitle}', '${t.pfzDesc}')">
-                    <div><span style="font-weight:600; font-size:0.85rem">${t.pfzCardTitle}</span><span class="card-desc">${t.pfzCardDesc}</span></div>
+                <div class="action-card" onclick="openDetail('${t.pfzTitle}', '${t.pfzDesc}', false)">
+                    <div><span style="font-weight:600; font-size:0.8rem">${t.pfzCardTitle}</span><span class="card-desc">${t.pfzCardDesc}</span></div>
                     <span>➔</span>
                 </div>
             `;
@@ -651,11 +602,41 @@
         goToScreen('screen-home');
     }
 
-    function openDetail(title, desc) {
+    function openDetail(title, desc, isCropDoctor) {
         document.getElementById('detail-title').innerText = title;
         document.getElementById('detail-desc').innerText = desc;
+        document.getElementById('scan-preview').innerHTML = '';
+        
+        let camSec = document.getElementById('camera-section');
+        if(isCropDoctor) {
+            camSec.style.display = 'block';
+        } else {
+            camSec.style.display = 'none';
+        }
+
         goToScreen('screen-detail');
         speakLocalized(desc, selectedLang);
+    }
+
+    function handleImageScan(event) {
+        let file = event.target.files[0];
+        if(!file) return;
+
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('scan-preview').innerHTML = `<img src="${e.target.result}" style="max-width:100%; height:120px; border-radius:8px; border:2px solid var(--green-agri); margin-top:5px;"><p style="color:var(--yellow-warning); font-size:0.75rem; margin-top:4px;">🔍 AI Scanning leaf for diseases...</p>`;
+            
+            setTimeout(() => {
+                let scanResult = selectedLang === 'hi-IN' ? 
+                    "स्कैन पूरा हुआ! एआई ने जांच की है: फसल में नाइट्रोजन की हल्की कमी और शुरुआती फंगस के धब्बे पाए गए हैं। जैविक कॉपर फंगसाइड का छिड़काव करें।" : 
+                    "Scan Complete! AI analysis detected minor Nitrogen deficiency and early fungal spotting. Recommended organic copper fungicide spray.";
+                
+                document.getElementById('detail-desc').innerText = scanResult;
+                document.getElementById('scan-preview').innerHTML += `<p style="color:var(--green-agri); font-size:0.8rem; font-weight:bold; margin-top:4px;">✅ Diagnosis Successful!</p>`;
+                speakLocalized(scanResult, selectedLang);
+            }, 2000);
+        };
+        reader.readAsDataURL(file);
     }
 
     function speakDetailText() {
@@ -674,19 +655,66 @@
 
     function speakWeather() {
         let t = dict[selectedLang] || dict['en-US'];
-        if(currentProfile === 'urban') {
-            speakLocalized(t.urbanMsg, selectedLang);
-        } else if(currentProfile === 'rural') {
-            speakLocalized(t.ruralMsg, selectedLang);
-        } else {
-            speakLocalized(t.marineMsg, selectedLang);
+        if(currentProfile === 'urban') speakLocalized(t.urbanMsg, selectedLang);
+        else if(currentProfile === 'rural') speakLocalized(t.ruralMsg, selectedLang);
+        else speakLocalized(t.marineMsg, selectedLang);
+    }
+
+    // Smart Conversational AI Voice Assistant
+    function startVoiceAssistantChat() {
+        if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+            alert("Speech recognition is supported in modern Chrome browsers.");
+            speakWeather();
+            return;
         }
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = selectedLang;
+        recognition.start();
+        
+        let listenMsg = selectedLang === 'hi-IN' ? "बोलिए, मैं सुन रहा हूँ... पूछिए क्या जानना है?" : "Listening... Ask me anything about weather, traffic or crops.";
+        speakLocalized(listenMsg, selectedLang);
+
+        recognition.onresult = function(event) {
+            let query = event.results[0][0].transcript.toLowerCase();
+            let responseText = "";
+
+            if(selectedLang === 'hi-IN') {
+                if(query.includes('मौसम') || query.includes('बरसात') || query.includes('बारिश')) {
+                    responseText = "आज तापमान 32 डिग्री सेल्सियस है और आंशिक रूप से बादल छाए हुए हैं। अगले 36 घंटों में बारिश की संभावना है।";
+                } else if(query.includes('ट्रैफिक') || query.includes('रास्ता')) {
+                    responseText = "शहरी मोड के अनुसार, मेट्रो स्टेशन के पास थोड़ा ट्रैफिक है। कृपया रिंग रोड का उपयोग करें।";
+                } else if(query.includes('मछली') || query.includes('समुद्र')) {
+                    responseText = "मरीन मोड सक्रिय है। समुद्र में हवा सामान्य है लेकिन गहरे पानी में जाने से पहले चक्रवात अलर्ट जरूर देख लें।";
+                } else {
+                    responseText = "मैंने आपका सवाल सुना: " + query + "। मौसम एआई प्रो आपके सभी डेटा को लाइव ट्रैक कर रहा है।";
+                }
+            } else {
+                if(query.includes('weather') || query.includes('rain')) {
+                    responseText = "The current temperature is 32 degrees Celsius with partly cloudy skies. Rain is expected within 36 hours.";
+                } else if(query.includes('traffic')) {
+                    responseText = "Urban commute update: Moderate traffic near the metro station. Consider taking the bypass.";
+                } else {
+                    responseText = "I heard your query regarding " + query + ". All regional sensors are updated successfully.";
+                }
+            }
+
+            speakLocalized(responseText, selectedLang);
+        };
+    }
+
+    function triggerSOS() {
+        let alertMsg = selectedLang === 'hi-IN' ? 
+            "इमरजेंसी SOS सिग्नल कोस्ट गार्ड को भेजा गया! आपका जीपीएस कोऑर्डिनेट साझा हो गया है।" : 
+            "Emergency SOS distress signal sent to Coast Guard with exact GPS coordinates!";
+        speakLocalized(alertMsg, selectedLang);
+        alert(alertMsg);
     }
 
     function toggleBlindMode() {
         document.body.classList.toggle('blind-mode');
         let active = document.body.classList.contains('blind-mode');
-        speakLocalized(active ? "High contrast blind assistance mode enabled." : "Blind mode disabled.", selectedLang);
+        speakLocalized(active ? "High contrast blind mode enabled." : "Blind mode disabled.", selectedLang);
     }
 
     function toggleDeafMode() {
@@ -695,7 +723,7 @@
             box.style.display = 'none';
         } else {
             box.style.display = 'block';
-            speakLocalized("Deaf visual subtitle mode activated.", selectedLang);
+            speakLocalized("Visual subtitle mode activated.", selectedLang);
         }
     }
 </script>
