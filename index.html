@@ -2,8 +2,8 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mausam AI Pro - Urban & Rural Intelligence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mausam AI Pro - Inclusive Weather Intelligence</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,14 +12,13 @@
         :root {
             --bg-base: #060918;
             --bg-surface: #101736;
-            --border-color: rgba(255, 255, 255, 0.12);
+            --border-color: rgba(255, 255, 255, 0.1);
             --accent-primary: #3b82f6;
             --accent-secondary: #06b6d4;
             --accent-success: #10b981;
-            --accent-warning: #f59e0b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --radius-box: 16px;
+            --radius-box: 20px;
         }
 
         body.theme-blind {
@@ -32,298 +31,480 @@
             --text-muted: #ffffff;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 4px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; padding: 16px; display: flex; justify-content: center; align-items: center; }
 
-        /* MODAL OVERLAYS (Slide-wise Popups) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 6, 15, 0.96); z-index: 9999;
-            display: flex; justify-content: center; align-items: center; padding: 16px;
-        }
-        .modal-box {
-            background: var(--bg-surface); border: 2px solid var(--accent-secondary);
-            padding: 24px; border-radius: 22px; width: 100%; max-width: 400px; text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-        }
-        .modal-box h2 { font-size: 20px; margin-bottom: 8px; color: var(--text-main); }
-        .modal-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
-        
-        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .modal-btn {
-            background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 14px; border-radius: 14px; font-weight: 700;
-            font-size: 14px; cursor: pointer; transition: 0.2s; user-select: none;
-        }
-        .modal-btn:active, .modal-btn:hover { background: var(--accent-primary); border-color: var(--accent-secondary); }
+        .app-shell { width: 100%; max-width: 768px; display: flex; flex-direction: column; gap: 14px; }
 
-        /* App Container */
-        .app-container {
-            width: 100%; max-width: 1200px; height: 96vh;
+        /* Screen Control Views */
+        .app-screen { display: none; flex-direction: column; gap: 14px; width: 100%; }
+        .app-screen.active { display: flex; }
+
+        /* Pro Dashboard Card Container */
+        .pro-card {
             background: var(--bg-surface); border: 1px solid var(--border-color);
-            border-radius: var(--radius-box); display: grid; grid-template-columns: 260px 1fr;
-            overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border-radius: var(--radius-box); padding: 24px; text-align: center;
         }
+        .pro-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--accent-secondary); display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .pro-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6; }
 
-        /* Sidebar */
-        .sidebar {
-            background: rgba(6, 9, 24, 0.95); border-right: 1px solid var(--border-color);
-            display: flex; flex-direction: column; overflow-y: auto; padding: 16px; gap: 14px;
+        /* Language Grid */
+        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .lang-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 14px; border-radius: 14px; font-weight: 700; font-size: 14px; cursor: pointer;
+            transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .brand-title {
-            font-size: 18px; font-weight: 800; color: var(--accent-secondary);
-            display: flex; align-items: center; gap: 10px; padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .menu-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; }
-        .menu-items { display: flex; flex-direction: column; gap: 4px; }
-        .menu-btn {
-            background: transparent; border: none; color: var(--text-muted); padding: 10px 12px;
-            border-radius: 10px; font-size: 12px; font-weight: 600; text-align: left; cursor: pointer;
-            display: flex; align-items: center; gap: 10px; transition: all 0.2s; user-select: none;
-        }
-        .menu-btn:active, .menu-btn:hover, .menu-btn.active {
-            background: rgba(59, 130, 246, 0.15); color: var(--accent-secondary); border-left: 3px solid var(--accent-secondary);
-        }
+        .lang-btn:hover { background: var(--accent-primary); border-color: var(--accent-secondary); transform: translateY(-2px); }
 
-        /* Main Area */
-        .main-content {
-            padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px;
-            background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.04), transparent 40%);
+        /* Top Bar & Controls */
+        .top-bar {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: var(--radius-box); padding: 12px 16px;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
         }
-
-        .top-utility-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);
-            padding: 10px 16px; border-radius: 12px; flex-wrap: wrap; gap: 10px;
-        }
-        .access-group { display: flex; gap: 6px; }
+        .access-group { display: flex; gap: 6px; flex-wrap: wrap; }
         .access-btn {
             background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: 700; cursor: pointer;
+            color: var(--text-main); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer;
         }
         .access-btn.active { background: var(--accent-primary); border-color: var(--accent-secondary); }
 
-        .screen-view { display: none; flex-direction: column; gap: 14px; }
-        .screen-view.active { display: flex; }
+        .back-nav-btn {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 6px 12px; border-radius: 12px; font-size: 11px; font-weight: 700; cursor: pointer;
+        }
+        .back-nav-btn:hover { border-color: var(--accent-secondary); }
 
-        .screen-header { font-size: 20px; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
+        /* Mode Switcher View (Dashboard) */
+        .domain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .domain-card {
+            background: rgba(255,255,255,0.03); border: 2px solid var(--border-color);
+            border-radius: var(--radius-box); padding: 20px; text-align: left; cursor: pointer; transition: all 0.2s;
+        }
+        .domain-card:hover { border-color: var(--accent-secondary); background: rgba(6, 182, 212, 0.08); }
+        .domain-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .domain-card p { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
 
-        .card-box {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
-            border-radius: var(--radius-box); padding: 18px; cursor: pointer;
+        /* Weather Display Banner */
+        .weather-banner {
+            background: linear-gradient(135deg, var(--bg-surface), var(--bg-base));
+            border: 1px solid var(--accent-secondary); border-radius: var(--radius-box); padding: 20px;
         }
 
-        /* Live Widget Strip */
-        .live-strip {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+        /* Non-Verbal Quick Tiles */
+        .quick-dock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .dock-tile {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            padding: 12px; border-radius: 14px; text-align: center; font-size: 12px; font-weight: 700; cursor: pointer;
         }
-        .live-badge {
-            background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
-            padding: 10px; border-radius: 12px; text-align: center;
-        }
-        .live-badge span { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px; }
-        .live-badge strong { font-size: 13px; color: var(--accent-secondary); }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color);
-            padding: 14px; border-radius: 12px; text-align: center; cursor: pointer;
-        }
-        .stat-card:active, .stat-card:hover { border-color: var(--accent-secondary); background: rgba(6,182,212,0.05); }
-        .stat-card h4 { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
-        .stat-card p { font-size: 18px; font-weight: 800; color: var(--accent-secondary); }
+        .dock-tile:hover { border-color: var(--accent-secondary); background: rgba(6, 182, 212, 0.1); }
 
         /* Voice Console */
         .voice-console {
-            background: rgba(16, 23, 54, 0.8); border: 1px solid var(--border-color);
-            border-radius: var(--radius-box); padding: 14px; text-align: center; display: flex; flex-direction: column; gap: 10px;
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: var(--radius-box); padding: 16px; text-align: center; display: flex; flex-direction: column; gap: 12px;
         }
         .mic-btn {
-            width: 55px; height: 55px; border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            border: none; color: #fff; font-size: 20px; cursor: pointer; margin: 0 auto;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+            width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none; color: #fff; font-size: 24px; cursor: pointer; margin: 0 auto; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
         }
-        .mic-btn:active { transform: scale(0.9); }
+        .caption-box { background: #000; border: 2px solid var(--accent-success); border-radius: 12px; padding: 12px; text-align: left; }
+        .caption-title { font-size: 10px; font-weight: 800; color: var(--accent-success); text-transform: uppercase; margin-bottom: 4px; }
+        .caption-text { font-size: 13px; font-weight: 700; color: #00ffcc; font-family: monospace; }
 
-        .caption-box { background: #000; border: 2px solid var(--accent-success); border-radius: 10px; padding: 10px; text-align: left; }
-        .caption-title { font-size: 9px; font-weight: 800; color: var(--accent-success); text-transform: uppercase; margin-bottom: 2px; }
-        .caption-text { font-size: 12px; font-weight: 700; color: #00ffcc; font-family: monospace; }
-
-        .quick-dock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .dock-tile {
-            background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
-            padding: 10px; border-radius: 12px; text-align: center; font-size: 11px; font-weight: 700; cursor: pointer; user-select: none;
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+        .info-box {
+            background: var(--bg-surface); border: 1px solid var(--border-color);
+            border-radius: var(--radius-box); padding: 14px; cursor: pointer;
         }
-        .dock-tile:active { background: rgba(6, 182, 212, 0.2); }
-
-        @media(max-width: 850px) {
-            .app-container { grid-template-columns: 1fr; height: 100vh; border-radius: 0; }
-            .sidebar { display: none; }
-            .live-strip { grid-template-columns: repeat(2, 1fr); }
-        }
+        .info-box:hover { border-color: var(--accent-secondary); }
     </style>
 </head>
 <body>
 
-    <!-- STEP 1: LANGUAGE SELECTION POPUP -->
-    <div id="langModal" class="modal-overlay">
-        <div class="modal-box">
-            <h2>🌍 Select Language</h2>
-            <p>अपनी भाषा चुनें ताकि एआई असिस्टेंट स्वागत कर सके</p>
-            <div class="modal-grid">
-                <button class="modal-btn" onclick="chooseLanguage('hi')">🇮🇳 हिंदी</button>
-                <button class="modal-btn" onclick="chooseLanguage('en')">🌐 English</button>
-                <button class="modal-btn" onclick="chooseLanguage('bn')">🇮🇳 বাংলা</button>
-                <button class="modal-btn" onclick="chooseLanguage('mr')">🇮🇳 मराठी</button>
-                <button class="modal-btn" onclick="chooseLanguage('ta')" style="grid-column: span 2;">🇮🇳 தமிழ்</button>
+    <div class="app-shell">
+
+        <!-- SCREEN 1: WELCOME & LANGUAGE SELECTION -->
+        <div class="app-screen active" id="screenLanguage">
+            <div class="pro-card">
+                <div class="pro-title"><i class="fa-solid fa-cloud-sun"></i> Mausam AI Pro</div>
+                <div class="pro-desc" id="lblWelcomeDesc">अपनी भाषा चुनें ताकि हम आपके लिए एकदम सही और नेचुरल आवाज़ में मौसम की जानकारी दे सकें।</div>
+                
+                <div class="lang-grid">
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('hi')">🇮🇳 हिंदी</button>
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('hinglish')">🇮🇳 Hinglish</button>
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('en')">🌐 English</button>
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('bn')">🇮🇳 বাংলা</button>
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('mr')">🇮🇳 मराठी</button>
+                    <button class="lang-btn" onclick="AppEngine.selectLanguage('ta')">🇮🇳 தமிழ்</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- STEP 2: URBAN VS RURAL SELECTION POPUP -->
-    <div id="modeModal" class="modal-overlay" style="display: none;">
-        <div class="modal-box" style="border-color: var(--accent-success);">
-            <h2>🌾 Mode Selection</h2>
-            <p>आप किस प्रकार की मौसम जानकारी देखना चाहते हैं?</p>
-            <div class="modal-grid" style="grid-template-columns: 1fr; gap: 12px;">
-                <button class="modal-btn" style="background: rgba(59,130,246,0.2);" onclick="chooseMode('urban')">🏢 Urban Mode (शहर, कम्यूट, एयर क्वालिटी)</button>
-                <button class="modal-btn" style="background: rgba(16,185,129,0.2);" onclick="chooseMode('rural')">🚜 Rural / Kisaan Mode (फसल सिंचाई, खाद, बारिश)</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="app-container">
-        <!-- SIDEBAR NAVIGATION -->
-        <nav class="sidebar">
-            <div class="brand-title">
-                <i class="fa-solid fa-cloud-sun"></i> MAUSAM AI
-            </div>
-
-            <div>
-                <div class="menu-section-title">Main</div>
-                <div class="menu-items">
-                    <button class="menu-btn active" onclick="switchScreen('dashboard', this)"><i class="fa-solid fa-house"></i> Dashboard</button>
-                </div>
-            </div>
-
-            <!-- URBAN DEDICATED SECTION -->
-            <div>
-                <div class="menu-section-title">🏢 Urban Intelligence</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('urbanOverview', this)"><i class="fa-solid fa-city"></i> City Overview</button>
-                    <button class="menu-btn" onclick="switchScreen('commute', this)"><i class="fa-solid fa-route"></i> Commute Planner</button>
-                    <button class="menu-btn" onclick="switchScreen('airQuality', this)"><i class="fa-solid fa-wind"></i> Air Quality (AQI)</button>
-                </div>
-            </div>
-
-            <!-- RURAL / KISAAN DEDICATED SECTION -->
-            <div>
-                <div class="menu-section-title">🚜 Rural & Kisaan</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('agriculture', this)"><i class="fa-solid fa-seedling"></i> Crop & Irrigation</button>
-                    <button class="menu-btn" onclick="switchScreen('soilWeather', this)"><i class="fa-solid fa-earth-americas"></i> Soil & Spray Advisory</button>
-                    <button class="menu-btn" onclick="switchScreen('disaster', this)"><i class="fa-solid fa-shield-halved"></i> Flood & Storm Risk</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="menu-section-title">Weather & Tools</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('currentWeather', this)"><i class="fa-solid fa-cloud"></i> Current Weather</button>
-                    <button class="menu-btn" onclick="switchScreen('hourly', this)"><i class="fa-solid fa-clock"></i> Hourly</button>
-                    <button class="menu-btn" onclick="switchScreen('forecast', this)"><i class="fa-solid fa-calendar-days"></i> Forecast</button>
-                    <button class="menu-btn" onclick="switchScreen('radar', this)"><i class="fa-solid fa-satellite-dish"></i> Rain Radar</button>
-                    <button class="menu-btn" onclick="switchScreen('sunMoon', this)"><i class="fa-solid fa-moon"></i> Sun & Moon</button>
-                    <button class="menu-btn" onclick="switchScreen('settings', this)"><i class="fa-solid fa-gear"></i> Settings</button>
-                </div>
-            </div>
-        </nav>
-
-        <!-- MAIN DYNAMIC CONTENT AREA -->
-        <main class="main-content">
-
-            <!-- Top Utility Bar -->
-            <div class="top-utility-bar">
+        <!-- SCREEN 2: MODE DASHBOARD (Urban vs Kisaan) -->
+        <div class="app-screen" id="screenDashboard">
+            <div class="top-bar">
+                <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenLanguage')"><i class="fa-solid fa-arrow-left"></i> <span id="lblChangeLang">Language</span></button>
                 <div class="access-group">
                     <button class="access-btn" id="btnBlind" onclick="toggleBlindMode()"><i class="fa-solid fa-eye-slash"></i> <span id="lblBlind">Blind</span></button>
                     <button class="access-btn" id="btnDeaf" onclick="toggleDeafMode()"><i class="fa-solid fa-closed-captioning"></i> <span id="lblDeaf">Deaf CC</span></button>
                 </div>
-                <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);" id="activeModeDisplay">
-                    Mode: Urban | Lang: Hindi
-                </div>
             </div>
 
-            <!-- 1. DASHBOARD -->
-            <div id="dashboard" class="screen-view active">
-                <div class="screen-header"><i class="fa-solid fa-house"></i> <span id="txtDashTitle">Dashboard Overview</span></div>
+            <div class="pro-card" style="text-align: left;">
+                <h2 class="pro-title" style="justify-content: flex-start; font-size: 18px;" id="lblDashHeader"><i class="fa-solid fa-sliders" style="color: var(--accent-primary);"></i> Select Operating Domain</h2>
+                <p class="pro-desc" style="margin-bottom: 16px;" id="lblDashSub">Choose your use case to load dedicated AI intelligence insights.</p>
                 
-                <!-- LIVE REAL-TIME DATA STRIP -->
-                <div class="live-strip">
-                    <div class="live-badge"><span>📍 Location</span><strong id="liveLocation">Lucknow, IN</strong></div>
-                    <div class="live-badge"><span>📅 Date</span><strong id="liveDate">01 Sep 2026</strong></div>
-                    <div class="live-badge"><span>🗓️ Day</span><strong id="liveDay">Tuesday</strong></div>
-                    <div class="live-badge"><span>⏰ Time</span><strong id="liveTime">10:43 AM</strong></div>
-                </div>
-
-                <div class="card-box" onclick="speakInfo('Lucknow GPS Live. Temperature 28 degree Celsius. Clear Sky.')" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.15));">
-                    <h3>Lucknow, India (GPS Live)</h3>
-                    <p style="font-size: 26px; font-weight: 800; margin-top: 6px;">28°C <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);" id="txtClearSky">| Clear Sky & Optimal Sunshine</span></p>
-                    <p style="font-size: 11px; color: var(--accent-secondary); margin-top: 4px;" id="txtTapCardMsg">🔊 Tap card to hear live update</p>
-                </div>
-
-                <!-- Quick Tiles -->
-                <div class="quick-dock">
-                    <div class="dock-tile" onclick="handleQuickQuery('rain')" id="tileRain">🌧️ Baarish?</div>
-                    <div class="dock-tile" onclick="handleQuickQuery('sun')" id="tileSun">☀️ Dhoop?</div>
-                    <div class="dock-tile" onclick="handleQuickQuery('clothes')" id="tileClothes">👕 Kapde?</div>
-                </div>
-
-                <!-- Voice Console & Closed Caption -->
-                <div class="voice-console">
-                    <button class="mic-btn" onclick="triggerVoiceConsole()"><i class="fa-solid fa-microphone"></i></button>
-                    <div style="font-size: 11px; font-weight: 700;" id="lblMicTip">Tap mic for natural Pro Voice update</div>
-
-                    <div class="caption-box" id="deafCaptionBox">
-                        <div class="caption-title" id="lblCaptionHeader">Live Visual Closed-Caption</div>
-                        <div class="caption-text" id="captionOutput">System initialized successfully.</div>
+                <div class="domain-grid">
+                    <div class="domain-card" onclick="AppEngine.setDomain('urban')">
+                        <h3><i class="fa-solid fa-city" style="color: var(--accent-primary);"></i> <span id="lblUrbanTitle">Urban Mode</span></h3>
+                        <p id="lblUrbanDesc">Traffic, AQI & Daily Commute updates.</p>
+                    </div>
+                    <div class="domain-card" onclick="AppEngine.setDomain('rural')">
+                        <h3><i class="fa-solid fa-wheat-awn" style="color: var(--accent-success);"></i> <span id="lblRuralTitle">Kisaan Mode</span></h3>
+                        <p id="lblRuralDesc">Crop Irrigation & Spray Advisory insights.</p>
                     </div>
                 </div>
+            </div>
+        </div>
 
-                <div class="grid-3">
-                    <div class="stat-card" onclick="speakInfo('Air quality is 45, which is good.')"><h4>Air Quality</h4><p style="color: var(--accent-success);">45 (Good)</p></div>
-                    <div class="stat-card" onclick="speakInfo('Humidity is 54 percent.')"><h4>Humidity</h4><p>54%</p></div>
-                    <div class="stat-card" onclick="speakInfo('Wind speed is 12 kilometers per hour.')"><h4>Wind Speed</h4><p>12 km/h</p></div>
+        <!-- SCREEN 3: ACTIVE WEATHER & VOICE WORKSPACE -->
+        <div class="app-screen" id="screenWorkspace">
+            <header class="top-bar">
+                <button class="back-nav-btn" onclick="AppEngine.goToScreen('screenDashboard')"><i class="fa-solid fa-arrow-left"></i> <span id="lblBackDash">Modes</span></button>
+                <span style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);" id="lblActiveModeBadge">Active Mode</span>
+            </header>
+
+            <!-- Weather Display Banner -->
+            <section class="weather-banner">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px;">
+                    <div>
+                        <h2 style="font-size: 16px;"><i class="fa-solid fa-location-dot" style="color: var(--accent-secondary);"></i> <span id="lblLocation">Lucknow, India (GPS Live)</span></h2>
+                        <p style="font-size: 12px; color: var(--accent-secondary); font-weight: 700; margin-top: 2px;" id="liveClockDisplay">Loading Live Clock...</p>
+                    </div>
+                    <span style="background: rgba(16,185,129,0.15); border: 1px solid var(--accent-success); color: var(--accent-success); padding: 4px 10px; border-radius: 10px; font-size: 10px; font-weight: 700;" id="lblStatus">Live API Active</span>
+                </div>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
+                    <div>
+                        <div style="font-size: 40px; font-weight: 800;" id="lblTemp">28°C</div>
+                        <div style="font-size: 13px; color: var(--text-muted);" id="lblCondition">Clear Sky & Optimal Sunshine</div>
+                    </div>
+                    <i class="fa-solid fa-cloud-sun" style="font-size: 38px; color: var(--accent-secondary);"></i>
+                </div>
+            </section>
+
+            <!-- Non-Verbal Quick Tiles -->
+            <div class="quick-dock" id="quickDockContainer">
+                <div class="dock-tile" onclick="AppEngine.handleQuery('rain')" id="tileRain">🌧️ Baarish?</div>
+                <div class="dock-tile" onclick="AppEngine.handleQuery('sun')" id="tileSun">☀️ Dhoop?</div>
+                <div class="dock-tile" onclick="AppEngine.handleQuery('clothes')" id="tileClothes">👕 Kapde?</div>
+            </div>
+
+            <!-- Voice & Closed Caption Console -->
+            <div class="voice-console">
+                <button class="mic-btn" onclick="AppEngine.triggerVoice()"><i class="fa-solid fa-microphone"></i></button>
+                <div style="font-size: 12px; font-weight: 700;" id="lblMicTip">Tap mic for natural Pro Voice update</div>
+
+                <div class="caption-box">
+                    <div class="caption-title" id="lblCaptionHeader">Live Visual Closed-Caption</div>
+                    <div class="caption-text" id="captionOutput">Pro Human Voice Engine Loaded. Ready to assist.</div>
                 </div>
             </div>
 
-            <!-- 2. URBAN OVERVIEW SCREEN -->
-            <div id="urbanOverview" class="screen-view">
-                <div class="screen-header"><i class="fa-solid fa-city"></i> Urban City Life Weather</div>
-                <div class="card-box" onclick="speakInfo('Urban traffic and weather conditions are normal. Good day for outdoor commute.')">
-                    <h3>🏢 City Life & Traffic Weather</h3>
-                    <p style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">शहर के रास्तों पर ट्रैफिक और प्रदूषण का स्तर सामान्य है। मेट्रो और आवागमन के लिए मौसम अनुकूल है।</p>
-                </div>
-            </div>
+            <!-- Dynamic Contextual Cards -->
+            <div class="cards-grid" id="cardsContainer"></div>
+        </div>
 
-            <!-- 3. RURAL / AGRICULTURE SCREEN -->
-            <div id="agriculture" class="screen-view">
-                <div class="screen-header"><i class="fa-solid fa-seedling"></i> Rural & Kisaan Advisory</div>
-                <div class="card-box" onclick="speakInfo('Kisaan update: Weather is clear. Recommended to irrigate crops today.')">
-                    <h3>🌾 फसल सिंचाई और किसान सलाह</h3>
-                    <p style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">आज आसमान साफ है। खेतों में हल्की सिंचाई करना फायदेमंद रहेगा। कीटनाशक छिड़काव के लिए हवा की गति सामान्य है।</p>
-                </div>
-            </div>
+    </div>
 
-            <!-- OTHER SCREENS -->
-            <div id="commute" class="screen-view"><div class="screen-header"><i class="fa-solid fa-route"></i> Commute Planner</div><div class="card-box"><p>दफ़्तर या कॉलेज जाते समय रास्ते के मौसम का हाल।</p></div></div>
-            <div id="airQuality" class="screen-view"><div class="screen-header"><i class="fa-solid fa-wind"></i> Air Quality Monitor</div><div class="card-box"><p>PM2.5, PM10 और पॉल्यूशन इंडेक्स।</p></div></div>
-            <div id="soilWeather" class="screen-view"><div class="screen-header"><i class="fa-solid fa-earth-americas"></i> Soil & Spray Advisory</div><div class="card-box"><p>मिट्टी की नमी और खाद डालने का सही समय।</p></div></div>
-            <div id="disaster" class="screen-view"><div class="screen-header"><i class="fa-solid fa-shield-halved"></i> Disaster Risk</div><div class="card-box"><p>बाढ़, सूखा या चक्रवात का जोखिम विश्लेषण।</p></div></div>
-            <div id="currentWeather" class="screen-view"><div class="screen-header"><i class="fa-solid fa-cloud"></i> Current Weather</div><div class="card-box grid-2"><div class="stat-card"><h4>Temperature</h4><p>28°C</p></div><div class="stat-card"><h4>Pressure</h4><p>1013 hPa</p></div></div></div>
-            <div id="hourly" class="screen-view"><div class="screen-header"><i class="fa-solid fa-clock"></i> Hourly Forecast</div><div class="card-box"><p>अगले 24 घंटों का घंटे-दर-घंटे का अपडेट।</p></div></div>
-            <div id="forecast" class="screen-vie
+    <script>
+        const Dictionary = {
+            hi: {
+                code: 'hi-IN',
+                welcomeDesc: 'अपनी भाषा चुनें ताकि हम आपके लिए एकदम सही और नेचुरल आवाज़ में मौसम की जानकारी दे सकें।',
+                changeLang: 'भाषा बदलें',
+                blind: 'ब्लाइंड',
+                deaf: 'डेफ सीसी',
+                dashHeader: 'ऑपरेटिंग मोड चुनें',
+                dashSub: 'अपने उपयोग के अनुसार सही विकल्प चुनें।',
+                urbanTitle: 'शहरी मोड (Urban)',
+                urbanDesc: 'ट्रैफिक, AQI और आवागमन अपडेट।',
+                ruralTitle: 'किसान मोड (Kisaan)',
+                ruralDesc: 'सिंचाई और फसल सुरक्षा सलाह।',
+                backDash: 'मोड्स',
+                micTip: 'प्रो नेचुरल वॉइस में मौसम सुनने के लिए माइक टैप करें',
+                captionHeader: 'लाइव विजुअल क्लोज्ड-कैप्शन',
+                tileRain: '🌧️ बारिश होगी?',
+                tileSun: '☀️ धूप रहेगी?',
+                tileClothes: '👕 कपड़े सुखाएं?',
+                welcomeSpeech: 'स्वागत है, अब अपना मोड चुनें।',
+                urbanCards: [
+                    { title: '🚗 ट्रैफिक अपडेट', desc: 'सड़कें साफ हैं। विजिबिलिटी अच्छी है, सामान्य रूप से कम्यूट करें।' },
+                    { title: '😷 वायु गुणवत्ता (AQI)', desc: 'AQI 45 उत्तम है। सुबह की सैर के लिए हवा बिल्कुल शुद्ध है।' }
+                ],
+                ruralCards: [
+                    { title: '🌱 फसल सिंचाई सलाह', desc: 'मौसम अनुकूल है। खेतों में नमी के अनुसार सिंचाई करें।' },
+                    { title: '🧪 कीटनाशक स्प्रे सलाह', desc: 'हवा की गति सामान्य है। कीटनाशक छिड़काव के लिए समय उत्तम है।' }
+                ],
+                responses: {
+                    rain: 'मौसम विभाग के अनुसार आज आसमान साफ रहेगा, बारिश की कोई संभावना नहीं है।',
+                    sun: 'आज तेज धूप खिली रहेगी और तापमान सामान्य बना रहेगा।',
+                    clothes: 'आज धूप और हवा अच्छी है, कपड़े आसानी से सूख जाएंगे।'
+                }
+            },
+            hinglish: {
+                code: 'hi-IN',
+                welcomeDesc: 'Select your language to get started with Pro Voice Weather Intelligence.',
+                changeLang: 'Language',
+                blind: 'Blind',
+                deaf: 'Deaf CC',
+                dashHeader: 'Select Operating Domain',
+                dashSub: 'Choose your use case to load insights.',
+                urbanTitle: 'Urban Mode',
+                urbanDesc: 'Traffic, AQI & Daily Commute updates.',
+                ruralTitle: 'Kisaan Mode',
+                ruralDesc: 'Crop Irrigation & Spray Advisory insights.',
+                backDash: 'Modes',
+                micTip: 'Tap mic for natural pro voice update',
+                captionHeader: 'Live Visual Closed-Caption',
+                tileRain: '🌧️ Baarish Hogi?',
+                tileSun: '☀️ Dhoop Rahegi?',
+                tileClothes: '👕 Kapde Sukhayein?',
+                welcomeSpeech: 'Welcome! Select your mode.',
+                urbanCards: [
+                    { title: '🚗 Traffic Updates', desc: 'Raste saaf hain. Visibility achhi hai, normal commute karein.' },
+                    { title: '😷 Air Quality (AQI)', desc: 'AQI 45 good hai. Subah ki walk ke liye hawa shuddh hai.' }
+                ],
+                ruralCards: [
+                    { title: '🌱 Fasal Sinchai Advisory', desc: 'Mausam anukool hai. Khet mein zaroorat ke mutabiq sinchai karein.' },
+                    { title: '🧪 Spray Advisory', desc: 'Hawa speed normal hai. Keetnashak spray karne ke liye samay sahi hai.' }
+                ],
+                responses: {
+                    rain: 'Aaj mausam bilkul saaf rahega, baarish ki koi chetawani nahi hai.',
+                    sun: 'Aaj dhoop khili rahegi aur temperature normal rahega.',
+                    clothes: 'Aaj kapde aasani se sukh jayenge, chinta na karein.'
+                }
+            },
+            en: {
+                code: 'en-US',
+                welcomeDesc: 'Select your language for natural and accurate weather updates.',
+                changeLang: 'Language',
+                blind: 'Blind',
+                deaf: 'Deaf CC',
+                dashHeader: 'Select Operating Domain',
+                dashSub: 'Choose your use case to load insights.',
+                urbanTitle: 'Urban Mode',
+                urbanDesc: 'Traffic, AQI & Daily Commute updates.',
+                ruralTitle: 'Kisaan Mode',
+                ruralDesc: 'Crop Irrigation & Spray Advisory insights.',
+                backDash: 'Modes',
+                micTip: 'Tap mic for natural pro voice update',
+                captionHeader: 'Live Visual Closed-Caption',
+                tileRain: '🌧️ Rain Alert?',
+                tileSun: '☀️ Sunny Today?',
+                tileClothes: '👕 Dry Clothes?',
+                welcomeSpeech: 'Welcome! Please select your mode.',
+                urbanCards: [
+                    { title: '🚗 Live Traffic Update', desc: 'Roads are clear. Visibility is good, commute normally.' },
+                    { title: '😷 Air Quality (AQI)', desc: 'AQI is 45 (Good). Perfect weather for outdoor morning walk.' }
+                ],
+                ruralCards: [
+                    { title: '🌱 Crop Irrigation Advisory', desc: 'Weather is favorable. Irrigate crops according to requirement.' },
+                    { title: '🧪 Pesticide Spray Advisory', desc: 'Wind speed is normal. Right conditions for spraying pesticides.' }
+                ],
+                responses: {
+                    rain: 'Weather is clear today with no predicted rainfall.',
+                    sun: 'Sunlight will remain bright today and temperature will stay moderate.',
+                    clothes: 'Clothes will dry easily today under pleasant sunshine.'
+                }
+            },
+            bn: {
+                code: 'bn-IN',
+                welcomeDesc: 'আপনার ভাষা নির্বাচন করুন যাতে আমরা সঠিক আবহাওয়ার তথ্য দিতে পারি।',
+                changeLang: 'ভাষা',
+                blind: 'ব্লাইন্ড',
+                deaf: 'ডেফ সিসি',
+                dashHeader: 'অপারেটিং মোড নির্বাচন করুন',
+                dashSub: 'আপনার প্রয়োজন অনুযায়ী মোড বেছে নিন।',
+                urbanTitle: 'শহর মোড',
+                urbanDesc: 'ট্রাফিক ও যাতায়াত আপডেট।',
+                ruralTitle: 'কৃষক মোড',
+                ruralDesc: 'সেচ ও ফসল পরামর্শ।',
+                backDash: 'মোডসমূহ',
+                micTip: 'প্রাকৃতিক কণ্ঠে আবহাওয়া শুনতে মাইক ট্যাপ করুন',
+                captionHeader: 'লাইভ ভিজ্যুয়াল ক্লোজড-ক্যাপশন',
+                tileRain: '🌧️ বৃষ্টি হবে?',
+                tileSun: '☀️ রোদ থাকবে?',
+                tileClothes: '👕 জামাকাপড় শুকাবেন?',
+                welcomeSpeech: 'স্বাগতম! আপনার মোড নির্বাচন করুন।',
+                urbanCards: [
+                    { title: '🚗 ট্রাফিক আপডেট', desc: 'রাস্তা পরিষ্কার আছে। দৃশ্যমানতা ভালো আছে।' },
+                    { title: '😷 বায়ুর গুণমান (AQI)', desc: 'AQI ৪৫ (ভালো)। সকালের হাঁটার জন্য বাতাস বিশুদ্ধ।' }
+                ],
+                ruralCards: [
+                    { title: '🌱 সেচ পরামর্শ', desc: 'আবহাওয়া অনুকূল রয়েছে। প্রয়োজন অনুযায়ী সেচ দিন।' },
+                    { title: '🧪 কীটনাশক স্প্রে', desc: 'বাতাসের গতি স্বাভাবিক। স্প্রে করার উপযুক্ত সময়।' }
+                ],
+                responses: {
+                    rain: 'আজ আকাশ পরিষ্কার থাকবে, বৃষ্টির কোনো সম্ভাবনা নেই।',
+                    sun: 'আজ রোদ উজ্জ্বল থাকবে এবং তাপমাত্রা স্বাভাবিক থাকবে।',
+                    clothes: 'আজ জামাকাপড় সহজেই শুকিয়ে যাবে।'
+                }
+            },
+            mr: {
+                code: 'mr-IN',
+                welcomeDesc: 'तुमची भाषा निवडा जेणेकरून योग्य हवामान माहिती मिळू शकेल.',
+                changeLang: 'भाषा',
+                blind: 'ब्लाईंड',
+                deaf: 'देख सीसी',
+                dashHeader: 'ऑपरेटिंग मोड निवडा',
+                dashSub: 'तुमच्या गरजेनुसार पर्याय निवडा.',
+                urbanTitle: 'शहरी मोड',
+                urbanDesc: 'रहदारी आणि प्रवास अद्यतन.',
+                ruralTitle: 'शेतकरी मोड',
+                ruralDesc: 'सिंचन व पिकांचा सल्ला.',
+                backDash: 'मोड्स',
+                micTip: 'नैसर्गिक आवाजात हवामान ऐकण्यासाठी मायिक टॅप करा',
+                captionHeader: 'थेट व्हिज्युअल बंद-कॅप्शन',
+                tileRain: '🌧️ पाऊस पडेल?',
+                tileSun: '☀️ ऊन असेल?',
+                tileClothes: '👕 कपडे सुकवा?',
+                welcomeSpeech: 'स्वागत आहे! तुमचा मोड निवडा.',
+                urbanCards: [
+                    { title: '🚗 रहदारी अद्यतन', desc: 'रस्ते मोकळे आहेत. दृश्यमानता चांगली आहे.' },
+                    { title: '😷 हवेची गुणवत्ता (AQI)', desc: 'AQI ४५ (उत्तम) आहे. सकाळी चालण्यासाठी हवा शुद्ध आहे.' }
+                ],
+                ruralCards: [
+                    { title: '🌱 सिंचन सल्ला', desc: 'हवामान अनुकूल आहे. आवश्यकतेनुसार पिकांना सिंचन करा.' },
+                    { title: '🧪 फवारणी सल्ला', desc: 'वाऱ्याचा वेग सामान्य आहे. फवारणीसाठी योग्य वेळ आहे.' }
+                ],
+                responses: {
+                    rain: 'आज हवामान निरभ्र राहील, पावसाची कोणतीही शक्यता नाही.',
+                    sun: 'आज ऊन छान राहील आणि तापमान सामान्य राहील.',
+                    clothes: 'आज कपडे सहज वाळतील, काळजी करू नका.'
+                }
+            },
+            ta: {
+                code: 'ta-IN',
+                welcomeDesc: 'சரியான வானிலை தகவல்களைப் பெற உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்.',
+                changeLang: 'மொழி',
+                blind: 'பார்வையற்றோர்',
+                deaf: 'செவித்திறன்',
+                dashHeader: 'முறையைத் தேர்ந்தெடுக்கவும்',
+                dashSub: 'உங்கள் தேவையைத் தேர்ந்தெடுக்கவும்.',
+                urbanTitle: 'நகர்ப்புற முறை',
+                urbanDesc: 'போக்குவரத்து மற்றும் பயணம்.',
+                ruralTitle: 'விவசாயி முறை',
+                ruralDesc: 'பாசன ஆலோசனை.',
+                backDash: 'முறைகள்',
+                micTip: 'வானிலை கேட்க மைக்கைத் தட்டவும்',
+                captionHeader: 'நேரலை வசனம்',
+                tileRain: '🌧️ மழை வருமா?',
+                tileSun: '☀️ வெயில் அடிக்குமா?',
+                tileClothes: '👕 துணி காயலாமா?',
+                welcomeSpeech: 'நல்வரவு! உங்கள் முறையைத் தேர்ந்தெடுக்கவும்.',
+                urbanCards: [
+                    { title: '🚗 போக்குவரத்து புதுப்பிப்பு', desc: 'சாலைகள் தெளிவாக உள்ளன.' },
+                    { title: '😷 காற்று தரம் (AQI)', desc: 'AQI 45 (நன்று).' }
+                ],
+                ruralCards: [
+                    { title: '🌱 பாசன ஆலோசனை', desc: 'வானிலை சாதகமாக உள்ளது.' },
+                    { title: '🧪 பூச்சிக்கொல்லி ஆலோசனை', desc: 'காற்று வேகம் இயல்பாக உள்ளது.' }
+                ],
+                responses: {
+                    rain: 'இன்று மழைக்கு வாய்ப்பில்லை, வானம் தெளிவாக இருக்கும்.',
+                    sun: 'இன்று வெயில் நன்றாக இருக்கும்.',
+                    clothes: 'இன்று துணிகள் எளிதில் உலர்ந்துவிடும்.'
+                }
+            }
+        };
+
+        let currentLang = 'hi';
+        let currentDomain = 'urban';
+
+        const AppEngine = {
+            goToScreen: function(screenId) {
+                document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+                document.getElementById(screenId).classList.add('active');
+            },
+            selectLanguage: function(lang) {
+                currentLang = lang;
+                this.updateTexts();
+                this.goToScreen('screenDashboard');
+                this.speak(Dictionary[currentLang].welcomeSpeech);
+            },
+            setDomain: function(domain) {
+                currentDomain = domain;
+                this.updateWorkspace();
+                this.goToScreen('screenWorkspace');
+            },
+            updateTexts: function() {
+                const d = Dictionary[currentLang];
+                document.getElementById('lblWelcomeDesc').innerText = d.welcomeDesc;
+                document.getElementById('lblChangeLang').innerText = d.changeLang;
+                document.getElementById('lblBlind').innerText = d.blind;
+                document.getElementById('lblDeaf').innerText = d.deaf;
+                document.getElementById('lblDashHeader').innerHTML = `<i class="fa-solid fa-sliders" style="color: var(--accent-primary);"></i> ${d.dashHeader}`;
+                document.getElementById('lblDashSub').innerText = d.dashSub;
+                document.getElementById('lblUrbanTitle').innerText = d.urbanTitle;
+                document.getElementById('lblUrbanDesc').innerText = d.urbanDesc;
+                document.getElementById('lblRuralTitle').innerText = d.ruralTitle;
+                document.getElementById('lblRuralDesc').innerText = d.ruralDesc;
+                document.getElementById('lblBackDash').innerText = d.backDash;
+                document.getElementById('lblMicTip').innerText = d.micTip;
+                document.getElementById('lblCaptionHeader').innerText = d.captionHeader;
+                document.getElementById('tileRain').innerText = d.tileRain;
+                document.getElementById('tileSun').innerText = d.tileSun;
+                document.getElementById('tileClothes').innerText = d.tileClothes;
+            },
+            updateWorkspace: function() {
+                this.updateTexts();
+                const d = Dictionary[currentLang];
+                document.getElementById('lblActiveModeBadge').innerText = currentDomain === 'urban' ? d.urbanTitle : d.ruralTitle;
+
+                let cardsHtml = '';
+                let cardsList = currentDomain === 'urban' ? d.urbanCards : d.ruralCards;
+                cardsList.forEach(c => {
+                    cardsHtml += `<div class="info-box" onclick="AppEngine.speak('${c.desc}')">
+                        <div style="font-size: 13px; font-weight: 800; margin-bottom: 4px;">${c.title}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">${c.desc}</div>
+                    </div>`;
+                });
+                document.getElementById('cardsContainer').innerHTML = cardsHtml;
+            },
+            handleQuery: function(type) {
+                const text = Dictionary[currentLang].responses[type];
+                document.getElementById('captionOutput').innerText = text;
+                this.speak(text);
+            },
+            triggerVoice: function() {
+                const text = currentDomain === 'urban' ? Dictionary[currentLang].urbanCards[0].desc : Dictionary[currentLang].ruralCards[0].desc;
+                document.getElementById('captionOutput').innerText = text;
+                this.speak(text);
+            },
+            speak: function(text) {
+                if ('speechSynthesis' in window) {
+                    window.speechSynthesis.cancel();
+                    let utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = Dictionary[currentLang].code;
+                    window.speechSynthesis.speak(utterance);
+                }
+            }
+        };
+
+        function toggleBlindMode() {
+            document.body.classList.toggle('theme-blind');
+            document.getElementById('btnBlind').classList.toggle('active');
+        }
+        function toggleDeafMode() { document.getElementById('btnDeaf').classList.toggle('active'); }
+
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('liveClockDisplay').innerText = now.toLocaleString();
+        }, 1000);
+    </script>
+</body>
+</html>
