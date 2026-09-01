@@ -6,124 +6,170 @@
     <title>Mausam AI Pro - SIH 2026</title>
     <style>
         :root {
-            --bg-color: #f0f4f8;
-            --text-color: #1f2937;
-            --card-bg: #ffffff;
-            --primary-color: #2563eb;
-            --accent-color: #38bdf8;
+            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-glow: #38bdf8;
+            --btn-bg: linear-gradient(135deg, #3b82f6, #2563eb);
         }
 
-        /* Accessibility Modes */
+        /* High Contrast Blind Mode */
         body.blind-mode {
-            --bg-color: #000000;
-            --text-color: #ffff00;
+            --bg-gradient: #000000;
             --card-bg: #111111;
-            --primary-color: #ffff00;
-            --accent-color: #ff0;
+            --border-color: #ffff00;
+            --text-primary: #ffff00;
+            --text-secondary: #ffffff;
+            --accent-glow: #ffff00;
+            --btn-bg: #222;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            transition: all 0.3s ease;
+            overflow-x: hidden;
         }
 
         .app-container {
             width: 100%;
             max-width: 420px;
             background: var(--card-bg);
-            border-radius: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
             overflow: hidden;
             position: relative;
-            min-height: 650px;
+            min-height: 680px;
             display: flex;
             flex-direction: column;
         }
 
         .screen {
             display: none;
-            padding: 24px;
+            padding: 28px;
             flex-direction: column;
             height: 100%;
             box-sizing: border-box;
-            animation: fadeIn 0.4s ease-in-out;
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .screen.active {
             display: flex;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 { font-size: 1.5rem; margin-bottom: 8px; }
-        p { font-size: 0.95rem; opacity: 0.85; margin-bottom: 20px; }
+        h2 { font-size: 1.6rem; margin-bottom: 6px; font-weight: 700; }
+        p { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5; }
 
         .btn-grid {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             margin-top: 10px;
         }
 
         button {
-            padding: 14px 20px;
-            border: none;
-            border-radius: 14px;
+            padding: 16px 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            background: var(--primary-color);
+            background: var(--btn-bg);
             color: white;
-            transition: transform 0.2s, opacity 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
         }
 
         button:active { transform: scale(0.98); }
-        button.secondary { background: #e2e8f0; color: #1e293b; }
-        body.blind-mode button.secondary { background: #333; color: #ff0; border: 1px solid #ff0; }
+        
+        button.secondary-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            box-shadow: none;
+        }
 
-        /* Floating Accessibility Controls & Deaf Subtitles */
-        .accessibility-bar {
+        /* Top Accessibility & AI Orb Bar */
+        .top-bar {
             display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
-        .accessibility-bar button {
-            padding: 8px 12px;
-            font-size: 0.8rem;
+        .ai-orb-mini {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px var(--accent-glow);
+            cursor: pointer;
+            animation: pulseOrb 2s infinite;
+        }
+
+        @keyframes pulseOrb {
+            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(56, 189, 248, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        }
+
+        .accessibility-controls {
+            display: flex;
+            gap: 6px;
+        }
+
+        .accessibility-controls button {
+            padding: 6px 10px;
+            font-size: 0.75rem;
             border-radius: 8px;
+            box-shadow: none;
         }
 
-        #deaf-subtitle-box {
-            background: #1e293b;
-            color: #38bdf8;
+        /* Deaf Live Subtitle Box */
+        #deaf-box {
+            background: rgba(15, 23, 42, 0.9);
+            border-left: 4px solid var(--accent-glow);
             padding: 12px;
             border-radius: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--accent-glow);
             margin-bottom: 15px;
             display: none;
-            border-left: 4px solid var(--accent-color);
         }
 
-        .weather-card {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 20px;
+        .weather-display-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 20px;
             text-align: center;
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -131,154 +177,165 @@
 
 <div class="app-container">
 
-    <!-- SCREEN 1: Language Selection (Separate Modular Pop) -->
+    <!-- SCREEN 1: Language Selection (Step 1) -->
     <div id="screen-lang" class="screen active">
-        <h2>Select Language</h2>
-        <p>अपनी भाषा चुनें / Choose your preferred language</p>
+        <h2>Language / भाषा</h2>
+        <p>Select your preferred regional language to proceed with Mausam AI.</p>
         <div class="btn-grid">
-            <button onclick="setLanguage('en', 'English')">English</button>
-            <button onclick="setLanguage('hi', 'हिंदी')">हिंदी (Hindi)</button>
-            <button onclick="setLanguage('bn', 'বাংলা')">বাংলা (Bengali)</button>
-            <button onclick="setLanguage('mr', 'मराठी')">मराठी (Marathi)</button>
-            <button onclick="setLanguage('ta', 'தமிழ்')">தமிழ் (Tamil)</button>
+            <button onclick="setLanguage('en', 'English')"><span>English</span> <span>🌐</span></button>
+            <button onclick="setLanguage('hi', 'हिंदी')"><span>हिंदी (Hindi)</span> <span>🌐</span></button>
+            <button onclick="setLanguage('bn', 'বাংলা')"><span>বাংলা (Bengali)</span> <span>🌐</span></button>
+            <button onclick="setLanguage('mr', 'मराठी')"><span>मराठी (Marathi)</span> <span>🌐</span></button>
+            <button onclick="setLanguage('ta', 'தமிழ்')"><span>தமிழ் (Tamil)</span> <span>🌐</span></button>
         </div>
     </div>
 
-    <!-- SCREEN 2: Voice Greeting & Intro -->
-    <div id="screen-voice" class="screen">
-        <h2>Mausam AI Assistant</h2>
-        <p id="greeting-text">Initializing voice engine & localized weather data...</p>
-        <div style="text-align: center; margin: 40px 0;">
-            <div style="font-size: 4rem;">🎙️</div>
-            <p style="font-style: italic; margin-top: 10px;">"Namaste! Fetching your live meteorological updates..."</p>
-        </div>
-        <button onclick="goToScreen('screen-mode')">Proceed to Dashboard</button>
+    <!-- SCREEN 2: AI Voice Greeting & Setup (Step 2) -->
+    <div id="screen-voice" class="screen" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="ai-orb-mini" style="width: 80px; height: 80px; font-size: 2rem; margin-bottom: 20px;" onclick="speakGreeting()">🎙️</div>
+        <h2>AI Voice Assistant</h2>
+        <p id="voice-status-text">Tap the orb to listen to live initialization or wait...</p>
+        <button onclick="goToScreen('screen-mode')" style="width: 100%; margin-top: 30px; justify-content: center;">Continue to Dashboard</button>
     </div>
 
-    <!-- SCREEN 3: Mode Selection (Urban vs Rural Separation) -->
+    <!-- SCREEN 3: Mode Selection - Urban vs Rural (Step 3) -->
     <div id="screen-mode" class="screen">
-        <h2>Choose Your Profile</h2>
-        <p>Select your primary usage mode for customized recommendations.</p>
-        <div class="btn-grid" style="margin-top: 40px;">
-            <button onclick="selectMode('urban')">🏙️ Urban Mode (Commute & AQI)</button>
-            <button onclick="selectMode('rural')" class="secondary">🌾 Rural Mode (Kisaan & Crop Irrigation)</button>
+        <h2>Select Profile</h2>
+        <p>Choose your tailored operational environment.</p>
+        <div class="btn-grid" style="margin-top: 30px;">
+            <button onclick="selectMode('urban')">
+                <div>
+                    <strong>🏙️ Urban Mode</strong><br>
+                    <span style="font-size: 0.8rem; opacity: 0.7;">Commute, Traffic & AQI Tracker</span>
+                </div>
+                <span>➔</span>
+            </button>
+            <button onclick="selectMode('rural')" class="secondary-btn">
+                <div>
+                    <strong>🌾 Rural Mode (Kisaan)</strong><br>
+                    <span style="font-size: 0.8rem; opacity: 0.7;">Crop Irrigation & Soil Advisory</span>
+                </div>
+                <span>➔</span>
+            </button>
         </div>
     </div>
 
-    <!-- SCREEN 4: Dynamic Dashboard (Urban / Rural + Blind/Deaf Support) -->
+    <!-- SCREEN 4: Main Interactive Dashboard (Step 4) -->
     <div id="screen-dashboard" class="screen">
-        <!-- Universal Accessibility Control Bar -->
-        <div class="accessibility-bar">
-            <button onclick="toggleBlindMode()">👁️ Blind Mode</button>
-            <button onclick="toggleDeafMode()">🧏 Deaf Subtitles</button>
-            <button onclick="triggerVoiceReader()" class="secondary">🔊 Read Aloud</button>
+        <!-- Top Utility Bar -->
+        <div class="top-bar">
+            <div class="ai-orb-mini" onclick="triggerVoiceReader()" title="Tap to Speak">🔊</div>
+            <div class="accessibility-controls">
+                <button onclick="toggleBlindMode()" class="secondary-btn">👁️ Blind</button>
+                <button onclick="toggleDeafMode()" class="secondary-btn">🧏 Deaf</button>
+            </div>
         </div>
 
-        <!-- Live Closed Captions for Deaf Users -->
-        <div id="deaf-subtitle-box">Subtitles: Live meteorological alert system active. Weather conditions are optimal.</div>
+        <!-- Deaf Subtitle Box -->
+        <div id="deaf-box">Subtitles: Live meteorological update active. System operating smoothly.</div>
 
-        <h2 id="dashboard-title">Dashboard</h2>
+        <h2 id="dash-heading">Dashboard</h2>
         
-        <div class="weather-card">
-            <h1 id="temp-display" style="margin: 0; font-size: 2.5rem;">32°C</h1>
-            <p id="condition-display" style="margin: 5px 0 0 0;">Partly Cloudy | AQI: 112 (Moderate)</p>
+        <div class="weather-display-card">
+            <h1 id="dash-temp" style="margin: 0; font-size: 2.8rem; font-weight: 800; color: var(--accent-glow);">32°C</h1>
+            <p id="dash-condition" style="margin: 8px 0 0 0; font-size: 1rem;">Partly Cloudy | AQI: 112</p>
         </div>
 
-        <div id="dynamic-content-area">
-            <!-- Dynamic content injected via JS based on Urban/Rural -->
+        <div id="dash-dynamic-content" style="flex-grow: 1;">
+            <!-- Injected dynamic content based on mode -->
         </div>
 
-        <button class="secondary" onclick="goToScreen('screen-mode')" style="margin-top: auto;">Switch Mode</button>
+        <button class="secondary-btn" onclick="goToScreen('screen-mode')" style="margin-top: auto; justify-content: center;">Switch Urban/Rural Mode</button>
     </div>
 
 </div>
 
 <script>
-    let currentLang = 'en';
+    let selectedLang = 'en';
     let currentMode = 'urban';
     let synth = window.speechSynthesis;
 
-    function goToScreen(screenId) {
+    function goToScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(screenId).classList.add('active');
+        document.getElementById(id).classList.add('active');
     }
 
-    function setLanguage(langCode, langName) {
-        currentLang = langCode;
-        speakText(`Language selected: ${langName}. Welcome to Mausam AI Pro.`);
+    function setLanguage(code, name) {
+        selectedLang = code;
+        speakText(`Language set to ${name}. Welcome to Mausam AI Pro.`);
         goToScreen('screen-voice');
         setTimeout(() => {
             goToScreen('screen-mode');
-        }, 3000);
+        }, 3500);
+    }
+
+    function speakGreeting() {
+        speakText("Namaste! Initializing IMD weather nodes and neural voice engine.");
     }
 
     function selectMode(mode) {
         currentMode = mode;
-        const area = document.getElementById('dynamic-content-area');
-        const title = document.getElementById('dashboard-title');
-        
+        const heading = document.getElementById('dash-heading');
+        const content = document.getElementById('dash-dynamic-content');
+
         if(mode === 'urban') {
-            title.innerText = "Urban Commute & AQI Hub";
-            area.innerHTML = `
-                <p><strong>🚦 Traffic & Weather Advisory:</strong> Light rain expected by 6 PM. Carry an umbrella.</p>
-                <p><strong>💨 Air Quality Index:</strong> 112 (Moderate). Sensitive groups should limit outdoor exertion.</p>
+            heading.innerText = "Urban Commute Hub";
+            content.innerHTML = `
+                <p><strong>🚦 Traffic & Transit:</strong> Light congestion expected due to evening showers.</p>
+                <p><strong>💨 Air Quality:</strong> Moderate (AQI 112). Safe for standard outdoor activity.</p>
             `;
-            speakText("Urban mode activated. Current temperature is 32 degrees Celsius with moderate air quality.");
+            speakText("Urban mode active. Temperature is 32 degrees with moderate air quality.");
         } else {
-            title.innerText = "Rural & Agricultural Hub (Kisaan)";
-            area.innerHTML = `
-                <p><strong>💧 Irrigation Advisory:</strong> Soil moisture is adequate. Skip watering today.</p>
-                <p><strong>🌱 Crop Protection:</strong> Clear skies expected for the next 48 hours. Safe for harvesting.</p>
+            heading.innerText = "Kisaan Agricultural Hub";
+            content.innerHTML = `
+                <p><strong>💧 Irrigation Alert:</strong> Optimum soil moisture detected. No watering needed today.</p>
+                <p><strong>🌱 Crop Advisory:</strong> Safe weather window for fertilizer application over next 48 hours.</p>
             `;
-            speakText("Rural mode activated. Soil moisture is adequate, no irrigation required today.");
+            speakText("Rural mode active. Soil moisture is optimal, irrigation not required.");
         }
-        
-        updateSubtitles();
+
+        updateDeafSubtitles();
         goToScreen('screen-dashboard');
     }
 
-    // Advanced Voice Synthesis Engine with prosody checks
     function speakText(text) {
-        if (!synth) return;
-        synth.cancel(); // Stop previous utterance
-        let utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 0.95; // Natural flowing speed
-        utterance.pitch = 1.0;
-        synth.speak(utterance);
+        if(!synth) return;
+        synth.cancel();
+        let utter = new SpeechSynthesisUtterance(text);
+        utter.rate = 0.95;
+        synth.speak(utter);
     }
 
     function triggerVoiceReader() {
         if(currentMode === 'urban') {
-            speakText("Urban advisory: Light rain expected by 6 PM. Air quality index is 112.");
+            speakText("Urban update: Temperature 32 degrees Celsius, AQI 112, light rain expected by evening.");
         } else {
-            speakText("Kisaan advisory: Soil moisture is adequate. Safe for harvesting.");
+            speakText("Kisaan update: Soil moisture is adequate, clear skies for the next 48 hours.");
         }
     }
 
-    // Blind Mode Toggle (High Contrast & Large Font support)
     function toggleBlindMode() {
         document.body.classList.toggle('blind-mode');
-        const active = document.body.classList.contains('blind-mode');
-        speakText(active ? "Blind accessibility mode enabled. High contrast activated." : "Blind accessibility mode disabled.");
+        let active = document.body.classList.contains('blind-mode');
+        speakText(active ? "High contrast blind assistance mode enabled." : "Blind assistance mode disabled.");
     }
 
-    // Deaf Mode Toggle (Live Visual Subtitles)
     function toggleDeafMode() {
-        const box = document.getElementById('deaf-subtitle-box');
+        let box = document.getElementById('deaf-box');
         if(box.style.display === 'block') {
             box.style.display = 'none';
         } else {
             box.style.display = 'block';
-            updateSubtitles();
+            updateDeafSubtitles();
         }
     }
 
-    function updateSubtitles() {
-        const box = document.getElementById('deaf-subtitle-box');
+    function updateDeafSubtitles() {
+        let box = document.getElementById('deaf-box');
         if(currentMode === 'urban') {
-            box.innerText = "Subtitles: Urban mode active. Temperature 32°C. AQI 112 (Moderate). Rain expected by evening.";
+            box.innerText = "Subtitles: Urban Mode. Temp 32°C. AQI 112 (Moderate). Evening rain alert active.";
         } else {
-            box.innerText = "Subtitles: Rural mode active. Soil moisture adequate. No heavy rain alert for crops.";
+            box.innerText = "Subtitles: Rural Mode. Soil moisture optimal. Safe weather window for crops.";
         }
     }
 </script>
