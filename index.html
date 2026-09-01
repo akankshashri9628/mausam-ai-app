@@ -2,8 +2,8 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mausam AI Pro - Voice & Slide Intelligence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mausam AI Pro - Urban & Rural Intelligence</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,7 +12,7 @@
         :root {
             --bg-base: #060918;
             --bg-surface: #101736;
-            --border-color: rgba(255, 255, 255, 0.1);
+            --border-color: rgba(255, 255, 255, 0.12);
             --accent-primary: #3b82f6;
             --accent-secondary: #06b6d4;
             --accent-success: #10b981;
@@ -32,33 +32,34 @@
             --text-muted: #ffffff;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 6px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-base); color: var(--text-main); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 4px; }
 
-        /* LANGUAGE POPUP MODAL (First Step) */
+        /* MODAL OVERLAYS (Slide-wise Popups) */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 6, 15, 0.95); z-index: 9999;
-            display: flex; justify-content: center; align-items: center; padding: 20px;
+            background: rgba(4, 6, 15, 0.96); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; padding: 16px;
         }
-        .lang-modal-box {
+        .modal-box {
             background: var(--bg-surface); border: 2px solid var(--accent-secondary);
-            padding: 25px; border-radius: 20px; width: 100%; max-width: 400px; text-align: center;
+            padding: 24px; border-radius: 22px; width: 100%; max-width: 400px; text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.8);
         }
-        .lang-modal-box h2 { font-size: 20px; margin-bottom: 8px; color: var(--text-main); }
-        .lang-modal-box p { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
-        .lang-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .lang-opt-btn {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 12px; border-radius: 12px; font-weight: 700;
-            font-size: 14px; cursor: pointer; transition: 0.2s;
+        .modal-box h2 { font-size: 20px; margin-bottom: 8px; color: var(--text-main); }
+        .modal-box p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.4; }
+        
+        .modal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .modal-btn {
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 14px; border-radius: 14px; font-weight: 700;
+            font-size: 14px; cursor: pointer; transition: 0.2s; user-select: none;
         }
-        .lang-opt-btn:hover { background: var(--accent-primary); border-color: var(--accent-secondary); }
+        .modal-btn:active, .modal-btn:hover { background: var(--accent-primary); border-color: var(--accent-secondary); }
 
         /* App Container */
         .app-container {
-            width: 100%; max-width: 1200px; height: 95vh;
+            width: 100%; max-width: 1200px; height: 96vh;
             background: var(--bg-surface); border: 1px solid var(--border-color);
             border-radius: var(--radius-box); display: grid; grid-template-columns: 260px 1fr;
             overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
@@ -66,7 +67,7 @@
 
         /* Sidebar */
         .sidebar {
-            background: rgba(6, 9, 24, 0.9); border-right: 1px solid var(--border-color);
+            background: rgba(6, 9, 24, 0.95); border-right: 1px solid var(--border-color);
             display: flex; flex-direction: column; overflow-y: auto; padding: 16px; gap: 14px;
         }
         .brand-title {
@@ -75,13 +76,13 @@
             border-bottom: 1px solid var(--border-color);
         }
         .menu-section-title { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 4px; font-weight: 700; }
-        .menu-items { display: flex; flex-direction: column; gap: 3px; }
+        .menu-items { display: flex; flex-direction: column; gap: 4px; }
         .menu-btn {
-            background: transparent; border: none; color: var(--text-muted); padding: 9px 12px;
+            background: transparent; border: none; color: var(--text-muted); padding: 10px 12px;
             border-radius: 10px; font-size: 12px; font-weight: 600; text-align: left; cursor: pointer;
-            display: flex; align-items: center; gap: 10px; transition: all 0.2s;
+            display: flex; align-items: center; gap: 10px; transition: all 0.2s; user-select: none;
         }
-        .menu-btn:hover, .menu-btn.active {
+        .menu-btn:active, .menu-btn:hover, .menu-btn.active {
             background: rgba(59, 130, 246, 0.15); color: var(--accent-secondary); border-left: 3px solid var(--accent-secondary);
         }
 
@@ -99,7 +100,7 @@
         .access-group { display: flex; gap: 6px; }
         .access-btn {
             background: rgba(255,255,255,0.06); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 5px 10px; border-radius: 16px; font-size: 11px; font-weight: 700; cursor: pointer;
+            color: var(--text-main); padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: 700; cursor: pointer;
         }
         .access-btn.active { background: var(--accent-primary); border-color: var(--accent-secondary); }
 
@@ -110,12 +111,12 @@
 
         .card-box {
             background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
-            border-radius: var(--radius-box); padding: 18px;
+            border-radius: var(--radius-box); padding: 18px; cursor: pointer;
         }
 
         /* Live Widget Strip */
         .live-strip {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 5px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
         }
         .live-badge {
             background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
@@ -131,7 +132,7 @@
             background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color);
             padding: 14px; border-radius: 12px; text-align: center; cursor: pointer;
         }
-        .stat-card:hover { border-color: var(--accent-secondary); }
+        .stat-card:active, .stat-card:hover { border-color: var(--accent-secondary); background: rgba(6,182,212,0.05); }
         .stat-card h4 { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
         .stat-card p { font-size: 18px; font-weight: 800; color: var(--accent-secondary); }
 
@@ -145,9 +146,9 @@
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             border: none; color: #fff; font-size: 20px; cursor: pointer; margin: 0 auto;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); transition: transform 0.2s;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
         }
-        .mic-btn:active { transform: scale(0.92); }
+        .mic-btn:active { transform: scale(0.9); }
 
         .caption-box { background: #000; border: 2px solid var(--accent-success); border-radius: 10px; padding: 10px; text-align: left; }
         .caption-title { font-size: 9px; font-weight: 800; color: var(--accent-success); text-transform: uppercase; margin-bottom: 2px; }
@@ -156,9 +157,9 @@
         .quick-dock { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
         .dock-tile {
             background: rgba(255,255,255,0.04); border: 1px solid var(--border-color);
-            padding: 10px; border-radius: 12px; text-align: center; font-size: 11px; font-weight: 700; cursor: pointer;
+            padding: 10px; border-radius: 12px; text-align: center; font-size: 11px; font-weight: 700; cursor: pointer; user-select: none;
         }
-        .dock-tile:hover { border-color: var(--accent-secondary); background: rgba(6, 182, 212, 0.1); }
+        .dock-tile:active { background: rgba(6, 182, 212, 0.2); }
 
         @media(max-width: 850px) {
             .app-container { grid-template-columns: 1fr; height: 100vh; border-radius: 0; }
@@ -169,17 +170,29 @@
 </head>
 <body>
 
-    <!-- STEP 1: LANGUAGE SELECTION POPUP MODAL -->
+    <!-- STEP 1: LANGUAGE SELECTION POPUP -->
     <div id="langModal" class="modal-overlay">
-        <div class="lang-modal-box">
-            <h2>🌍 Select Your Language</h2>
-            <p>अपनी भाषा चुनें ताकि एआई असिस्टेंट आपको स्वागत संदेश दे सके</p>
-            <div class="lang-grid">
-                <button class="lang-opt-btn" onclick="selectLanguage('hi')">🇮🇳 हिंदी</button>
-                <button class="lang-opt-btn" onclick="selectLanguage('en')">🌐 English</button>
-                <button class="lang-opt-btn" onclick="selectLanguage('bn')">🇮🇳 বাংলা</button>
-                <button class="lang-opt-btn" onclick="selectLanguage('mr')">🇮🇳 मराठी</button>
-                <button class="lang-opt-btn" onclick="selectLanguage('ta')" style="grid-column: span 2;">🇮🇳 தமிழ்</button>
+        <div class="modal-box">
+            <h2>🌍 Select Language</h2>
+            <p>अपनी भाषा चुनें ताकि एआई असिस्टेंट स्वागत कर सके</p>
+            <div class="modal-grid">
+                <button class="modal-btn" onclick="chooseLanguage('hi')">🇮🇳 हिंदी</button>
+                <button class="modal-btn" onclick="chooseLanguage('en')">🌐 English</button>
+                <button class="modal-btn" onclick="chooseLanguage('bn')">🇮🇳 বাংলা</button>
+                <button class="modal-btn" onclick="chooseLanguage('mr')">🇮🇳 मराठी</button>
+                <button class="modal-btn" onclick="chooseLanguage('ta')" style="grid-column: span 2;">🇮🇳 தமிழ்</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 2: URBAN VS RURAL SELECTION POPUP -->
+    <div id="modeModal" class="modal-overlay" style="display: none;">
+        <div class="modal-box" style="border-color: var(--accent-success);">
+            <h2>🌾 Mode Selection</h2>
+            <p>आप किस प्रकार की मौसम जानकारी देखना चाहते हैं?</p>
+            <div class="modal-grid" style="grid-template-columns: 1fr; gap: 12px;">
+                <button class="modal-btn" style="background: rgba(59,130,246,0.2);" onclick="chooseMode('urban')">🏢 Urban Mode (शहर, कम्यूट, एयर क्वालिटी)</button>
+                <button class="modal-btn" style="background: rgba(16,185,129,0.2);" onclick="chooseMode('rural')">🚜 Rural / Kisaan Mode (फसल सिंचाई, खाद, बारिश)</button>
             </div>
         </div>
     </div>
@@ -198,56 +211,34 @@
                 </div>
             </div>
 
+            <!-- URBAN DEDICATED SECTION -->
             <div>
-                <div class="menu-section-title">Weather</div>
+                <div class="menu-section-title">🏢 Urban Intelligence</div>
+                <div class="menu-items">
+                    <button class="menu-btn" onclick="switchScreen('urbanOverview', this)"><i class="fa-solid fa-city"></i> City Overview</button>
+                    <button class="menu-btn" onclick="switchScreen('commute', this)"><i class="fa-solid fa-route"></i> Commute Planner</button>
+                    <button class="menu-btn" onclick="switchScreen('airQuality', this)"><i class="fa-solid fa-wind"></i> Air Quality (AQI)</button>
+                </div>
+            </div>
+
+            <!-- RURAL / KISAAN DEDICATED SECTION -->
+            <div>
+                <div class="menu-section-title">🚜 Rural & Kisaan</div>
+                <div class="menu-items">
+                    <button class="menu-btn" onclick="switchScreen('agriculture', this)"><i class="fa-solid fa-seedling"></i> Crop & Irrigation</button>
+                    <button class="menu-btn" onclick="switchScreen('soilWeather', this)"><i class="fa-solid fa-earth-americas"></i> Soil & Spray Advisory</button>
+                    <button class="menu-btn" onclick="switchScreen('disaster', this)"><i class="fa-solid fa-shield-halved"></i> Flood & Storm Risk</button>
+                </div>
+            </div>
+
+            <div>
+                <div class="menu-section-title">Weather & Tools</div>
                 <div class="menu-items">
                     <button class="menu-btn" onclick="switchScreen('currentWeather', this)"><i class="fa-solid fa-cloud"></i> Current Weather</button>
                     <button class="menu-btn" onclick="switchScreen('hourly', this)"><i class="fa-solid fa-clock"></i> Hourly</button>
                     <button class="menu-btn" onclick="switchScreen('forecast', this)"><i class="fa-solid fa-calendar-days"></i> Forecast</button>
                     <button class="menu-btn" onclick="switchScreen('radar', this)"><i class="fa-solid fa-satellite-dish"></i> Rain Radar</button>
-                    <button class="menu-btn" onclick="switchScreen('map', this)"><i class="fa-solid fa-map-location-dot"></i> Weather Map</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="menu-section-title">Intelligence</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('insights', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Insights</button>
-                    <button class="menu-btn" onclick="switchScreen('predictions', this)"><i class="fa-solid fa-chart-line"></i> Predictions</button>
-                    <button class="menu-btn" onclick="switchScreen('analytics', this)"><i class="fa-solid fa-chart-pie"></i> Analytics</button>
-                    <button class="menu-btn" onclick="switchScreen('alerts', this)"><i class="fa-solid fa-triangle-exclamation"></i> Alerts</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="menu-section-title">Environment</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('airQuality', this)"><i class="fa-solid fa-wind"></i> Air Quality</button>
-                    <button class="menu-btn" onclick="switchScreen('satellite', this)"><i class="fa-solid fa-globe"></i> Satellite</button>
-                    <button class="menu-btn" onclick="switchScreen('disaster', this)"><i class="fa-solid fa-shield-halved"></i> Disaster Risk</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="menu-section-title">Planning & Agri</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('travel', this)"><i class="fa-solid fa-plane"></i> Travel</button>
-                    <button class="menu-btn" onclick="switchScreen('commute', this)"><i class="fa-solid fa-route"></i> Commute</button>
-                    <button class="menu-btn" onclick="switchScreen('activities', this)"><i class="fa-solid fa-bolt"></i> Activities</button>
-                    <button class="menu-btn" onclick="switchScreen('agriculture', this)"><i class="fa-solid fa-seedling"></i> Agriculture</button>
-                </div>
-            </div>
-
-            <div>
-                <div class="menu-section-title">More</div>
-                <div class="menu-items">
-                    <button class="menu-btn" onclick="switchScreen('history', this)"><i class="fa-solid fa-clock-rotate-left"></i> History</button>
                     <button class="menu-btn" onclick="switchScreen('sunMoon', this)"><i class="fa-solid fa-moon"></i> Sun & Moon</button>
-                    <button class="menu-btn" onclick="switchScreen('worldWeather', this)"><i class="fa-solid fa-earth-americas"></i> World Weather</button>
-                    <button class="menu-btn" onclick="switchScreen('compare', this)"><i class="fa-solid fa-right-left"></i> Compare Cities</button>
-                    <button class="menu-btn" onclick="switchScreen('favorites', this)"><i class="fa-solid fa-heart"></i> Favorites</button>
-                    <button class="menu-btn" onclick="switchScreen('notifications', this)"><i class="fa-solid fa-bell"></i> Notifications</button>
-                    <button class="menu-btn" onclick="switchScreen('profile', this)"><i class="fa-solid fa-user"></i> Profile</button>
                     <button class="menu-btn" onclick="switchScreen('settings', this)"><i class="fa-solid fa-gear"></i> Settings</button>
                 </div>
             </div>
@@ -256,14 +247,14 @@
         <!-- MAIN DYNAMIC CONTENT AREA -->
         <main class="main-content">
 
-            <!-- Top Utility Bar (Accessibility Controls) -->
+            <!-- Top Utility Bar -->
             <div class="top-utility-bar">
                 <div class="access-group">
                     <button class="access-btn" id="btnBlind" onclick="toggleBlindMode()"><i class="fa-solid fa-eye-slash"></i> <span id="lblBlind">Blind</span></button>
                     <button class="access-btn" id="btnDeaf" onclick="toggleDeafMode()"><i class="fa-solid fa-closed-captioning"></i> <span id="lblDeaf">Deaf CC</span></button>
                 </div>
-                <div style="font-size: 12px; font-weight: 700; color: var(--accent-secondary);" id="activeLangDisplay">
-                    Language: हिंदी
+                <div style="font-size: 11px; font-weight: 700; color: var(--accent-secondary);" id="activeModeDisplay">
+                    Mode: Urban | Lang: Hindi
                 </div>
             </div>
 
@@ -271,21 +262,21 @@
             <div id="dashboard" class="screen-view active">
                 <div class="screen-header"><i class="fa-solid fa-house"></i> <span id="txtDashTitle">Dashboard Overview</span></div>
                 
-                <!-- LIVE REAL-TIME DATA STRIP (Date, Day, Time, Location) -->
+                <!-- LIVE REAL-TIME DATA STRIP -->
                 <div class="live-strip">
                     <div class="live-badge"><span>📍 Location</span><strong id="liveLocation">Lucknow, IN</strong></div>
                     <div class="live-badge"><span>📅 Date</span><strong id="liveDate">01 Sep 2026</strong></div>
                     <div class="live-badge"><span>🗓️ Day</span><strong id="liveDay">Tuesday</strong></div>
-                    <div class="live-badge"><span>⏰ Time</span><strong id="liveTime">10:40 AM</strong></div>
+                    <div class="live-badge"><span>⏰ Time</span><strong id="liveTime">10:43 AM</strong></div>
                 </div>
 
-                <div class="card-box" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.15)); cursor: pointer;" onclick="speakInfo('Lucknow GPS Live. Temperature 28 degree Celsius. Clear Sky.')">
+                <div class="card-box" onclick="speakInfo('Lucknow GPS Live. Temperature 28 degree Celsius. Clear Sky.')" style="background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.15));">
                     <h3>Lucknow, India (GPS Live)</h3>
-                    <p style="font-size: 28px; font-weight: 800; margin-top: 6px;">28°C <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);" id="txtClearSky">| Clear Sky & Optimal Sunshine</span></p>
+                    <p style="font-size: 26px; font-weight: 800; margin-top: 6px;">28°C <span style="font-size: 14px; font-weight: normal; color: var(--text-muted);" id="txtClearSky">| Clear Sky & Optimal Sunshine</span></p>
                     <p style="font-size: 11px; color: var(--accent-secondary); margin-top: 4px;" id="txtTapCardMsg">🔊 Tap card to hear live update</p>
                 </div>
 
-                <!-- Non-Verbal Quick Tiles -->
+                <!-- Quick Tiles -->
                 <div class="quick-dock">
                     <div class="dock-tile" onclick="handleQuickQuery('rain')" id="tileRain">🌧️ Baarish?</div>
                     <div class="dock-tile" onclick="handleQuickQuery('sun')" id="tileSun">☀️ Dhoop?</div>
@@ -299,7 +290,7 @@
 
                     <div class="caption-box" id="deafCaptionBox">
                         <div class="caption-title" id="lblCaptionHeader">Live Visual Closed-Caption</div>
-                        <div class="caption-text" id="captionOutput">System initialized. Ready to assist.</div>
+                        <div class="caption-text" id="captionOutput">System initialized successfully.</div>
                     </div>
                 </div>
 
@@ -310,21 +301,29 @@
                 </div>
             </div>
 
-            <!-- 2. CURRENT WEATHER -->
-            <div id="currentWeather" class="screen-view">
-                <div class="screen-header"><i class="fa-solid fa-cloud"></i> Current Weather Details</div>
-                <div class="card-box grid-2">
-                    <div class="stat-card" onclick="speakInfo('Temperature is 28 degree Celsius, feels like 30.')">
-                        <h4>Temperature</h4><p style="font-size: 20px; font-weight: 800;">28°C (Feels 30°C)</p>
-                    </div>
-                    <div class="stat-card" onclick="speakInfo('Atmospheric pressure is 1013 hectopascals.')">
-                        <h4>Pressure</h4><p style="font-size: 20px; font-weight: 800;">1013 hPa</p>
-                    </div>
+            <!-- 2. URBAN OVERVIEW SCREEN -->
+            <div id="urbanOverview" class="screen-view">
+                <div class="screen-header"><i class="fa-solid fa-city"></i> Urban City Life Weather</div>
+                <div class="card-box" onclick="speakInfo('Urban traffic and weather conditions are normal. Good day for outdoor commute.')">
+                    <h3>🏢 City Life & Traffic Weather</h3>
+                    <p style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">शहर के रास्तों पर ट्रैफिक और प्रदूषण का स्तर सामान्य है। मेट्रो और आवागमन के लिए मौसम अनुकूल है।</p>
                 </div>
             </div>
 
-            <!-- OTHER SCREENS (3 TO 25) -->
-            <div id="hourly" class="screen-view"><div class="screen-header"><i class="fa-solid fa-clock"></i> Hourly Forecast</div><div class="card-box"><p>अगले 24 घंटों का घंटे-दर-घंटे का मौसम अपडेट यहाँ उपलब्ध है।</p></div></div>
-            <div id="forecast" class="screen-view"><div class="screen-header"><i class="fa-solid fa-calendar-days"></i> 7-Day Weather Forecast</div><div class="card-box"><p>आने वाले 7 दिनों की विस्तृत मौसम रिपोर्ट।</p></div></div>
-            <div id="radar" class="screen-view"><div class="screen-header"><i class="fa-solid fa-satellite-dish"></i> Rain Radar & Clouds</div><div class="card-box" style="height: 150px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">[ Live Radar Simulation ]</div></div>
-            <div id="map" class="screen-view"><div class="screen-header"><i class=
+            <!-- 3. RURAL / AGRICULTURE SCREEN -->
+            <div id="agriculture" class="screen-view">
+                <div class="screen-header"><i class="fa-solid fa-seedling"></i> Rural & Kisaan Advisory</div>
+                <div class="card-box" onclick="speakInfo('Kisaan update: Weather is clear. Recommended to irrigate crops today.')">
+                    <h3>🌾 फसल सिंचाई और किसान सलाह</h3>
+                    <p style="margin-top: 8px; font-size: 13px; color: var(--text-muted);">आज आसमान साफ है। खेतों में हल्की सिंचाई करना फायदेमंद रहेगा। कीटनाशक छिड़काव के लिए हवा की गति सामान्य है।</p>
+                </div>
+            </div>
+
+            <!-- OTHER SCREENS -->
+            <div id="commute" class="screen-view"><div class="screen-header"><i class="fa-solid fa-route"></i> Commute Planner</div><div class="card-box"><p>दफ़्तर या कॉलेज जाते समय रास्ते के मौसम का हाल।</p></div></div>
+            <div id="airQuality" class="screen-view"><div class="screen-header"><i class="fa-solid fa-wind"></i> Air Quality Monitor</div><div class="card-box"><p>PM2.5, PM10 और पॉल्यूशन इंडेक्स।</p></div></div>
+            <div id="soilWeather" class="screen-view"><div class="screen-header"><i class="fa-solid fa-earth-americas"></i> Soil & Spray Advisory</div><div class="card-box"><p>मिट्टी की नमी और खाद डालने का सही समय।</p></div></div>
+            <div id="disaster" class="screen-view"><div class="screen-header"><i class="fa-solid fa-shield-halved"></i> Disaster Risk</div><div class="card-box"><p>बाढ़, सूखा या चक्रवात का जोखिम विश्लेषण।</p></div></div>
+            <div id="currentWeather" class="screen-view"><div class="screen-header"><i class="fa-solid fa-cloud"></i> Current Weather</div><div class="card-box grid-2"><div class="stat-card"><h4>Temperature</h4><p>28°C</p></div><div class="stat-card"><h4>Pressure</h4><p>1013 hPa</p></div></div></div>
+            <div id="hourly" class="screen-view"><div class="screen-header"><i class="fa-solid fa-clock"></i> Hourly Forecast</div><div class="card-box"><p>अगले 24 घंटों का घंटे-दर-घंटे का अपडेट।</p></div></div>
+            <div id="forecast" class="screen-vie
