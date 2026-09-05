@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mausam AI Pro - National Governance Hub (SIH 2026)</title>
+
     <style>
         :root {
             --bg-color: #060913;
@@ -25,7 +26,6 @@
             --accent-orange: #ffcc00 !important;
         }
 
-        /* Deaf & Mute Visual Alert Highlight Theme */
         body.deaf-mute-mode-theme {
             --border-color: #ff00ff !important;
             --accent-green: #00ffff !important;
@@ -35,336 +35,967 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0; padding: 20px;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; box-sizing: border-box;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
             line-height: 1.4;
         }
 
         .main-container {
-            width: 100%; max-width: 1250px;
+            width: 100%;
+            max-width: 1250px;
             background: var(--card-bg);
             border: 2px solid var(--border-color);
-            border-radius: 30px; padding: 30px;
+            border-radius: 30px;
+            padding: 30px;
             box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
         }
 
         .gov-banner {
-            display: flex; justify-content: space-between; align-items: center;
-            background: linear-gradient(90deg, rgba(255,153,51,0.12), rgba(16,185,129,0.12));
-            border: 1px solid rgba(255,153,51,0.4); padding: 12px 20px; border-radius: 16px;
-            margin-bottom: 22px; font-size: 15px; font-weight: bold; color: var(--gov-affronter);
-            flex-wrap: wrap; gap: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(
+                90deg,
+                rgba(255,153,51,0.12),
+                rgba(16,185,129,0.12)
+            );
+            border: 1px solid rgba(255,153,51,0.4);
+            padding: 12px 20px;
+            border-radius: 16px;
+            margin-bottom: 22px;
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--gov-affronter);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .top-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
-            border-radius: 22px; padding: 20px 28px; margin-bottom: 22px; flex-wrap: wrap; gap: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 20px 28px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
-        .datetime-box .date { font-size: 16px; color: #94a3b8; }
-        .datetime-box .time { font-size: 30px; font-weight: bold; color: var(--accent-blue); }
-        .datetime-box .location { font-size: 15px; color: #cbd5e1; }
+
+        .datetime-box .date {
+            font-size: 16px;
+            color: #94a3b8;
+        }
+
+        .datetime-box .time {
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        .datetime-box .location {
+            font-size: 15px;
+            color: #cbd5e1;
+        }
 
         .weather-sticker-container {
-            display: flex; align-items: center; gap: 18px;
-            background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 12px 22px; border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 12px 22px;
+            border-radius: 18px;
         }
-        .weather-anim-icon { font-size: 40px; }
-        .temp-display { font-size: 32px; font-weight: bold; color: var(--accent-orange); }
+
+        .weather-anim-icon {
+            font-size: 40px;
+        }
+
+        .temp-display {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent-orange);
+        }
 
         .accessibility-bar {
-            display: flex; gap: 15px; margin-bottom: 22px;
-            background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25);
-            padding: 16px 22px; border-radius: 18px; align-items: center; justify-content: space-between;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 22px;
+            background: rgba(16, 185, 129, 0.06);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 16px 22px;
+            border-radius: 18px;
+            align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
         }
-        .access-title { font-size: 16px; font-weight: bold; color: var(--accent-green); }
-        .access-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-        .access-btn {
-            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-            color: white; padding: 10px 18px; border-radius: 14px; font-size: 15px; cursor: pointer; font-weight: 600;
+
+        .access-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--accent-green);
         }
 
-        .section-title { font-size: 19px; font-weight: 600; margin-bottom: 18px; color: #cbd5e1; }
-        
+        .access-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .access-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 14px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            color: #cbd5e1;
+        }
+
         .hubs-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 28px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 28px;
         }
+
         .hub-card {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color);
-            border-radius: 22px; padding: 25px 16px; text-align: center; cursor: pointer;
-            color: inherit; display: block; transition: 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 25px 16px;
+            text-align: center;
+            cursor: pointer;
+            color: inherit;
+            display: block;
+            transition: 0.3s ease;
         }
+
         .hub-card:hover {
-            border-color: var(--accent-orange); background: rgba(251, 146, 60, 0.08); transform: translateY(-3px);
+            border-color: var(--accent-orange);
+            background: rgba(251, 146, 60, 0.08);
+            transform: translateY(-3px);
         }
-        .hub-icon { font-size: 44px; margin-bottom: 10px; }
-        .hub-name { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
-        .hub-desc { font-size: 14px; color: #94a3b8; line-height: 1.5; margin-bottom: 12px; }
-        
+
+        .hub-icon {
+            font-size: 44px;
+            margin-bottom: 10px;
+        }
+
+        .hub-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .hub-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
         .gov-scheme-tag {
-            font-size: 12px; background: rgba(255,153,51,0.15); border: 1px solid rgba(255,153,51,0.4);
-            color: #ffb366; padding: 5px 10px; border-radius: 10px; font-weight: bold; display: inline-block;
+            font-size: 12px;
+            background: rgba(255,153,51,0.15);
+            border: 1px solid rgba(255,153,51,0.4);
+            color: #ffb366;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
         }
 
         .bottom-nav-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            background: rgba(56, 189, 248, 0.05); border: 1px solid var(--accent-blue);
-            border-radius: 22px; padding: 20px 28px; margin-top: 12px; flex-wrap: wrap; gap: 15px;
-        }
-        
-        .ai-assistant-btn {
-            display: flex; align-items: center; gap: 10px;
-            font-size: 16px; color: var(--accent-orange); font-weight: bold;
-            background: rgba(251, 146, 60, 0.15); border: 1px solid var(--accent-orange);
-            padding: 12px 20px; border-radius: 16px; cursor: pointer; transition: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(56, 189, 248, 0.05);
+            border: 1px solid var(--accent-blue);
+            border-radius: 22px;
+            padding: 20px 28px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .bottom-buttons { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-        .bottom-btn {
-            background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent-blue);
-            color: var(--accent-blue); padding: 12px 20px; border-radius: 16px;
-            cursor: pointer; font-size: 15px; font-weight: bold; text-decoration: none; transition: 0.2s;
+        .ai-assistant-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            color: var(--accent-orange);
+            font-weight: bold;
+            background: rgba(251, 146, 60, 0.15);
+            border: 1px solid var(--accent-orange);
+            padding: 12px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        .bottom-btn:hover { background: var(--accent-blue); color: #060913; }
+
+        .bottom-buttons {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .bottom-btn {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 12px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .bottom-btn:hover {
+            background: var(--accent-blue);
+            color: #060913;
+        }
 
         .page-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(6, 9, 19, 0.98); backdrop-filter: blur(12px);
-            display: none; justify-content: center; align-items: center; z-index: 2500; padding: 25px; box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 9, 19, 0.98);
+            backdrop-filter: blur(12px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            padding: 25px;
+            box-sizing: border-box;
         }
-        .page-content {
-            background: #0f172a; border: 3px solid var(--accent-orange);
-            border-radius: 30px; padding: 35px; width: 100%; max-width: 1100px;
-            max-height: 90vh; overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-        }
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 12px; }
-        .back-home-btn {
-            background: rgba(56,189,248,0.2); border: 1px solid var(--accent-blue); color: var(--accent-blue);
-            padding: 12px 22px; border-radius: 14px; cursor: pointer; font-weight: bold; font-size: 15px;
-        }
-        .back-home-btn:hover { background: var(--accent-blue); color: #060913; }
 
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(3, 7, 18, 0.98); backdrop-filter: blur(15px);
-            display: flex; justify-content: center; align-items: center; z-index: 3000; padding: 20px;
-        }
-        .modal-content {
-            background: #0f172a; border: 3px solid var(--accent-blue);
-            border-radius: 32px; padding: 35px; text-align: center; width: 100%; max-width: 1000px;
+        .page-content {
+            background: #0f172a;
+            border: 3px solid var(--accent-orange);
+            border-radius: 30px;
+            padding: 35px;
+            width: 100%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 30px 80px rgba(0,0,0,0.9);
         }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-home-btn {
+            background: rgba(56,189,248,0.2);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 12px 22px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .back-home-btn:hover {
+            background: var(--accent-blue);
+            color: #060913;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 7, 18, 0.98);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #0f172a;
+            border: 3px solid var(--accent-blue);
+            border-radius: 32px;
+            padding: 35px;
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+        }
+
         .lang-grid-options {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 22px; max-height: 420px; overflow-y: auto; padding-right: 5px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-top: 22px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 5px;
         }
+
         .lang-option-btn {
-            background: rgba(255, 255, 255, 0.06); border: 2px solid var(--border-color);
-            color: white; padding: 16px; border-radius: 16px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.2s;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid var(--border-color);
+            color: white;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
         }
-        .lang-option-btn:hover { background: var(--accent-blue); color: #060913; border-color: var(--accent-blue); transform: scale(1.03); }
+
+        .lang-option-btn:hover {
+            background: var(--accent-blue);
+            color: #060913;
+            border-color: var(--accent-blue);
+            transform: scale(1.03);
+        }
 
         .ai-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 4000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
         }
+
         .ai-modal-box {
-            background: #0f172a; border: 2px solid var(--accent-orange); padding: 35px; border-radius: 26px; width: 90%; max-width: 550px; text-align: center;
+            background: #0f172a;
+            border: 2px solid var(--accent-orange);
+            padding: 35px;
+            border-radius: 26px;
+            width: 90%;
+            max-width: 550px;
+            text-align: center;
         }
-        
+
         .clickable-point-card {
-            background: rgba(255,255,255,0.04); padding: 18px; border-radius: 16px; 
-            border: 1px solid rgba(56,189,248,0.3); cursor: pointer; transition: 0.2s;
+            background: rgba(255,255,255,0.04);
+            padding: 18px;
+            border-radius: 16px;
+            border: 1px solid rgba(56,189,248,0.3);
+            cursor: pointer;
+            transition: 0.2s;
         }
+
         .clickable-point-card:hover {
-            background: rgba(56,189,248,0.1); border-color: var(--accent-blue); transform: scale(1.01);
+            background: rgba(56,189,248,0.1);
+            border-color: var(--accent-blue);
+            transform: scale(1.01);
         }
 
         .gov-card-box {
-            background: rgba(255, 153, 51, 0.08); border: 2px dashed rgba(255, 153, 51, 0.6);
-            padding: 20px; border-radius: 18px; cursor: pointer; transition: 0.2s; margin-top: 10px;
-        }
-        .gov-card-box:hover {
-            background: rgba(255, 153, 51, 0.15); transform: scale(1.01);
+            background: rgba(255, 153, 51, 0.08);
+            border: 2px dashed rgba(255, 153, 51, 0.6);
+            padding: 20px;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
         }
 
-        /* Deaf & Mute Visual Alert Banner */
-        #deafVisualBanner {
-            display: none; background: rgba(0, 255, 255, 0.12); border: 2px solid #00ffff;
-            color: #00ffff; padding: 12px 20px; border-radius: 14px; margin-bottom: 18px;
-            font-size: 15px; font-weight: bold; text-align: center; animation: pulseGlow 1.5s infinite;
+        .gov-card-box:hover {
+            background: rgba(255, 153, 51, 0.15);
+            transform: scale(1.01);
         }
+
+        #deafVisualBanner {
+            display: none;
+            background: rgba(0, 255, 255, 0.12);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 12px 20px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            animation: pulseGlow 1.5s infinite;
+        }
+
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px rgba(0,255,255,0.2); }
-            50% { box-shadow: 0 0 20px rgba(0,255,255,0.6); }
-            100% { box-shadow: 0 0 5px rgba(0,255,255,0.2); }
+            0% {
+                box-shadow: 0 0 5px rgba(0,255,255,0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(0,255,255,0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 5px rgba(0,255,255,0.2);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hubs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lang-grid-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-container {
+                padding: 18px;
+                border-radius: 22px;
+            }
+
+            .hubs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-grid-options {
+                grid-template-columns: 1fr;
+            }
+
+            .page-content {
+                padding: 22px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <!-- भाषा चयन पॉप-अप (13 भाषाएं with exact greeting setup) -->
+    <!-- भाषा चयन पॉप-अप -->
     <div class="modal-overlay" id="langModal" style="display: flex;">
         <div class="modal-content">
-            <h1 style="color:var(--accent-blue); margin-top:0; font-size:26px;">🇮🇳 राष्ट्रीय मौसम मंच • भाषा चुनें (Select Language)</h1>
-            <p style="color:#94a3b8; font-size:15px;">अपनी क्षेत्रीय भाषा चुनें (Select Your Language):</p>
+            <h1 style="color:var(--accent-blue); margin-top:0; font-size:26px;">
+                🇮🇳 राष्ट्रीय मौसम मंच • भाषा चुनें (Select Language)
+            </h1>
+
+            <p style="color:#94a3b8; font-size:15px;">
+                अपनी क्षेत्रीय भाषा चुनें (Select Your Language):
+            </p>
+
             <div class="lang-grid-options">
-                <button class="lang-option-btn" onclick="selectLanguage('hi', 'hi-IN', 'हिन्दी भाषा चुनी गई है। मौसम एआई प्रो में आपका स्वागत है!')">🇮🇳 हिन्दी (Hindi)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('en', 'en-US', 'English language selected. Welcome to Mausam AI Pro!')">🌐 English</button>
-                <button class="lang-option-btn" onclick="selectLanguage('bn', 'bn-IN', 'বাংলা ভাষা নির্বাচন করা হয়েছে। মৌসুম এআই প্রো-তে স্বাগতম!')">🇧🇩 বাংলা (Bengali)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('mr', 'mr-IN', 'मराठी भाषा निवडली आहे. मौसम एआय प्रो मध्ये स्वागत आहे!')">🇮🇳 मराठी (Marathi)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('te', 'te-IN', 'తెలుగు భాష ఎంపిక చేయబడింది. మోసమ్ ఏఐ ప్రో కు స్వాగతం!')">🇮🇳 తెలుగు (Telugu)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('ta', 'ta-IN', 'தமிழ் மொழி தேர்ந்தெடுக்கப்பட்டுள்ளது. மௌசம் ஏஐ புரோவிற்கு நல்வரவு!')">🇮🇳 தமிழ் (Tamil)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('gu', 'gu-IN', 'ગુજરાતી ભાષા પસંદ કરવામાં આવી છે. મોસમ એઆઈ પ્રો માં સ્વાગત છે!')">🇮🇳 ગુજરાતી (Gujarati)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('kn', 'kn-IN', 'ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ. ಮೌಸಮ್ ಎಐ ಪ್ರೊ ಗೆ ಸ್ವಾಗತ!')">🇮🇳 ಕನ್ನಡ (Kannada)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('ml', 'ml-IN', 'മലയാളം ഭാഷ തെരഞ്ഞെടുത്തു. മൗസം എഐ പ്രോയിലേക്ക് സ്വാഗതം!')">🇮 മലയാളം (Malayalam)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('pa', 'pa-IN', 'ਪੰਜਾਬੀ ਭਾਸ਼ਾ ਚੁਣੀ ਗਈ ਹੈ। ਮੌਸਮ ਏਆਈ ਪ੍ਰੋ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ!')">🇮🇳 ਪੰਜਾਬੀ (Punjabi)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('or', 'or-IN', 'ଓଡ଼ିଆ ଭାଷା ଚୟନ କରାଯାଇଛି। ମୌସମ୍ ଏଆଇ ପ୍ରୋ କୁ ସ୍ୱାଗତ!')">🇮🇳 ଓଡ଼ିଆ (Odia)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('as', 'as-IN', 'অসমীয়া ভাষা নিৰ্বাচন কৰা হৈছে। মৌচম এআই প্ৰ’লৈ স্বাগতম!')">🇮🇳 অসমীয়া (Assamese)</button>
-                <button class="lang-option-btn" onclick="selectLanguage('ur', 'ur-PK', 'اردو زبان منتخب کر لی گئی ہے۔ موسم اے آئی پرو میں خوش آمدید!')">🇵🇰 اردو (Urdu)</button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('hi', 'hi-IN')">
+                    🇮🇳 हिन्दी (Hindi)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('en', 'en-US')">
+                    🌐 English
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('bn', 'bn-IN')">
+                    🇧🇩 বাংলা (Bengali)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('mr', 'mr-IN')">
+                    🇮🇳 मराठी (Marathi)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('te', 'te-IN')">
+                    🇮🇳 తెలుగు (Telugu)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('ta', 'ta-IN')">
+                    🇮🇳 தமிழ் (Tamil)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('gu', 'gu-IN')">
+                    🇮🇳 ગુજરાતી (Gujarati)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('kn', 'kn-IN')">
+                    🇮🇳 ಕನ್ನಡ (Kannada)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('ml', 'ml-IN')">
+                    🇮 മലയാളം (Malayalam)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('pa', 'pa-IN')">
+                    🇮🇳 ਪੰਜਾਬੀ (Punjabi)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('or', 'or-IN')">
+                    🇮🇳 ଓଡ଼ିଆ (Odia)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('as', 'as-IN')">
+                    🇮🇳 অসমীয়া (Assamese)
+                </button>
+
+                <button class="lang-option-btn"
+                    onclick="selectLanguage('ur', 'ur-PK')">
+                    🇵🇰 اردو (Urdu)
+                </button>
+
             </div>
         </div>
     </div>
 
-    <!-- AI असिस्टेंट मॉडल -->
+    <!-- AI Assistant -->
     <div class="ai-modal" id="aiModal">
         <div class="ai-modal-box">
-            <h2 id="aiModalTitle" style="color:var(--accent-orange); margin-top:0; font-size:22px;">🤖 एआई यूनिवर्सल वॉइस असिस्टेंट</h2>
-            <p id="aiPromptText" style="color:#cbd5e1; font-size:16px;">बोलिए, मैं आपकी किस प्रकार सहायता कर सकता हूँ?</p>
-            <div style="font-size:50px; margin: 18px 0;">🎙️</div>
-            <p style="font-size:14px; color:var(--accent-blue);" id="aiListeningStatus">माइक चालू करने के लिए बटन दबाएं</p>
-            <button onclick="startListening()" style="background:var(--accent-green); border:none; padding:10px 20px; font-weight:bold; border-radius:12px; cursor:pointer; color:#060913; margin-top:10px;">बोलना शुरू करें</button>
-            <button onclick="closeAIAssistant()" style="background:var(--accent-orange); border:none; padding:10px 20px; font-weight:bold; border-radius:12px; cursor:pointer; color:#060913; margin-top:10px;">बंद करें</button>
+
+            <h2 id="aiModalTitle"
+                style="color:var(--accent-orange); margin-top:0; font-size:22px;">
+                🤖 एआई यूनिवर्सल वॉइस असिस्टेंट
+            </h2>
+
+            <p id="aiPromptText"
+                style="color:#cbd5e1; font-size:16px;">
+                बोलिए, मैं आपकी किस प्रकार सहायता कर सकता हूँ?
+            </p>
+
+            <div style="font-size:50px; margin:18px 0;">
+                🎙️
+            </div>
+
+            <p style="font-size:14px; color:var(--accent-blue);"
+                id="aiListeningStatus">
+                माइक चालू करने के लिए बटन दबाएं
+            </p>
+
+            <button onclick="startListening()"
+                style="background:var(--accent-green); border:none; padding:10px 20px; font-weight:bold; border-radius:12px; cursor:pointer; color:#060913; margin-top:10px;">
+                बोलना शुरू करें
+            </button>
+
+            <button onclick="closeAIAssistant()"
+                style="background:var(--accent-orange); border:none; padding:10px 20px; font-weight:bold; border-radius:12px; cursor:pointer; color:#060913; margin-top:10px;">
+                बंद करें
+            </button>
+
         </div>
     </div>
 
-    <!-- सेक्टर हब पेज ओवरले -->
+    <!-- Sector Hub Overlay -->
     <div class="page-overlay" id="sectorPageOverlay">
         <div class="page-content">
+
             <div class="page-header">
-                <h2 id="sectorTitleHeading" style="color:var(--accent-orange); margin:0; font-size:24px;">सेक्टर विवरण</h2>
-                <button class="back-home-btn" onclick="closeOverlay('sectorPageOverlay')" id="backBtnText1">⬅️ होम पेज पर वापस लौटें</button>
+
+                <h2 id="sectorTitleHeading"
+                    style="color:var(--accent-orange); margin:0; font-size:24px;">
+                    सेक्टर विवरण
+                </h2>
+
+                <button class="back-home-btn"
+                    onclick="closeOverlay('sectorPageOverlay')"
+                    id="backBtnText1">
+                    ⬅️ होम पेज पर वापस लौटें
+                </button>
+
             </div>
-            <div id="sectorContentBody" style="font-size:16px; color:#e2e8f0; line-height:1.7;"></div>
+
+            <div id="sectorContentBody"
+                style="font-size:16px; color:#e2e8f0; line-height:1.7;">
+            </div>
+
         </div>
     </div>
 
-    <!-- Hourly Forecast ओवरले -->
+    <!-- Hourly Forecast -->
     <div class="page-overlay" id="hourlyPageOverlay">
+
         <div class="page-content" style="border-color: var(--accent-blue);">
+
             <div class="page-header">
-                <h2 style="color:var(--accent-blue); margin:0; font-size:24px;">⏱️ Hourly Weather Forecast (प्रति घंटा पूर्वानुमान)</h2>
-                <button class="back-home-btn" onclick="closeOverlay('hourlyPageOverlay')">⬅️ होम पेज पर वापस लौटें</button>
+
+                <h2 style="color:var(--accent-blue); margin:0; font-size:24px;">
+                    ⏱️ Hourly Weather Forecast (प्रति घंटा पूर्वानुमान)
+                </h2>
+
+                <button class="back-home-btn"
+                    onclick="closeOverlay('hourlyPageOverlay')">
+                    ⬅️ होम पेज पर वापस लौटें
+                </button>
+
             </div>
-            <p style="color:#94a3b8;">लखनऊ क्षेत्र के लिए अगले कुछ घंटों का सटीक मौसम अनुमान:</p>
-            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top:15px;">
-                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)" onclick="speakText('3 PM, 29 degrees Celsius, sun and light clouds.')"><h3>3:00 PM</h3><p style="font-size:20px; color:var(--accent-orange);"><b>29°C</b></p><p>धूप व हल्के बादल</p></div>
-                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)" onclick="speakText('4 PM, 28 degrees Celsius, partial shade.')"><h3>4:00 PM</h3><p style="font-size:20px; color:var(--accent-orange);"><b>28°C</b></p><p>आंशिक छांव</p></div>
-                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)" onclick="speakText('5 PM, 27 degrees Celsius, cool breeze.')"><h3>5:00 PM</h3><p style="font-size:20px; color:var(--accent-orange);"><b>27°C</b></p><p>ठंडी हवाएं</p></div>
+
+            <p style="color:#94a3b8;">
+                लखनऊ क्षेत्र के लिए अगले कुछ घंटों का सटीक मौसम अनुमान:
+            </p>
+
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:15px;">
+
+                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)"
+                    onclick="speakText('3 PM, 29 degrees Celsius, sun and light clouds.')">
+
+                    <h3>3:00 PM</h3>
+                    <p style="font-size:20px; color:var(--accent-orange);">
+                        <b>29°C</b>
+                    </p>
+                    <p>धूप व हल्के बादल</p>
+
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)"
+                    onclick="speakText('4 PM, 28 degrees Celsius, partial shade.')">
+
+                    <h3>4:00 PM</h3>
+                    <p style="font-size:20px; color:var(--accent-orange);">
+                        <b>28°C</b>
+                    </p>
+                    <p>आंशिक छांव</p>
+
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); padding:18px; border-radius:14px; border:1px solid rgba(56,189,248,0.3)"
+                    onclick="speakText('5 PM, 27 degrees Celsius, cool breeze.')">
+
+                    <h3>5:00 PM</h3>
+                    <p style="font-size:20px; color:var(--accent-orange);">
+                        <b>27°C</b>
+                    </p>
+                    <p>ठंडी हवाएं</p>
+
+                </div>
+
             </div>
+
         </div>
     </div>
 
-    <!-- 7-Day Forecast ओवरले -->
+    <!-- 7-Day Forecast -->
     <div class="page-overlay" id="sevenDayPageOverlay">
+
         <div class="page-content" style="border-color: var(--accent-green);">
+
             <div class="page-header">
-                <h2 style="color:var(--accent-green); margin:0; font-size:24px;">📊 7-Day Detailed Weather Forecast</h2>
-                <button class="back-home-btn" onclick="closeOverlay('sevenDayPageOverlay')">⬅️ होम पेज पर वापस लौटें</button>
+
+                <h2 style="color:var(--accent-green); margin:0; font-size:24px;">
+                    📊 7-Day Detailed Weather Forecast
+                </h2>
+
+                <button class="back-home-btn"
+                    onclick="closeOverlay('sevenDayPageOverlay')">
+                    ⬅️ होम पेज पर वापस लौटें
+                </button>
+
             </div>
-            <p style="color:#94a3b8;">अगले 7 दिनों का IMD मौसम पूर्वानुमान डेटा:</p>
-            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top:15px;">
-                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)" onclick="speakText('Thursday, Max 30, Min 22 degrees, partial clouds.')"><h4>गुरुवार</h4><p style="color:var(--accent-orange); font-size:18px;"><b>Max: 30°C | Min: 22°C</b></p><p>आंशिक बादल</p></div>
-                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)" onclick="speakText('Friday, Max 29, Min 21 degrees, light rain.')"><h4>शुक्रवार</h4><p style="color:var(--accent-orange); font-size:18px;"><b>Max: 29°C | Min: 21°C</b></p><p>हल्की बारिश</p></div>
-                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)" onclick="speakText('Saturday, Max 31, Min 23 degrees, clear sky.')"><h4>शनिवार</h4><p style="color:var(--accent-orange); font-size:18px;"><b>Max: 31°C | Min: 23°C</b></p><p>साफ आसमान</p></div>
+
+            <p style="color:#94a3b8;">
+                अगले 7 दिनों का IMD मौसम पूर्वानुमान डेटा:
+            </p>
+
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:15px;">
+
+                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)"
+                    onclick="speakText('Thursday, Max 30, Min 22 degrees, partial clouds.')">
+
+                    <h4>गुरुवार</h4>
+
+                    <p style="color:var(--accent-orange); font-size:18px;">
+                        <b>Max: 30°C | Min: 22°C</b>
+                    </p>
+
+                    <p>आंशिक बादल</p>
+
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)"
+                    onclick="speakText('Friday, Max 29, Min 21 degrees, light rain.')">
+
+                    <h4>शुक्रवार</h4>
+
+                    <p style="color:var(--accent-orange); font-size:18px;">
+                        <b>Max: 29°C | Min: 21°C</b>
+                    </p>
+
+                    <p>हल्की बारिश</p>
+
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); padding:20px; border-radius:16px; border:1px solid rgba(16,185,129,0.3)"
+                    onclick="speakText('Saturday, Max 31, Min 23 degrees, clear sky.')">
+
+                    <h4>शनिवार</h4>
+
+                    <p style="color:var(--accent-orange); font-size:18px;">
+                        <b>Max: 31°C | Min: 23°C</b>
+                    </p>
+
+                    <p>साफ आसमान</p>
+
+                </div>
+
             </div>
+
         </div>
     </div>
 
-    <!-- मुख्य होम पेज -->
+    <!-- MAIN HOME PAGE -->
     <div class="main-container">
+
         <div class="gov-banner">
-            <span id="govHeaderTitle">🇮🇳 भारत सरकार डिजिटल पहल • मौसम विज्ञान विभाग (IMD) समर्थित</span>
-            <span style="background: rgba(255,153,51,0.2); border: 1px solid #ff9933; padding: 5px 12px; border-radius: 8px;">🏛️ नेशनल गवर्नेंस हब</span>
+
+            <span id="govHeaderTitle">
+                🇮🇳 भारत सरकार डिजिटल पहल • मौसम विज्ञान विभाग (IMD) समर्थित
+            </span>
+
+            <span style="background:rgba(255,153,51,0.2); border:1px solid #ff9933; padding:5px 12px; border-radius:8px;">
+                🏛️ नेशनल गवर्नेंस हब
+            </span>
+
         </div>
-        
-        <!-- Deaf & Mute Visual Alert Notification Box -->
-        <div id="deafVisualBanner">🧏 Deaf & Mute Support Active: All alerts, sound notifications & prompts will display visual indicators and text logs.</div>
+
+        <div id="deafVisualBanner">
+            🧏 Deaf & Mute Support Active: All alerts, sound notifications & prompts will display visual indicators and text logs.
+        </div>
 
         <div class="accessibility-bar">
-            <div class="access-title" id="accessTitleText">♿ एक्सेसिबिलिटी इंजन (Blind/Deaf & Mute Support)</div>
-            <div class="access-buttons">
-                <button class="access-btn" onclick="toggleBlindMode()">👁️‍🗨️ Blind Mode</button>
-                <button class="access-btn" onclick="toggleDeafMuteMode()" style="background:rgba(0,255,255,0.15); border-color:#00ffff; color:#00ffff;">🧏 Deaf & Mute Mode</button>
+
+            <div class="access-title" id="accessTitleText">
+                ♿ एक्सेसिबिलिटी इंजन (Blind/Deaf & Mute Support)
             </div>
+
+            <div class="access-buttons">
+
+                <button class="access-btn"
+                    onclick="toggleBlindMode()">
+                    👁️‍🗨️ Blind Mode
+                </button>
+
+                <button class="access-btn"
+                    onclick="toggleDeafMuteMode()"
+                    style="background:rgba(0,255,255,0.15); border-color:#00ffff; color:#00ffff;">
+                    🧏 Deaf & Mute Mode
+                </button>
+
+            </div>
+
         </div>
 
         <div class="top-bar">
+
             <div class="datetime-box">
-                <div class="date" id="dateText">बुधवार, 2 सितंबर 2026</div>
-                <div class="time" id="timeText">14:40 PM</div>
-                <div class="location" id="locText">📍 IMD Live: लखनऊ, भारत</div>
-            </div>
-            <div class="weather-sticker-container">
-                <div class="weather-anim-icon">⛅</div>
-                <div>
-                    <div class="temp-display">29°C</div>
-                    <div style="font-size:13px; color:#94a3b8;" id="weatherSubText">लाइव अपडेट: आंशिक रूप से बादल</div>
+
+                <div class="date" id="dateText">
+                    बुधवार, 2 सितंबर 2026
                 </div>
+
+                <div class="time" id="timeText">
+                    14:40 PM
+                </div>
+
+                <div class="location" id="locText">
+                    📍 IMD Live: लखनऊ, भारत
+                </div>
+
             </div>
+
+            <div class="weather-sticker-container">
+
+                <div class="weather-anim-icon">
+                    ⛅
+                </div>
+
+                <div>
+
+                    <div class="temp-display">
+                        29°C
+                    </div>
+
+                    <div style="font-size:13px; color:#94a3b8;"
+                        id="weatherSubText">
+                        लाइव अपडेट: आंशिक रूप से बादल
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
         <div id="homeMainGridView">
-            <div class="section-title" id="hubMainTitle">🚀 सेक्टर हब चुनें (क्लिक करें)</div>
-            <div class="hubs-grid">
-                <div class="hub-card" onclick="openSectorHub('urban')">
-                    <div class="hub-icon">🏙️</div>
-                    <div class="hub-name" id="h1Name">Urban Commute</div>
-                    <div class="hub-desc" id="uDesc">ट्रैफिक, AQI, वॉटरलॉगिंग व गवर्नेंस अपडेट</div>
-                    <div class="gov-scheme-tag">🏙️ स्मार्ट सिटी मिशन</div>
-                </div>
-                <div class="hub-card" onclick="openSectorHub('rural')">
-                    <div class="hub-icon">🌾</div>
-                    <div class="hub-name" id="h2Name">किसान हब</div>
-                    <div class="hub-desc" id="kDesc">फसल डॉक्टर, मिट्टी नमी व सिंचाई सलाह</div>
-                    <div class="gov-scheme-tag">🌾 PM-KISAN</div>
-                </div>
-                <div class="hub-card" onclick="openSectorHub('mountain')">
-                    <div class="hub-icon">⛰️</div>
-                    <div class="hub-name" id="h3Name">Mountain & Hill</div>
-                    <div class="hub-desc" id="mDesc">भूस्खलन व कोहरे की चेतावनी</div>
-                    <div class="gov-scheme-tag">⛰️ हिमालयन मिशन</div>
-                </div>
-                <div class="hub-card" onclick="openSectorHub('marine')">
-                    <div class="hub-icon">⚓</div>
-                    <div class="hub-name" id="h4Name">Marine & Coastal</div>
-                    <div class="hub-desc" id="marDesc">चक्रवात, PFZ और मरीन अलर्ट</div>
-                    <div class="gov-scheme-tag">⚓ मत्स्य संपदा योजना</div>
-                </div>
+
+            <div class="section-title" id="hubMainTitle">
+                🚀 सेक्टर हब चुनें (क्लिक करें)
             </div>
+
+            <div class="hubs-grid">
+
+                <div class="hub-card"
+                    onclick="openSectorHub('urban')">
+
+                    <div class="hub-icon">🏙️</div>
+
+                    <div class="hub-name" id="h1Name">
+                        अर्बन कम्यूट
+                    </div>
+
+                    <div class="hub-desc" id="uDesc">
+                        ट्रैफिक, AQI, वॉटरलॉगिंग व गवर्नेंस अपडेट
+                    </div>
+
+                    <div class="gov-scheme-tag">
+                        🏙️ स्मार्ट सिटी मिशन
+                    </div>
+
+                </div>
+
+                <div class="hub-card"
+                    onclick="openSectorHub('rural')">
+
+                    <div class="hub-icon">🌾</div>
+
+                    <div class="hub-name" id="h2Name">
+                        किसान हब
+                    </div>
+
+                    <div class="hub-desc" id="kDesc">
+                        फसल डॉक्टर, मिट्टी नमी व सिंचाई सलाह
+                    </div>
+
+                    <div class="gov-scheme-tag">
+                        🌾 PM-KISAN
+                    </div>
+
+                </div>
+
+                <div class="hub-card"
+                    onclick="openSectorHub('mountain')">
+
+                    <div class="hub-icon">⛰️</div>
+
+                    <div class="hub-name" id="h3Name">
+                        पहाड़ी क्षेत्र हब
+                    </div>
+
+                    <div class="hub-desc" id="mDesc">
+                        भूस्खलन व कोहरे की चेतावनी
+                    </div>
+
+                    <div class="gov-scheme-tag">
+                        ⛰️ हिमालयन मिशन
+                    </div>
+
+                </div>
+
+                <div class="hub-card"
+                    onclick="openSectorHub('marine')">
+
+                    <div class="hub-icon">⚓</div>
+
+                    <div class="hub-name" id="h4Name">
+                        तटीय व मरीन हब
+                    </div>
+
+                    <div class="hub-desc" id="marDesc">
+                        चक्रवात, PFZ और मरीन अलर्ट
+                    </div>
+
+                    <div class="gov-scheme-tag">
+                        ⚓ मत्स्य संपदा योजना
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
         <div class="bottom-nav-bar">
-            <button class="ai-assistant-btn" onclick="openAIAssistant()" id="aiTagBtn">
-                🤖 AI Universal Assistant (Click to Ask)
+
+            <button class="ai-assistant-btn"
+                onclick="openAIAssistant()"
+                id="aiTagBtn">
+
+                🤖 एआई यूनिवर्सल असिस्टेंट (क्लिक करें)
+
             </button>
 
             <div class="bottom-buttons">
-                <button class="bottom-btn" onclick="openHourlyPage()" id="btnHourly">⏱️ Hourly Forecast</button>
-                <button class="bottom-btn" onclick="open7DayPage()" id="btnForecast">📊 7-Day Forecast</button>
-                <button class="bottom-btn" onclick="openLangModal()" id="btnChangeLang" style="background:rgba(251,146,60,0.15); border-color:var(--accent-orange); color:var(--accent-orange);">🌐 भाषा बदलें</button>
+
+                <button class="bottom-btn"
+                    onclick="openHourlyPage()"
+                    id="btnHourly">
+                    ⏱️ Hourly Forecast
+                </button>
+
+                <button class="bottom-btn"
+                    onclick="open7DayPage()"
+                    id="btnForecast">
+                    📊 7-Day Forecast
+                </button>
+
+                <button class="bottom-btn"
+                    onclick="openLangModal()"
+                    id="btnChangeLang"
+                    style="background:rgba(251,146,60,0.15); border-color:var(--accent-orange); color:var(--accent-orange);">
+                    🌐 भाषा बदलें
+                </button>
+
             </div>
+
         </div>
+
     </div>
 
     <script>
+
         let currentLang = 'hi';
         let currentBCP = 'hi-IN';
         let deafMuteActive = false;
 
+        /*
+        ============================================================
+        TRANSLATIONS
+        ============================================================
+        */
+
         const translations = {
+
             hi: {
                 govHead: "🇮🇳 भारत सरकार डिजिटल पहल • मौसम विज्ञान विभाग (IMD) समर्थित",
                 accessTitle: "♿ एक्सेसिबिलिटी इंजन (Blind/Deaf & Mute Support)",
@@ -377,8 +1008,12 @@
                 hourly: "⏱️ Hourly Forecast",
                 forecast: "📊 7-Day Forecast",
                 changeLang: "🌐 भाषा बदलें",
-                h1Name: "अर्बन कम्यूट", h2Name: "किसान हब", h3Name: "पहाड़ी क्षेत्र हब", h4Name: "तटीय व मरीन हब"
+                h1Name: "अर्बन कम्यूट",
+                h2Name: "किसान हब",
+                h3Name: "पहाड़ी क्षेत्र हब",
+                h4Name: "तटीय व मरीन हब"
             },
+
             en: {
                 govHead: "🇮🇳 Government of India Digital Initiative • Backed by IMD",
                 accessTitle: "♿ Accessibility Engine (Blind/Deaf & Mute Support)",
@@ -391,8 +1026,12 @@
                 hourly: "⏱️ Hourly Forecast",
                 forecast: "📊 7-Day Forecast",
                 changeLang: "🌐 Change Language",
-                h1Name: "Urban Commute", h2Name: "Kisaan Hub", h3Name: "Mountain & Hill", h4Name: "Marine & Coastal"
+                h1Name: "Urban Commute",
+                h2Name: "Kisaan Hub",
+                h3Name: "Mountain & Hill",
+                h4Name: "Marine & Coastal"
             },
+
             bn: {
                 govHead: "🇮🇳 ভারত সরকার ডিজিটাল উদ্যোগ • আইএমডি সমর্থিত",
                 accessTitle: "♿ অ্যাক্সেসিবিলিটি ইঞ্জিন (ব্লাইন্ড/বধির সহায়তা)",
@@ -405,8 +1044,12 @@
                 hourly: "⏱️ প্রতি ঘণ্টার পূর্বাভাস",
                 forecast: "📊 ৭ দিনের পূর্বাভাস",
                 changeLang: "🌐 ভাষা পরিবর্তন করুন",
-                h1Name: "আর্বান কমিউট", h2Name: "কিসান হাব", h3Name: "পাহাড় হাব", h4Name: "সামুদ্রিক হাব"
+                h1Name: "আর্বান কমিউট",
+                h2Name: "কিসান হাব",
+                h3Name: "পাহাড় হাব",
+                h4Name: "সামুদ্রিক হাব"
             },
+
             mr: {
                 govHead: "🇮🇳 भारत सरकार डिजिटल पहल • IMD समर्थित",
                 accessTitle: "♿ सुलभता यंत्रणा (अंध/बधिर सहाय्य)",
@@ -419,8 +1062,12 @@
                 hourly: "⏱️ प्रति तास अंदाज",
                 forecast: "📊 ७-दिवसांचा अंदाज",
                 changeLang: "🌐 भाषा बदला",
-                h1Name: "अर्बन कम्युट", h2Name: "किसान हब", h3Name: "डोंगराळ हब", h4Name: "किनारी हब"
+                h1Name: "अर्बन कम्युट",
+                h2Name: "किसान हब",
+                h3Name: "डोंगराळ हब",
+                h4Name: "किनारी हब"
             },
+
             te: {
                 govHead: "🇮🇳 భారత ప్రభుత్వ డిజిటల్ చొరవ • IMD మద్దతుతో",
                 accessTitle: "♿ యాక్సెసిబిలిటీ ఇంజిన్ (అంధ/చెవిటి మద్దతు)",
@@ -433,8 +1080,12 @@
                 hourly: "⏱️ గంటవారీ అంచనా",
                 forecast: "📊 7-రోజుల అంచనా",
                 changeLang: "🌐 భాష మార్చండి",
-                h1Name: "అర్బన్ కమ్యూట్", h2Name: "కిసాన్ హబ్", h3Name: "పర్వత ప్రాంత హబ్", h4Name: "సముద్రపు హబ్"
+                h1Name: "అర్బన్ కమ్యూట్",
+                h2Name: "కిసాన్ హబ్",
+                h3Name: "పర్వత ప్రాంత హబ్",
+                h4Name: "సముద్రపు హబ్"
             },
+
             ta: {
                 govHead: "🇮🇳 இந்திய அரசு டிஜிட்டல் முயற்சி • IMD ஆதரவு",
                 accessTitle: "♿ அணுகல் இயந்திரம் (பார்வையற்றோர்/செவித்திறன் ஆதரவு)",
@@ -447,8 +1098,12 @@
                 hourly: "⏱️ மணிநேர முன்னறிவிப்பு",
                 forecast: "📊 7 நாள் முன்னறிவிப்பு",
                 changeLang: "🌐 மொழியை மாற்றுக",
-                h1Name: "நகர்ப்புற பயணம்", h2Name: "கிசான் மையம்", h3Name: "மலைப்பகுதி மையம்", h4Name: "கடற்கரை மையம்"
+                h1Name: "நகர்ப்புற பயணம்",
+                h2Name: "கிசான் மையம்",
+                h3Name: "மலைப்பகுதி மையம்",
+                h4Name: "கடற்கரை மையம்"
             },
+
             gu: {
                 govHead: "🇮🇳 ભારત સરકાર ડિજિટલ પહેલ • IMD સમર્થિત",
                 accessTitle: "♿ એક્સેસિબિલિટી એન્જિન (અંધ/બધિર સહાય)",
@@ -461,8 +1116,12 @@
                 hourly: "⏱️ કલાકદીઠ અંદાજ",
                 forecast: "📊 7-દિવસનો અંદાજ",
                 changeLang: "🌐 ભાષા બદલો",
-                h1Name: "અર્બન કમ્યુટ", h2Name: "કિસાન હબ", h3Name: "પર્વત હબ", h4Name: "દરિયાઈ હબ"
+                h1Name: "અર્બન કમ્યુટ",
+                h2Name: "કિસાન હબ",
+                h3Name: "પર્વત હબ",
+                h4Name: "દરિયાઈ હબ"
             },
+
             kn: {
                 govHead: "🇮🇳 ಭಾರತ ಸರ್ಕಾರದ ಡಿಜಿಟಲ್ पहल • IMD ಬೆಂಬಲಿತ",
                 accessTitle: "♿ ಪ್ರವೇಶಸಾಧ್ಯತೆ ಇಂಜಿನ್ (ಕುರುಡು/ಕಿವುಡು ಬೆಂಬಲ)",
@@ -475,8 +1134,12 @@
                 hourly: "⏱️ ಗಂಟೆಯ ಮುನ್ಸೂಚನೆ",
                 forecast: "📊 7 ದಿನಗಳ ಮುನ್ಸೂಚನೆ",
                 changeLang: "🌐 ಭಾಷೆಯನ್ನು ಬದಲಾಯಿಸಿ",
-                h1Name: "ನಗರ ಪ್ರಯಾಣ", h2Name: "ಕಿಸಾನ್ ಹಬ್", h3Name: "ಪರ್ವತ ಹಬ್", h4Name: "ಸಮುದ್ರ ಹಬ್"
+                h1Name: "ನಗರ ಪ್ರಯಾಣ",
+                h2Name: "ಕಿಸಾನ್ ಹಬ್",
+                h3Name: "ಪರ್ವತ ಹಬ್",
+                h4Name: "ಸಮುದ್ರ ಹಬ್"
             },
+
             ml: {
                 govHead: "🇮🇳 ഗവൺമെന്റ് ഓഫ് ഇന്ത്യ ഡിജിറ്റൽ സംരംഭം • IMD പിന്തുണയോടെ",
                 accessTitle: "♿ പ്രവേശനക്ഷമത എഞ്ചിൻ (അന്ധ/ബധിര പിന്തുണ)",
@@ -489,22 +1152,30 @@
                 hourly: "⏱️ മണിക്കൂർ തോറുമുള്ള പ്രവചനം",
                 forecast: "📊 7 ദിവസത്തെ പ്രവചനം",
                 changeLang: "🌐 ഭാഷ മാറ്റുക",
-                h1Name: "നഗര യാത്ര", h2Name: "കിസാൻ ഹബ്", h3Name: "മലനിര ഹബ്", h4Name: "തീരദേശ ഹബ്"
+                h1Name: "നഗര യാത്ര",
+                h2Name: "കിസാൻ ഹബ്",
+                h3Name: "മലനിര ഹബ്",
+                h4Name: "തീരദേശ ഹബ്"
             },
+
             pa: {
                 govHead: "🇮🇳 ਭਾਰਤ ਸਰਕਾਰ ਡਿਜੀਟਲ ਪਹਿਲਕਦਮੀ • IMD ਸਮਰਥਿਤ",
                 accessTitle: "♿ ਪਹੁੰਚਯੋਗਤਾ ਇੰਜਣ (ਅੰਨ੍ਹੇ/ਕੰਨਾਂ ਤੋਂ ਅਸਮਰੱਥ ਸਹਾਇਤਾ)",
                 hubMainTitle: "🚀 ਸੈਕਟਰ ਹੱਬ ਚੁਣੋ (ਕਲਿੱਕ ਕਰੋ)",
                 uDesc: "ਟ੍ਰੈਫਿਕ, AQI, ਵਾਟਰ ਲੌਗਿੰਗ ਅਤੇ ਗਵਰਨੈਂਸ ਅੱਪਡੇਟ",
-                kDesc: "ਫਸਲ ਡਾਕਟਰ, ਮਿੱਟੀ ਦੀ ਨਮੀ ਅਤੇ सिचाई",
-                mDesc: "ਭୂસ્ਖਲਨ ਅਤੇ ਸੰਘਣੀ ਧੁੰਦ ਦੀ ਚੇਤਾਵਨੀ",
-                marDesc: "ਚੱਕਰਵਾਤ, PFZ ਅਤੇ ਤटीय ਚੇਤਾਵਨੀਆਂ",
+                kDesc: "ਫਸਲ ਡਾਕਟਰ, ਮਿੱਟੀ ਦੀ ਨਮੀ ਅਤੇ ਸਿੰਚਾਈ",
+                mDesc: "ਭੂਸਖਲਨ ਅਤੇ ਸੰਘਣੀ ਧੁੰਦ ਦੀ ਚੇਤਾਵਨੀ",
+                marDesc: "ਚੱਕਰਵਾਤ, PFZ ਅਤੇ ਤਟੀਯ ਚੇਤਾਵਨੀਆਂ",
                 aiTag: "🤖 AI ਯੂਨੀਵਰਸਲ ਅਸਿਸਟੈਂਟ (ਕਲਿੱਕ ਕਰੋ)",
                 hourly: "⏱️ ਪ੍ਰਤੀ ਘੰਟਾ ਪੂਰਵ ਅਨੁਮਾਨ",
                 forecast: "📊 7 ਦਿਨਾਂ ਦਾ ਪੂਰਵ ਅਨੁਮਾਨ",
-                changeLang: "🌐 ਭਾਸ਼ਾ ਬਦલો",
-                h1Name: "ਅਰਬਨ ਕਮਿਊਟ", h2Name: "ਕਿਸਾਨ ਹੱਬ", h3Name: "ਪਹਾੜੀ ਹੱਬ", h4Name: "ਸਮੁੰਦਰੀ ਹੱਬ"
+                changeLang: "🌐 ਭਾਸ਼ਾ ਬਦਲੋ",
+                h1Name: "ਅਰਬਨ ਕਮਿਊਟ",
+                h2Name: "ਕਿਸਾਨ ਹੱਬ",
+                h3Name: "ਪਹਾੜੀ ਹੱਬ",
+                h4Name: "ਸਮੁੰਦਰੀ ਹੱਬ"
             },
+
             or: {
                 govHead: "🇮🇳 ଭାରତ ସରକାର ଡିଜିଟାଲ ପଦକ୍ଷେପ • IMD ସମର୍ଥିତ",
                 accessTitle: "♿ ଏକ୍ସେସିବିଲିଟି ଇଞ୍ଜିନ (ଅନ୍ଧ/ବଧିର ସହାୟତା)",
@@ -517,8 +1188,12 @@
                 hourly: "⏱️ ପ୍ରତି ଘଣ୍ଟା ପୂର୍ବାନୁମାନ",
                 forecast: "📊 ୭ ଦିନିଆ ପୂର୍ବାନୁମାନ",
                 changeLang: "🌐 ଭାଷା ପରିବର୍ତ୍ତନ କରନ୍ତୁ",
-                h1Name: "ସହରୀ ଯାତ୍ରା", h2Name: "କିଷାନ ହବ୍", h3Name: "ପାହାଡ଼ ହବ୍", h4Name: "ସମୁଦ୍ର ହବ୍"
+                h1Name: "ସହରୀ ଯାତ୍ରା",
+                h2Name: "କିଷାନ ହବ୍",
+                h3Name: "ପାହାଡ଼ ହବ୍",
+                h4Name: "ସମୁଦ୍ର ହବ୍"
             },
+
             as: {
                 govHead: "🇮🇳 ভাৰত চৰকাৰৰ ডিজিটেল পদক্ষেপ • IMD সমৰ্থিত",
                 accessTitle: "♿ প্ৰৱেশযোগ্যতা ইঞ্জিন (অন্ধ/বধিৰ সহায়)",
@@ -531,8 +1206,12 @@
                 hourly: "⏱️ প্ৰতি ঘণ্টাৰ পূৰ্বাভাস",
                 forecast: "📊 ৭ দিনীয়া পূৰ্বাভাস",
                 changeLang: "🌐 ভাষা সলনি কৰক",
-                h1Name: "নগৰীয়া যাত্ৰা", h2Name: "কিষাণ হাব", h3Name: "পাহাৰীয়া হাব", h4Name: "সামুদ্ৰিক হাব"
+                h1Name: "নগৰীয়া যাত্ৰা",
+                h2Name: "কিষাণ হাব",
+                h3Name: "পাহাৰীয়া হাব",
+                h4Name: "সামুদ্ৰিক হাব"
             },
+
             ur: {
                 govHead: "🇮🇳 حکومت ہند ڈیجیٹل اقدام • IMD کی حمایت یافتہ",
                 accessTitle: "♿ ایکسیسبیلٹی انجن (اندھے/بہرے کی مدد)",
@@ -545,403 +1224,1481 @@
                 hourly: "⏱️ فی گھنٹہ کی پیشن گوئی",
                 forecast: "📊 7 دن کی پیشن گوئی",
                 changeLang: "🌐 زبان تبدیل کریں",
-                h1Name: "अर्बन कम्यूट", h2Name: "کسان ہب", h3Name: "پہاڑی ہب", h4Name: "سمندری ہب"
+                h1Name: "अर्बन कम्यूट",
+                h2Name: "کسان ہب",
+                h3Name: "پہاڑی ہب",
+                h4Name: "سمندری ہب"
             }
         };
 
-        const greetings = {
-            hi: "हिन्दी भाषा चुनी गई है। मौसम एआई प्रो में आपका स्वागत है!",
-            en: "English language selected. Welcome to Mausam AI Pro!",
-            bn: "বাংলা ভাষা নির্বাচন করা হয়েছে। মৌসুম এআই প্রো-তে স্বাগতম!",
-            mr: "मराठी भाषा निवडली आहे. मौसम एआय प्रो मध्ये स्वागत आहे!",
-            te: "తెలుగు భాష ఎంపిక చేయబడింది. మోసమ్ ఏఐ ప్రో కు స్వాగతం!",
-            ta: "தமிழ் மொழி தேர்ந்தெடுக்கப்பட்டுள்ளது. மௌசம் ஏஐ புரோவிற்கு நல்வரவு!",
-            gu: "ગુજરાતી ભાષા પસંદ કરવામાં આવી છે. મોસમ એઆઈ પ્રો માં સ્વાગત છે!",
-            kn: "ಕನ್ನಡ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆ ಮಾಡಲಾಗಿದೆ. ಮೌಸಮ್ ಎಐ ಪ್ರೊ ಗೆ ಸ್ವಾಗತ!",
-            ml: "മലയാളം ഭാഷ തെരഞ്ഞെടുത്തു. മൗസം എഐ പ്രോയിലേക്ക് സ്വാഗതം!",
-            pa: "ਪੰਜਾਬੀ ਭਾਸ਼ਾ ਚੁਣੀ ਗਈ ਹੈ। ਮੌਸਮ ਏਆਈ ਪ੍ਰੋ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ!",
-            or: "ଓଡ଼ିଆ ଭାଷା ଚୟନ କରାଯାଇଛି। ମୌସମ୍ ଏଆଇ ପ୍ରୋ କୁ ସ୍ୱାଗତ!",
-            as: "অসমীয়া ভাষা নিৰ্বাচন কৰা হৈছে। মৌচম এআই প্ৰ’লৈ স্বাগতম!",
-            ur: "اردو زبان منتخب کر لی گئی ہے۔ موسم اے آئی پرو میں خوش آمدید!"
-        };
+
+        /*
+        ============================================================
+        NEW VOICE SYSTEM
+        केवल voice behavior improve किया गया है.
+        ============================================================
+        */
+
+        let speechGeneration = 0;
+
+
+        /*
+        Single speech:
+        नई आवाज आते ही पुरानी आवाज/queue cancel.
+        */
 
         function speakText(text) {
+
+            if (!text) return;
+
+            /*
+            Deaf & Mute mode:
+            audio नहीं, visual text रहेगा.
+            */
             if (deafMuteActive) {
-                // In Deaf & Mute mode, audio is suppressed and converted to visual status logs
-                document.getElementById('aiListeningStatus').innerText = "🧏 Deaf Mode: " + text;
+
+                const status =
+                    document.getElementById('aiListeningStatus');
+
+                if (status) {
+                    status.innerText = "🧏 " + text;
+                }
+
                 return;
             }
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = currentBCP;
-                window.speechSynthesis.speak(utterance);
+
+            if (!('speechSynthesis' in window)) {
+                return;
             }
+
+            speechGeneration++;
+
+            const thisGeneration = speechGeneration;
+
+            /*
+            सबसे important fix:
+            पुरानी queued speech तुरंत हटाओ.
+            */
+            window.speechSynthesis.cancel();
+
+            const utterance =
+                new SpeechSynthesisUtterance(text);
+
+            utterance.lang = currentBCP;
+
+            /*
+            पहले 1 की जगह थोड़ा faster,
+            ताकि response sluggish न लगे.
+            */
+            utterance.rate = 1.12;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+
+            /*
+            कुछ Android/browser combinations में
+            cancel() के तुरंत बाद speech शुरू नहीं होती.
+            इसलिए बहुत छोटा 30ms delay.
+            */
+            setTimeout(() => {
+
+                if (thisGeneration !== speechGeneration) {
+                    return;
+                }
+
+                if (!deafMuteActive) {
+                    window.speechSynthesis.speak(utterance);
+                }
+
+            }, 30);
         }
 
-        function selectLanguage(lang, bcp, dummyGreeting) {
+
+        /*
+        Multiple messages को एक ही speech queue में डालता है.
+        इससे Welcome → Temperature सही order में चलता है.
+        */
+
+        function speakSequence(messages) {
+
+            if (!messages || !messages.length) {
+                return;
+            }
+
+            if (deafMuteActive) {
+
+                const status =
+                    document.getElementById('aiListeningStatus');
+
+                if (status) {
+                    status.innerText =
+                        "🧏 " + messages.join(" ");
+                }
+
+                return;
+            }
+
+            if (!('speechSynthesis' in window)) {
+                return;
+            }
+
+            speechGeneration++;
+
+            const thisGeneration = speechGeneration;
+
+            /*
+            पुरानी सभी voices हटाओ.
+            */
+            window.speechSynthesis.cancel();
+
+            setTimeout(() => {
+
+                if (thisGeneration !== speechGeneration) {
+                    return;
+                }
+
+                messages.forEach((text) => {
+
+                    const utterance =
+                        new SpeechSynthesisUtterance(text);
+
+                    utterance.lang = currentBCP;
+                    utterance.rate = 1.12;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+
+                    window.speechSynthesis.speak(utterance);
+
+                });
+
+            }, 30);
+        }
+
+
+        /*
+        ============================================================
+        LANGUAGE VOICE MESSAGES
+        ============================================================
+        */
+
+        const voiceMessages = {
+
+            hi: [
+                "मौसम एआई प्रो में आपका स्वागत है।",
+                "लखनऊ में वर्तमान तापमान 29 डिग्री सेल्सियस है।"
+            ],
+
+            en: [
+                "Welcome to Mausam AI Pro.",
+                "The current temperature in Lucknow is 29 degrees Celsius."
+            ],
+
+            bn: [
+                "মৌসুম এআই প্রো-তে আপনাকে স্বাগতম।",
+                "লখনউতে বর্তমান তাপমাত্রা ২৯ ডিগ্রি সেলসিয়াস।"
+            ],
+
+            mr: [
+                "मौसम एआय प्रो मध्ये आपले स्वागत आहे.",
+                "लखनऊमध्ये सध्याचे तापमान २९ अंश सेल्सिअस आहे."
+            ],
+
+            te: [
+                "మౌసమ్ ఏఐ ప్రోకు స్వాగతం.",
+                "లక్నోలో ప్రస్తుత ఉష్ణోగ్రత 29 డిగ్రీల సెల్సియస్."
+            ],
+
+            ta: [
+                "மௌசம் ஏஐ புரோவிற்கு உங்களை வரவேற்கிறோம்.",
+                "லக்னோவில் தற்போதைய வெப்பநிலை 29 டிகிரி செல்சியஸ்."
+            ],
+
+            gu: [
+                "મોસમ એઆઈ પ્રોમાં આપનું સ્વાગત છે.",
+                "લખનૌમાં વર્તમાન તાપમાન 29 ડિગ્રી સેલ્સિયસ છે."
+            ],
+
+            kn: [
+                "ಮೌಸಮ್ ಎಐ ಪ್ರೋಗೆ ಸ್ವಾಗತ.",
+                "ಲಕ್ನೋದಲ್ಲಿ ಪ್ರಸ್ತುತ ತಾಪಮಾನ 29 ಡಿಗ್ರಿ ಸೆಲ್ಸಿಯಸ್ ಇದೆ."
+            ],
+
+            ml: [
+                "മൗസം എഐ പ്രോയിലേക്ക് സ്വാഗതം.",
+                "ലഖ്നൗവിലെ നിലവിലെ താപനില 29 ഡിഗ്രി സെൽഷ്യസാണ്."
+            ],
+
+            pa: [
+                "ਮੌਸਮ ਏਆਈ ਪ੍ਰੋ ਵਿੱਚ ਤੁਹਾਡਾ ਸਵਾਗਤ ਹੈ।",
+                "ਲਖਨਊ ਵਿੱਚ ਮੌਜੂਦਾ ਤਾਪਮਾਨ 29 ਡਿਗਰੀ ਸੈਲਸੀਅਸ ਹੈ।"
+            ],
+
+            or: [
+                "ମୌସମ୍ ଏଆଇ ପ୍ରୋକୁ ସ୍ୱାଗତ।",
+                "ଲକ୍ଷ୍ନୌର ବର୍ତ୍ତମାନ ତାପମାତ୍ରା 29 ଡିଗ୍ରୀ ସେଲସିୟସ।"
+            ],
+
+            as: [
+                "মৌচম এআই প্ৰ'লৈ আপোনাক স্বাগতম।",
+                "লক্ষ্ণৌত বৰ্তমান তাপমাত্ৰা ২৯ ডিগ্ৰী চেলছিয়াছ।"
+            ],
+
+            ur: [
+                "موسم اے آئی پرو میں خوش آمدید۔",
+                "لکھنؤ میں موجودہ درجہ حرارت 29 ڈگری سیلسیس ہے۔"
+            ]
+
+        };
+
+
+        /*
+        ============================================================
+        LANGUAGE SELECT
+        ============================================================
+        */
+
+        function selectLanguage(lang, bcp) {
+
             currentLang = lang;
             currentBCP = bcp;
+
+            /*
+            Language बदलते ही पुरानी speech cancel.
+            */
+            if ('speechSynthesis' in window) {
+                speechGeneration++;
+                window.speechSynthesis.cancel();
+            }
+
             document.getElementById('langModal').style.display = 'none';
 
-            let t = translations[lang] || translations['en'];
-            document.getElementById('govHeaderTitle').innerText = t.govHead;
-            document.getElementById('accessTitleText').innerText = t.accessTitle;
-            document.getElementById('hubMainTitle').innerText = t.hubMainTitle;
-            document.getElementById('h1Name').innerText = t.h1Name;
-            document.getElementById('h2Name').innerText = t.h2Name;
-            document.getElementById('h3Name').innerText = t.h3Name;
-            document.getElementById('h4Name').innerText = t.h4Name;
-            document.getElementById('uDesc').innerText = t.uDesc;
-            document.getElementById('kDesc').innerText = t.kDesc;
-            document.getElementById('mDesc').innerText = t.mDesc;
-            document.getElementById('marDesc').innerText = t.marDesc;
-            document.getElementById('aiTag').innerText = t.aiTag;
-            document.getElementById('btnHourly').innerText = t.hourly;
-            document.getElementById('btnForecast').innerText = t.forecast;
-            document.getElementById('btnChangeLang').innerText = t.changeLang;
+            const t =
+                translations[lang] || translations['en'];
 
-            let actualGreeting = greetings[lang] || greetings['en'];
-            speakText(actualGreeting);
+            document.getElementById('govHeaderTitle').innerText =
+                t.govHead;
+
+            document.getElementById('accessTitleText').innerText =
+                t.accessTitle;
+
+            document.getElementById('hubMainTitle').innerText =
+                t.hubMainTitle;
+
+            document.getElementById('h1Name').innerText =
+                t.h1Name;
+
+            document.getElementById('h2Name').innerText =
+                t.h2Name;
+
+            document.getElementById('h3Name').innerText =
+                t.h3Name;
+
+            document.getElementById('h4Name').innerText =
+                t.h4Name;
+
+            document.getElementById('uDesc').innerText =
+                t.uDesc;
+
+            document.getElementById('kDesc').innerText =
+                t.kDesc;
+
+            document.getElementById('mDesc').innerText =
+                t.mDesc;
+
+            document.getElementById('marDesc').innerText =
+                t.marDesc;
+
+            /*
+            FIX:
+            पहले aiTag लिखा था, लेकिन HTML में aiTagBtn है.
+            */
+            document.getElementById('aiTagBtn').innerText =
+                t.aiTag;
+
+            document.getElementById('btnHourly').innerText =
+                t.hourly;
+
+            document.getElementById('btnForecast').innerText =
+                t.forecast;
+
+            document.getElementById('btnChangeLang').innerText =
+                t.changeLang;
+
+
+            /*
+            Welcome + Temperature
+            एक ही sequence में.
+            */
+
+            const messages =
+                voiceMessages[lang] ||
+                voiceMessages['en'];
+
+            speakSequence(messages);
         }
+
+
+        /*
+        ============================================================
+        LANGUAGE MODAL
+        ============================================================
+        */
 
         function openLangModal() {
-            speakText(currentLang === 'en' ? "Language selection panel opened." : "भाषा चयन पैनल खोला गया है।");
-            document.getElementById('langModal').style.display = 'flex';
+
+            speakText(
+                currentLang === 'en'
+                    ? "Language selection panel opened."
+                    : "भाषा चयन पैनल खोला गया है।"
+            );
+
+            document.getElementById('langModal').style.display =
+                'flex';
         }
 
+
+        /*
+        ============================================================
+        SECTOR HUB
+        ============================================================
+        */
+
         function openSectorHub(sector) {
-            document.getElementById('sectorPageOverlay').style.display = 'flex';
+
+            /*
+            पहले ही पुरानी speech clear.
+            */
+            if ('speechSynthesis' in window) {
+                speechGeneration++;
+                window.speechSynthesis.cancel();
+            }
+
+            document.getElementById('sectorPageOverlay').style.display =
+                'flex';
+
             let title = "";
             let content = "";
             let speechMsg = "";
 
+
+            /*
+            ---------------- URBAN ----------------
+            */
+
             if (sector === 'urban') {
-                title = "🏙️ Urban Commute & Smart City Hub";
+
+                title =
+                    "🏙️ Urban Commute & Smart City Hub";
+
                 if (currentLang === 'en') {
-                    speechMsg = "Urban mode activated.";
+
+                    speechMsg =
+                        "Urban mode activated.";
+
                     content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('Live Traffic Status: Traffic on Hazratganj and Charbagh routes is flowing at normal speed in green zone.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. Live Traffic Status</h3>
-                                <p style="margin:0; color:#cbd5e1;">Hazratganj and Charbagh routes traffic is normal (Green Zone).</p>
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Live Traffic Status: Traffic on Hazratganj and Charbagh routes is flowing at normal speed in green zone.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. Live Traffic Status
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Hazratganj and Charbagh routes traffic is normal (Green Zone).
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('Air Quality Index is 142, which is moderate.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. Air Quality Index (AQI)</h3>
-                                <p style="margin:0; color:#cbd5e1;">Current AQI: <b>142 (Moderate)</b>. Sensitive groups should wear masks.</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Air Quality Index is 142, which is moderate.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. Air Quality Index (AQI)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Current AQI: <b>142 (Moderate)</b>. Sensitive groups should wear masks.
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('Water logging and smart drainage sensors are active. No threat of water logging.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. Water-logging & Smart Drainage</h3>
-                                <p style="margin:0; color:#cbd5e1;">Smart drainage sensors active. No threat of water logging on main routes.</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Water logging and smart drainage sensors are active. No threat of water logging.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. Water-logging & Smart Drainage
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Smart drainage sensors active. No threat of water logging on main routes.
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('Public Transport and Metro Advisory: Metro services running on time with high frequency.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. Public Transport & Metro Advisory</h3>
-                                <p style="margin:0; color:#cbd5e1;">Metro services running on time with high passenger frequency.</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Public Transport and Metro Advisory: Metro services running on time with high frequency.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. Public Transport & Metro Advisory
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Metro services running on time with high passenger frequency.
+                                </p>
+
                             </div>
-                            <div class="gov-card-box" onclick="speakText('Government Initiative Box: Smart Cities Mission and AMRUT scheme are funding real-time urban monitoring to reduce congestion and improve public transit.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ Government Initiative & Scheme</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>Smart Cities Mission & AMRUT:</b> Real-time urban data monitoring funded by Ministry of Housing and Urban Affairs.</p>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('Government Initiative Box: Smart Cities Mission and AMRUT scheme are funding real-time urban monitoring to reduce congestion and improve public transit.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ Government Initiative & Scheme
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>Smart Cities Mission & AMRUT:</b>
+                                    Real-time urban data monitoring funded by Ministry of Housing and Urban Affairs.
+                                </p>
+
                             </div>
+
                         </div>
+
                     `;
+
                 } else {
-                    speechMsg = "अर्बन मोड एक्टिवेटेड।";
+
+                    speechMsg =
+                        "अर्बन मोड एक्टिवेटेड।";
+
                     content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('ट्रैफिक अपडेट: हजरतगंज और चारबाग रूट पर ट्रैफिक सामान्य गति से चल रहा है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. ट्रैफिक अपडेट (Live Traffic Status)</h3>
-                                <p style="margin:0; color:#cbd5e1;">हजरतगंज और चारबाग रूट पर ट्रैफिक सामान्य गति से चल रहा है (Green Zone)।</p>
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('ट्रैफिक अपडेट: हजरतगंज और चारबाग रूट पर ट्रैफिक सामान्य गति से चल रहा है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. ट्रैफिक अपडेट (Live Traffic Status)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    हजरतगंज और चारबाग रूट पर ट्रैफिक सामान्य गति से चल रहा है (Green Zone)।
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('वायु गुणवत्ता सूचकांक: वर्तमान AQI 142 मध्यम है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. वायु गुणवत्ता सूचकांक (AQI)</h3>
-                                <p style="margin:0; color:#cbd5e1;">वर्तमान AQI: <b>142 (मध्यम)</b>। संवेदनशील लोगों को बाहर निकलते समय सावधानी बरतने की सलाह है।</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('वायु गुणवत्ता सूचकांक: वर्तमान AQI 142 मध्यम है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. वायु गुणवत्ता सूचकांक (AQI)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    वर्तमान AQI: <b>142 (मध्यम)</b>।
+                                    संवेदनशील लोगों को बाहर निकलते समय सावधानी बरतने की सलाह है।
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('वॉटरलॉगिंग और स्मार्ट ड्रेनेज सेंसर सक्रिय हैं। मुख्य मार्गों पर जलभराव का कोई खतरा नहीं है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. वॉटरलॉगिंग व स्मार्ट ड्रेनेज</h3>
-                                <p style="margin:0; color:#cbd5e1;">स्मार्ट ड्रेनेज सेंसर सक्रिय हैं। शहर के मुख्य मार्गों पर जलभराव का कोई खतरा नहीं है।</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('वॉटरलॉगिंग और स्मार्ट ड्रेनेज सेंसर सक्रिय हैं। मुख्य मार्गों पर जलभराव का कोई खतरा नहीं है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. वॉटरलॉगिंग व स्मार्ट ड्रेनेज
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    स्मार्ट ड्रेनेज सेंसर सक्रिय हैं।
+                                    शहर के मुख्य मार्गों पर जलभराव का कोई खतरा नहीं है।
+                                </p>
+
                             </div>
-                            <div class="clickable-point-card" onclick="speakText('पब्लिक ट्रांसपोर्ट और मेट्रो एडवाइजरी: मेट्रो सेवाएं तय समय पर और सुचारू रूप से चल रही हैं।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. पब्लिक ट्रांसपोर्ट व मेट्रो एडवाइजरी</h3>
-                                <p style="margin:0; color:#cbd5e1;">मेट्रो सेवाएं तय समय पर और सुचारू रूप से संचालित हो रही हैं।</p>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('पब्लिक ट्रांसपोर्ट और मेट्रो एडवाइजरी: मेट्रो सेवाएं तय समय पर और सुचारू रूप से चल रही हैं।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. पब्लिक ट्रांसपोर्ट व मेट्रो एडवाइजरी
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    मेट्रो सेवाएं तय समय पर और सुचारू रूप से संचालित हो रही हैं।
+                                </p>
+
                             </div>
-                            <div class="gov-card-box" onclick="speakText('सरकारी योजना बॉक्स: स्मार्ट सिटी मिशन और अमृत योजना के तहत अर्बन ट्रैफिक और पर्यावरण को सुधारा जा रहा है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ सरकारी योजना व पहल (Government Initiative)</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>स्मार्ट सिटी मिशन व अमृत (AMRUT) योजना:</b> शहरी क्षेत्रों में यातायात प्रबंधन और प्रदूषण नियंत्रण हेतु केंद्रीय वित्तपोषित पहल।</p>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('सरकारी योजना बॉक्स: स्मार्ट सिटी मिशन और अमृत योजना के तहत अर्बन ट्रैफिक और पर्यावरण को सुधारा जा रहा है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ सरकारी योजना व पहल (Government Initiative)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>स्मार्ट सिटी मिशन व अमृत (AMRUT) योजना:</b>
+                                    शहरी क्षेत्रों में यातायात प्रबंधन और प्रदूषण नियंत्रण हेतु केंद्रीय वित्तपोषित पहल।
+                                </p>
+
                             </div>
+
                         </div>
-                    `;
-                }
-            } else if (sector === 'rural') {
-                title = "🌾 किसान हब • AI Crop Doctor & Soil Monitor";
-                if (currentLang === 'en') {
-                    speechMsg = "Kisaan Hub activated.";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('Soil Moisture Status: Soil moisture is at optimal level of 65 percent. Good for sowing.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. Soil Moisture & Health</h3>
-                                <p style="margin:0; color:#cbd5e1;">Soil moisture level is optimal at 65%. Ideal condition for wheat sowing.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('AI Crop Doctor Camera & Upload Scanner. Use camera or upload photo to diagnose crop diseases.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. 📷 AI Crop Doctor (Camera & Image Upload)</h3>
-                                <p style="margin:0; color:#cbd5e1;">Scan crop leaves via camera or upload photo for instant AI deficiency analysis.</p>
-                                <div style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap;">
-                                    <button onclick="triggerCameraScan(event)" style="background:var(--accent-green); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">📸 Open Camera / Scan Leaf</button>
-                                    <input type="file" id="cropUploadInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
-                                    <button onclick="document.getElementById('cropUploadInput').click()" style="background:var(--accent-blue); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">📁 Upload Photo</button>
-                                </div>
-                                <div id="scanResultBox" style="margin-top:10px; font-size:14px; color:var(--accent-orange); font-weight:bold;"></div>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Irrigation and Canal Schedule: Canal water release scheduled for tomorrow morning.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. Irrigation & Canal Schedule</h3>
-                                <p style="margin:0; color:#cbd5e1;">Canal water release scheduled for tomorrow morning in sector 4.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Mandi Price Trends: Wheat and Paddy prices stable across regional mandis.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. Mandi Price Trends</h3>
-                                <p style="margin:0; color:#cbd5e1;">Wheat and paddy prices stable across regional mandis with high demand.</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('Government Scheme Box: PM-KISAN Samman Nidhi and PM Fasal Bima Yojana provide financial and crop security support to farmers.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ PM-KISAN & Government Schemes</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>PM-KISAN Samman Nidhi & PMFBY:</b> Direct income support and comprehensive crop insurance backed by Ministry of Agriculture.</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    speechMsg = "किसान हब एक्टिवेटेड।";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('मिट्टी की नमी और स्वास्थ्य: मिट्टी में नमी का स्तर 65 प्रतिशत है जो बुवाई के लिए उत्तम है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. मिट्टी की नमी व स्वास्थ्य (Soil Moisture)</h3>
-                                <p style="margin:0; color:#cbd5e1;">मिट्टी में नमी का स्तर 65% है। फसलों की बुवाई के लिए यह अनुकूल समय है।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('एआई क्रॉप डॉक्टर कैमरा और अपलोड स्कैनर। फसल की फोटो खींचकर या अपलोड करके बीमारी जांचें।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. 📷 एआई क्रॉप डॉक्टर (कैमरा और फोटो अपलोड)</h3>
-                                <p style="margin:0; color:#cbd5e1;">कैमरा ऑन करें या पौधे की पत्ती की फोटो अपलोड करें ताकि एआई स्कैन करके पोषण कमी बता सके।</p>
-                                <div style="margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap;">
-                                    <button onclick="triggerCameraScan(event)" style="background:var(--accent-green); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">📸 कैमरा खोलें (Live Scan)</button>
-                                    <input type="file" id="cropUploadInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
-                                    <button onclick="document.getElementById('cropUploadInput').click()" style="background:var(--accent-blue); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">📁 फोटो अपलोड करें</button>
-                                </div>
-                                <div id="scanResultBox" style="margin-top:10px; font-size:14px; color:var(--accent-orange); font-weight:bold;"></div>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('सिंचाई और नहर शेड्यूल: कल सुबह नहर में पानी छोड़े जाने का शेड्यूल तय है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. सिंचाई व नहर शेड्यूल</h3>
-                                <p style="margin:0; color:#cbd5e1;">क्षेत्र संख्या 4 में कल सुबह नहर का पानी छोड़े जाने की सूचना है।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('मंडी मूल्य रुझान: क्षेत्रीय मंडियों में गेहूं और धान के भाव स्थिर हैं।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. मंडी मूल्य रुझान (Mandi Rates)</h3>
-                                <p style="margin:0; color:#cbd5e1;">क्षेत्रीय मंडियों में गेहूं और धान के दाम स्थिर बने हुए हैं।</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('सरकारी योजना बॉक्स: पीएम किसान सम्मान निधि और प्रधानमंत्री फसल बीमा योजना के माध्यम से किसानों को वित्तीय और सुरक्षा सहायता मिलती है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ पीएम-किसान व सरकारी योजनाएं</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>PM-KISAN & PM Fasal Bima Yojana:</b> किसानों को प्रत्यक्ष आय सहायता और फसल सुरक्षा कवच प्रदान करने वाली केंद्रीय योजनाएं।</p>
-                            </div>
-                        </div>
-                    `;
-                }
-            } else if (sector === 'mountain') {
-                title = "⛰️ Mountain & Hill Station Weather Hub";
-                if (currentLang === 'en') {
-                    speechMsg = "Mountain Hub activated.";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('Landslide Warning: Moderate landslide risk on high altitude mountain routes due to previous rain.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. Landslide Risk Alert</h3>
-                                <p style="margin:0; color:#cbd5e1;">Moderate landslide risk on high altitude mountain routes due to loose soil.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Dense Fog and Visibility: Visibility dropped to 50 meters in early morning hours.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. Dense Fog & Visibility</h3>
-                                <p style="margin:0; color:#cbd5e1;">Visibility dropped to 50 meters during early morning hours. Drive with fog lights.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Temperature Drop and Frost Advisory: Night temperature expected to touch 3 degrees Celsius.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. Frost & Temperature Drop</h3>
-                                <p style="margin:0; color:#cbd5e1;">Night temperatures expected to touch 3°C. Frost warning for orchards.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Tourism and Travel Advisory: Safe to travel during daylight hours only.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. Tourism & Travel Advisory</h3>
-                                <p style="margin:0; color:#cbd5e1;">Tourists advised to travel only during daylight and check route status.</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('Government Initiative Box: National Disaster Management Authority and Himalayan Eco-Development Program assist in safe hill transit.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ Government Initiative & NDMA Schemes</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>NDMA & Himalayan Eco-Development Mission:</b> Mountain safety protocols and disaster resilience infrastructure.</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    speechMsg = "पहाड़ी हब एक्टिवेटेड।";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('भूस्खलन चेतावनी: ऊंचाई वाले पहाड़ी मार्गों पर हल्की मिट्टी खिसकने का मध्यम जोखिम है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. भूस्खलन चेतावनी (Landslide Risk)</h3>
-                                <p style="margin:0; color:#cbd5e1;">ऊंचाई वाले पहाड़ी मार्गों पर हल्की मिट्टी खिसकने का मध्यम जोखिम बना हुआ है।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('कोहरा और दृश्यता: सुबह के समय दृश्यता घटकर 50 मीटर रह गई है। फॉग लाइट का प्रयोग करें।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. घना कोहरा व दृश्यता (Fog Alert)</h3>
-                                <p style="margin:0; color:#cbd5e1;">सुबह के समय दृश्यता घटकर 50 मीटर हो गई है। वाहन धीमी गति से चलाएं।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('तापमान में गिरावट और पाला: रात का तापमान 3 डिग्री तक गिर सकता है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. तापमान गिरावट व पाला चेतावनी</h3>
-                                <p style="margin:0; color:#cbd5e1;">रात का तापमान 3°C तक गिरने की संभावना है। बागवानों को पाले से बचाव की सलाह।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('पर्यटन और यात्रा एडवाइजरी: केवल दिन के समय ही यात्रा करने की अनुमति दी गई है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. पर्यटन व यात्रा एडवाइजरी</h3>
-                                <p style="margin:0; color:#cbd5e1;">पर्यटकों को सलाह दी जाती है कि केवल दिन के उजाले में ही सफर करें।</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('सरकारी योजना बॉक्स: राष्ट्रीय आपदा प्रबंधन प्राधिकरण और हिमालयन मिशन के तहत पहाड़ी क्षेत्रों में सुरक्षा और सड़क निगरानी की जाती है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ सरकारी योजना व एनडीएमए (NDMA) पहल</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDMA) मिशन:</b> पर्वतीय यात्रा सुरक्षा, भूस्खलन पूर्व-चेतावनी और आपदा राहत सहायता।</p>
-                            </div>
-                        </div>
-                    `;
-                }
-            } else if (sector === 'marine') {
-                title = "⚓ Marine & Coastal Weather Hub (PFZ)";
-                if (currentLang === 'en') {
-                    speechMsg = "Marine Hub activated.";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('Cyclone and Wind Alert: Sea conditions are normal. No cyclone warning issued.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. Cyclone & Wind Alert</h3>
-                                <p style="margin:0; color:#cbd5e1;">Sea conditions normal. Wind speed 15-20 knots. No cyclone warning.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Potential Fishing Zone advisory: High fish aggregation detected 30 kilometers off the coast.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. Potential Fishing Zone (PFZ)</h3>
-                                <p style="margin:0; color:#cbd5e1;">High fish aggregation detected 30 km off the coast using INCOIS satellite data.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('High Wave and Tide Warning: Normal tides expected with wave height up to 1.2 meters.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. High Wave & Tide Warning</h3>
-                                <p style="margin:0; color:#cbd5e1;">Normal tides expected with wave height up to 1.2 meters. Safe for small boats.</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('Port and Harbor Advisory: All operations running smoothly at major coastal ports.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. Port & Harbor Advisory</h3>
-                                <p style="margin:0; color:#cbd5e1;">All operations running smoothly at major ports with clear navigation signals.</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('Government Scheme Box: Pradhan Mantri Matsya Sampada Yojana and Sagarmala project support fishermen and coastal infrastructure.')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ PM Matsya Sampada & Sagarmala Schemes</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>PMMSY & Sagarmala:</b> Empowering coastal fishermen communities with deep-sea safety and sustainable marine growth.</p>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    speechMsg = "मरीन हब एक्टिवेटेड।";
-                    content = `
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <div class="clickable-point-card" onclick="speakText('चक्रवात और हवा की चेतावनी: समुद्र की स्थिति सामान्य है, कोई चक्रवात चेतावनी नहीं है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">1. चक्रवात व हवा की चेतावनी (Cyclone Alert)</h3>
-                                <p style="margin:0; color:#cbd5e1;">समुद्र की स्थिति सामान्य है। हवा की गति 15-20 नॉट्स है। कोई चक्रवात चेतावनी नहीं।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('संभावित मछली पकड़ने का क्षेत्र: तट से 30 किलोमीटर दूर मछली का अच्छा झुंड पाया गया है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">2. संभावित मछली पकड़ने का क्षेत्र (PFZ)</h3>
-                                <p style="margin:0; color:#cbd5e1;">सैटेलाइट डेटा के अनुसार तट से 30 किमी दूर मछली बहुतायत में उपलब्ध हैं।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('उच्च लहर और ज्वार चेतावनी: लहरों की ऊंचाई 1.2 मीटर तक सामान्य रहेगी।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">3. उच्च लहर व ज्वार चेतावनी</h3>
-                                <p style="margin:0; color:#cbd5e1;">लहरों की ऊंचाई 1.2 मीटर तक सामान्य है। छोटी नौकाओं के लिए समुद्र सुरक्षित है।</p>
-                            </div>
-                            <div class="clickable-point-card" onclick="speakText('बंदरगाह और हार्बर एडवाइजरी: सभी तटीय बंदरगाहों पर कामकाज सामान्य रूप से जारी है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">4. बंदरगाह व हार्बर एडवाइजरी</h3>
-                                <p style="margin:0; color:#cbd5e1;">सभी प्रमुख बंदरगाहों पर नेविगेशन सिग्नल स्पष्ट और कामकाज सामान्य है।</p>
-                            </div>
-                            <div class="gov-card-box" onclick="speakText('सरकारी योजना बॉक्स: प्रधानमंत्री मत्स्य संपदा योजना और सागरमाला प्रोजेक्ट के तहत मछुआरों को अत्याधुनिक उपग्रह नेविगेशन और वित्तीय सुरक्षा मिलती है।')">
-                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">🏛️ प्रधानमंत्री मत्स्य संपदा योजना व सागरमाला</h3>
-                                <p style="margin:0; color:#cbd5e1;"><b>PMMSY & Sagarmala Project:</b> तटीय मछुआरों की सुरक्षा, आधुनिक नौका उपकरण और बंदरगाह विकास हेतु केंद्रीय योजना।</p>
-                            </div>
-                        </div>
+
                     `;
                 }
             }
 
-            document.getElementById('sectorTitleHeading').innerText = title;
-            document.getElementById('sectorContentBody').innerHTML = content;
+
+            /*
+            ---------------- RURAL ----------------
+            */
+
+            else if (sector === 'rural') {
+
+                title =
+                    "🌾 किसान हब • AI Crop Doctor & Soil Monitor";
+
+                if (currentLang === 'en') {
+
+                    speechMsg =
+                        "Kisaan Hub activated.";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Soil Moisture Status: Soil moisture is at optimal level of 65 percent. Good for sowing.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. Soil Moisture & Health
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Soil moisture level is optimal at 65%. Ideal condition for wheat sowing.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('AI Crop Doctor Camera & Upload Scanner. Use camera or upload photo to diagnose crop diseases.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. 📷 AI Crop Doctor (Camera & Image Upload)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Scan crop leaves via camera or upload photo for instant AI deficiency analysis.
+                                </p>
+
+                                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+
+                                    <button onclick="triggerCameraScan(event)"
+                                        style="background:var(--accent-green); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">
+                                        📸 Open Camera / Scan Leaf
+                                    </button>
+
+                                    <input type="file"
+                                        id="cropUploadInput"
+                                        accept="image/*"
+                                        style="display:none;"
+                                        onchange="handleImageUpload(event)">
+
+                                    <button onclick="document.getElementById('cropUploadInput').click()"
+                                        style="background:var(--accent-blue); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">
+                                        📁 Upload Photo
+                                    </button>
+
+                                </div>
+
+                                <div id="scanResultBox"
+                                    style="margin-top:10px; font-size:14px; color:var(--accent-orange); font-weight:bold;">
+                                </div>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Irrigation and Canal Schedule: Canal water release scheduled for tomorrow morning.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. Irrigation & Canal Schedule
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Canal water release scheduled for tomorrow morning in sector 4.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Mandi Price Trends: Wheat and Paddy prices stable across regional mandis.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. Mandi Price Trends
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Wheat and paddy prices stable across regional mandis with high demand.
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('Government Scheme Box: PM-KISAN Samman Nidhi and PM Fasal Bima Yojana provide financial and crop security support to farmers.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ PM-KISAN & Government Schemes
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>PM-KISAN Samman Nidhi & PMFBY:</b>
+                                    Direct income support and comprehensive crop insurance backed by Ministry of Agriculture.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    speechMsg =
+                        "किसान हब एक्टिवेटेड।";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('मिट्टी की नमी और स्वास्थ्य: मिट्टी में नमी का स्तर 65 प्रतिशत है जो बुवाई के लिए उत्तम है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. मिट्टी की नमी व स्वास्थ्य (Soil Moisture)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    मिट्टी में नमी का स्तर 65% है।
+                                    फसलों की बुवाई के लिए यह अनुकूल समय है।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('एआई क्रॉप डॉक्टर कैमरा और अपलोड स्कैनर। फसल की फोटो खींचकर या अपलोड करके बीमारी जांचें।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. 📷 एआई क्रॉप डॉक्टर (कैमरा और फोटो अपलोड)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    कैमरा ऑन करें या पौधे की पत्ती की फोटो अपलोड करें
+                                    ताकि एआई स्कैन करके पोषण कमी बता सके।
+                                </p>
+
+                                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+
+                                    <button onclick="triggerCameraScan(event)"
+                                        style="background:var(--accent-green); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">
+                                        📸 कैमरा खोलें (Live Scan)
+                                    </button>
+
+                                    <input type="file"
+                                        id="cropUploadInput"
+                                        accept="image/*"
+                                        style="display:none;"
+                                        onchange="handleImageUpload(event)">
+
+                                    <button onclick="document.getElementById('cropUploadInput').click()"
+                                        style="background:var(--accent-blue); border:none; padding:8px 14px; border-radius:10px; font-weight:bold; color:#060913; cursor:pointer;">
+                                        📁 फोटो अपलोड करें
+                                    </button>
+
+                                </div>
+
+                                <div id="scanResultBox"
+                                    style="margin-top:10px; font-size:14px; color:var(--accent-orange); font-weight:bold;">
+                                </div>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('सिंचाई और नहर शेड्यूल: कल सुबह नहर में पानी छोड़े जाने का शेड्यूल तय है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. सिंचाई व नहर शेड्यूल
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    क्षेत्र संख्या 4 में कल सुबह नहर का पानी छोड़े जाने की सूचना है।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('मंडी मूल्य रुझान: क्षेत्रीय मंडियों में गेहूं और धान के भाव स्थिर हैं।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. मंडी मूल्य रुझान (Mandi Rates)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    क्षेत्रीय मंडियों में गेहूं और धान के दाम स्थिर बने हुए हैं।
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('सरकारी योजना बॉक्स: पीएम किसान सम्मान निधि और प्रधानमंत्री फसल बीमा योजना के माध्यम से किसानों को वित्तीय और सुरक्षा सहायता मिलती है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ पीएम-किसान व सरकारी योजनाएं
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>PM-KISAN & PM Fasal Bima Yojana:</b>
+                                    किसानों को प्रत्यक्ष आय सहायता और फसल सुरक्षा कवच प्रदान करने वाली केंद्रीय योजनाएं।
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+                }
+            }
+
+
+            /*
+            ---------------- MOUNTAIN ----------------
+            */
+
+            else if (sector === 'mountain') {
+
+                title =
+                    "⛰️ Mountain & Hill Station Weather Hub";
+
+                if (currentLang === 'en') {
+
+                    speechMsg =
+                        "Mountain Hub activated.";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Landslide Warning: Moderate landslide risk on high altitude mountain routes due to previous rain.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. Landslide Risk Alert
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Moderate landslide risk on high altitude mountain routes due to loose soil.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Dense Fog and Visibility: Visibility dropped to 50 meters in early morning hours.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. Dense Fog & Visibility
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Visibility dropped to 50 meters during early morning hours.
+                                    Drive with fog lights.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Temperature Drop and Frost Advisory: Night temperature expected to touch 3 degrees Celsius.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. Frost & Temperature Drop
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Night temperatures expected to touch 3°C.
+                                    Frost warning for orchards.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Tourism and Travel Advisory: Safe to travel during daylight hours only.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. Tourism & Travel Advisory
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Tourists advised to travel only during daylight and check route status.
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('Government Initiative Box: National Disaster Management Authority and Himalayan Eco-Development Program assist in safe hill transit.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ Government Initiative & NDMA Schemes
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>NDMA & Himalayan Eco-Development Mission:</b>
+                                    Mountain safety protocols and disaster resilience infrastructure.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    speechMsg =
+                        "पहाड़ी हब एक्टिवेटेड।";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('भूस्खलन चेतावनी: ऊंचाई वाले पहाड़ी मार्गों पर हल्की मिट्टी खिसकने का मध्यम जोखिम है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. भूस्खलन चेतावनी (Landslide Risk)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    ऊंचाई वाले पहाड़ी मार्गों पर हल्की मिट्टी खिसकने का मध्यम जोखिम बना हुआ है।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('कोहरा और दृश्यता: सुबह के समय दृश्यता घटकर 50 मीटर रह गई है। फॉग लाइट का प्रयोग करें।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. घना कोहरा व दृश्यता (Fog Alert)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    सुबह के समय दृश्यता घटकर 50 मीटर हो गई है।
+                                    वाहन धीमी गति से चलाएं।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('तापमान में गिरावट और पाला: रात का तापमान 3 डिग्री तक गिर सकता है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. तापमान गिरावट व पाला चेतावनी
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    रात का तापमान 3°C तक गिरने की संभावना है।
+                                    बागवानों को पाले से बचाव की सलाह।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('पर्यटन और यात्रा एडवाइजरी: केवल दिन के समय ही यात्रा करने की अनुमति दी गई है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. पर्यटन व यात्रा एडवाइजरी
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    पर्यटकों को सलाह दी जाती है कि केवल दिन के उजाले में ही सफर करें।
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('सरकारी योजना बॉक्स: राष्ट्रीय आपदा प्रबंधन प्राधिकरण और हिमालयन मिशन के तहत पहाड़ी क्षेत्रों में सुरक्षा और सड़क निगरानी की जाती है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ सरकारी योजना व एनडीएमए (NDMA) पहल
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>राष्ट्रीय आपदा प्रबंधन प्राधिकरण (NDMA) मिशन:</b>
+                                    पर्वतीय यात्रा सुरक्षा, भूस्खलन पूर्व-चेतावनी और आपदा राहत सहायता।
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+                }
+            }
+
+
+            /*
+            ---------------- MARINE ----------------
+            */
+
+            else if (sector === 'marine') {
+
+                title =
+                    "⚓ Marine & Coastal Weather Hub (PFZ)";
+
+                if (currentLang === 'en') {
+
+                    speechMsg =
+                        "Marine Hub activated.";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Cyclone and Wind Alert: Sea conditions are normal. No cyclone warning issued.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. Cyclone & Wind Alert
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Sea conditions normal.
+                                    Wind speed 15-20 knots.
+                                    No cyclone warning.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Potential Fishing Zone advisory: High fish aggregation detected 30 kilometers off the coast.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. Potential Fishing Zone (PFZ)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    High fish aggregation detected 30 km off the coast using INCOIS satellite data.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('High Wave and Tide Warning: Normal tides expected with wave height up to 1.2 meters.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. High Wave & Tide Warning
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    Normal tides expected with wave height up to 1.2 meters.
+                                    Safe for small boats.
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('Port and Harbor Advisory: All operations running smoothly at major coastal ports.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. Port & Harbor Advisory
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    All operations running smoothly at major ports with clear navigation signals.
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('Government Scheme Box: Pradhan Mantri Matsya Sampada Yojana and Sagarmala project support fishermen and coastal infrastructure.')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ PM Matsya Sampada & Sagarmala Schemes
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>PMMSY & Sagarmala:</b>
+                                    Empowering coastal fishermen communities with deep-sea safety and sustainable marine growth.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+                } else {
+
+                    speechMsg =
+                        "मरीन हब एक्टिवेटेड।";
+
+                    content = `
+
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('चक्रवात और हवा की चेतावनी: समुद्र की स्थिति सामान्य है, कोई चक्रवात चेतावनी नहीं है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-blue);">
+                                    1. चक्रवात व हवा की चेतावनी (Cyclone Alert)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    समुद्र की स्थिति सामान्य है।
+                                    हवा की गति 15-20 नॉट्स है।
+                                    कोई चक्रवात चेतावनी नहीं।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('संभावित मछली पकड़ने का क्षेत्र: तट से 30 किलोमीटर दूर मछली का अच्छा झुंड पाया गया है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    2. संभावित मछली पकड़ने का क्षेत्र (PFZ)
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    सैटेलाइट डेटा के अनुसार तट से 30 किमी दूर मछली बहुतायत में उपलब्ध हैं।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('उच्च लहर और ज्वार चेतावनी: लहरों की ऊंचाई 1.2 मीटर तक सामान्य रहेगी।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-green);">
+                                    3. उच्च लहर व ज्वार चेतावनी
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    लहरों की ऊंचाई 1.2 मीटर तक सामान्य है।
+                                    छोटी नौकाओं के लिए समुद्र सुरक्षित है।
+                                </p>
+
+                            </div>
+
+                            <div class="clickable-point-card"
+                                onclick="speakText('बंदरगाह और हार्बर एडवाइजरी: सभी तटीय बंदरगाहों पर कामकाज सामान्य रूप से जारी है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--accent-orange);">
+                                    4. बंदरगाह व हार्बर एडवाइजरी
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    सभी प्रमुख बंदरगाहों पर नेविगेशन सिग्नल स्पष्ट और कामकाज सामान्य है।
+                                </p>
+
+                            </div>
+
+                            <div class="gov-card-box"
+                                onclick="speakText('सरकारी योजना बॉक्स: प्रधानमंत्री मत्स्य संपदा योजना और सागरमाला प्रोजेक्ट के तहत मछुआरों को अत्याधुनिक उपग्रह नेविगेशन और वित्तीय सुरक्षा मिलती है।')">
+
+                                <h3 style="margin:0 0 5px 0; color:var(--gov-affronter);">
+                                    🏛️ प्रधानमंत्री मत्स्य संपदा योजना व सागरमाला
+                                </h3>
+
+                                <p style="margin:0; color:#cbd5e1;">
+                                    <b>PMMSY & Sagarmala Project:</b>
+                                    तटीय मछुआरों की सुरक्षा, आधुनिक नौका उपकरण और बंदरगाह विकास हेतु केंद्रीय योजना।
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    `;
+                }
+            }
+
+
+            document.getElementById('sectorTitleHeading').innerText =
+                title;
+
+            document.getElementById('sectorContentBody').innerHTML =
+                content;
+
+
+            /*
+            सबसे आखिर में current hub की voice.
+            */
+
             speakText(speechMsg);
         }
 
+
+        /*
+        ============================================================
+        CROP CAMERA / UPLOAD
+        ============================================================
+        */
+
         function triggerCameraScan(e) {
+
             e.stopPropagation();
-            speakText(currentLang === 'en' ? "Scanning crop leaf using live AI camera. Analysis complete: Nitrogen deficiency detected. Apply recommended organic compost." : "लाइव एआई कैमरे से फसल की पत्ती स्कैन हो रही है। परिणाम: नाइट्रोजन की हल्की कमी पाई गई है, जैविक खाद का प्रयोग करें।");
-            document.getElementById('scanResultBox').innerHTML = currentLang === 'en' ? "✅ AI Scan Result: Nitrogen deficiency detected (94% confidence). Recommended: Urea/Organic compost." : "✅ एआई स्कैन परिणाम: नाइट्रोजन की कमी पाई गई (94% सटीकता)। सलाह: यूरिया या जैविक खाद डालें।";
+
+            speakText(
+                currentLang === 'en'
+                    ? "Scanning crop leaf using live AI camera. Analysis complete: Nitrogen deficiency detected. Apply recommended organic compost."
+                    : "लाइव एआई कैमरे से फसल की पत्ती स्कैन हो रही है। परिणाम: नाइट्रोजन की हल्की कमी पाई गई है, जैविक खाद का प्रयोग करें।"
+            );
+
+            const resultBox =
+                document.getElementById('scanResultBox');
+
+            if (resultBox) {
+
+                resultBox.innerHTML =
+                    currentLang === 'en'
+                        ? "✅ AI Scan Result: Nitrogen deficiency detected (94% confidence). Recommended: Urea/Organic compost."
+                        : "✅ एआई स्कैन परिणाम: नाइट्रोजन की कमी पाई गई (94% सटीकता)। सलाह: यूरिया या जैविक खाद डालें।";
+            }
         }
+
 
         function handleImageUpload(e) {
+
             const file = e.target.files[0];
+
             if (file) {
-                speakText(currentLang === 'en' ? "Image uploaded successfully. AI diagnostic scan in progress. Plant health is normal." : "इमेज सफलतापूर्वक अपलोड हो गई है। एआई स्कैन जारी है। पौधे का स्वास्थ्य सामान्य है।");
-                document.getElementById('scanResultBox').innerHTML = currentLang === 'en' ? "✅ Upload Scan: Leaf image analyzed. No major pest threat found." : "✅ अपलोड स्कैन: पत्ती की तस्वीर का विश्लेषण सफल। कोई गंभीर कीट रोग नहीं मिला।";
+
+                speakText(
+                    currentLang === 'en'
+                        ? "Image uploaded successfully. AI diagnostic scan in progress. Plant health is normal."
+                        : "इमेज सफलतापूर्वक अपलोड हो गई है। एआई स्कैन जारी है। पौधे का स्वास्थ्य सामान्य है।"
+                );
+
+                const resultBox =
+                    document.getElementById('scanResultBox');
+
+                if (resultBox) {
+
+                    resultBox.innerHTML =
+                        currentLang === 'en'
+                            ? "✅ Upload Scan: Leaf image analyzed. No major pest threat found."
+                            : "✅ अपलोड स्कैन: पत्ती की तस्वीर का विश्लेषण सफल। कोई गंभीर कीट रोग नहीं मिला।";
+                }
             }
         }
+
+
+        /*
+        ============================================================
+        FORECAST
+        ============================================================
+        */
 
         function openHourlyPage() {
-            document.getElementById('hourlyPageOverlay').style.display = 'flex';
-            speakText(currentLang === 'en' ? "Hourly forecast page opened." : "आवरली फॉरकास्ट पेज खोला गया है।");
+
+            document.getElementById('hourlyPageOverlay').style.display =
+                'flex';
+
+            speakText(
+                currentLang === 'en'
+                    ? "Hourly forecast page opened."
+                    : "आवरली फॉरकास्ट पेज खोला गया है।"
+            );
         }
+
 
         function open7DayPage() {
-            document.getElementById('sevenDayPageOverlay').style.display = 'flex';
-            speakText(currentLang === 'en' ? "7-Day forecast page opened." : "सात दिनों का फॉरकास्ट पेज खोला गया है।");
+
+            document.getElementById('sevenDayPageOverlay').style.display =
+                'flex';
+
+            speakText(
+                currentLang === 'en'
+                    ? "7-Day forecast page opened."
+                    : "सात दिनों का फॉरकास्ट पेज खोला गया है।"
+            );
         }
+
 
         function closeOverlay(id) {
-            document.getElementById(id).style.display = 'none';
-            speakText(currentLang === 'en' ? "Returning to home page." : "होम पेज पर वापस लौट रहे हैं।");
+
+            document.getElementById(id).style.display =
+                'none';
+
+            speakText(
+                currentLang === 'en'
+                    ? "Returning to home page."
+                    : "होम पेज पर वापस लौट रहे हैं।"
+            );
         }
+
+
+        /*
+        ============================================================
+        AI ASSISTANT
+        ============================================================
+        */
 
         function openAIAssistant() {
-            document.getElementById('aiModal').style.display = 'flex';
-            speakText(currentLang === 'en' ? "AI Universal Assistant active." : "एआई यूनिवर्सल असिस्टेंट सक्रिय है।");
+
+            document.getElementById('aiModal').style.display =
+                'flex';
+
+            speakText(
+                currentLang === 'en'
+                    ? "AI Universal Assistant active."
+                    : "एआई यूनिवर्सल असिस्टेंट सक्रिय है।"
+            );
         }
+
 
         function closeAIAssistant() {
-            document.getElementById('aiModal').style.display = 'none';
+
+            document.getElementById('aiModal').style.display =
+                'none';
+
+            /*
+            Modal बंद करते समय queued voice नहीं रहनी चाहिए.
+            */
+            if ('speechSynthesis' in window) {
+                speechGeneration++;
+                window.speechSynthesis.cancel();
+            }
         }
+
+
+        /*
+        ============================================================
+        BLIND MODE
+        ============================================================
+        */
 
         function toggleBlindMode() {
-            document.body.classList.toggle('blind-mode-theme');
-            let active = document.body.classList.contains('blind-mode-theme');
-            speakText(active ? "ब्लाइंड मोड चालू कर दिया गया है।" : "ब्लाइंड मोड बंद कर दिया गया है।");
+
+            document.body.classList.toggle(
+                'blind-mode-theme'
+            );
+
+            const active =
+                document.body.classList.contains(
+                    'blind-mode-theme'
+                );
+
+            speakText(
+                active
+                    ? "ब्लाइंड मोड चालू कर दिया गया है।"
+                    : "ब्लाइंड मोड बंद कर दिया गया है।"
+            );
         }
+
+
+        /*
+        ============================================================
+        DEAF & MUTE MODE
+        ============================================================
+        */
 
         function toggleDeafMuteMode() {
+
+            /*
+            पहले mode की state change.
+            */
+
             deafMuteActive = !deafMuteActive;
-            document.body.classList.toggle('deaf-mute-mode-theme');
-            let banner = document.getElementById('deafVisualBanner');
+
+            document.body.classList.toggle(
+                'deaf-mute-mode-theme'
+            );
+
+            const banner =
+                document.getElementById('deafVisualBanner');
+
+
             if (deafMuteActive) {
-                banner.style.display = 'block';
-                speakText("Deaf and Mute accessibility mode activated. Audio output muted, visual banners enabled.");
+
+                banner.style.display =
+                    'block';
+
+                /*
+                Deaf mode में audio deliberately नहीं चलेगा.
+                इसलिए visual notification directly.
+                */
+
+                document.getElementById(
+                    'aiListeningStatus'
+                ).innerText =
+                    "🧏 Deaf & Mute Mode activated. Audio muted. Visual alerts enabled.";
+
             } else {
-                banner.style.display = 'none';
-                speakText("Deaf and Mute accessibility mode deactivated.");
+
+                banner.style.display =
+                    'none';
+
+                /*
+                Mode OFF होने के बाद voice वापस.
+                */
+
+                speakText(
+                    currentLang === 'en'
+                        ? "Deaf and Mute accessibility mode deactivated."
+                        : "Deaf और Mute accessibility mode बंद कर दिया गया है।"
+                );
             }
         }
+
+
+        /*
+        ============================================================
+        VOICE RECOGNITION
+        ============================================================
+        */
 
         function startListening() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            const SpeechRecognition =
+                window.SpeechRecognition ||
+                window.webkitSpeechRecognition;
+
+
             if (!SpeechRecognition) {
-                alert("ब्राउज़र वॉइस रिकग्निशन सपोर्ट नहीं करता।");
+
+                alert(
+                    "ब्राउज़र वॉइस रिकग्निशन सपोर्ट नहीं करता।"
+                );
+
                 return;
             }
-            const recognition = new SpeechRecognition();
-            recognition.lang = currentBCP;
-            recognition.interimResults = false;
 
-            document.getElementById('aiListeningStatus').innerText = "सुन रहा है... बोलिए 🎙️";
-            speakText("सुन रहा हूँ, बोलिए।");
-            recognition.start();
 
-            recognition.onresult = function(event) {
-                const speechResult = event.results[0][0].transcript.toLowerCase();
-                document.getElementById('aiPromptText').innerText = "सवाल: " + speechResult;
-                
-                setTimeout(() => {
-                    let reply = currentLang === 'en' ? "Today in Lucknow, weather is partly cloudy with 29 degrees Celsius." : "आज लखनऊ में मौसम आंशिक रूप से बादलों वाला है और तापमान 29 डिग्री सेल्सियस है।";
-                    document.getElementById('aiListeningStatus').innerText = reply;
+            /*
+            Recognition शुरू होने से पहले
+            पुरानी speech clear.
+            */
+
+            if ('speechSynthesis' in window) {
+                speechGeneration++;
+                window.speechSynthesis.cancel();
+            }
+
+
+            const recognition =
+                new SpeechRecognition();
+
+            recognition.lang =
+                currentBCP;
+
+            recognition.interimResults =
+                false;
+
+            recognition.continuous =
+                false;
+
+
+            document.getElementById(
+                'aiListeningStatus'
+            ).innerText =
+                currentLang === 'en'
+                    ? "Listening... Speak now 🎙️"
+                    : "सुन रहा है... बोलिए 🎙️";
+
+
+            /*
+            यहां speakText deliberately नहीं बुला रहे,
+            क्योंकि recognition शुरू होने में speech
+            delay नहीं चाहिए.
+            */
+
+            try {
+
+                recognition.start();
+
+            } catch (error) {
+
+                document.getElementById(
+                    'aiListeningStatus'
+                ).innerText =
+                    "माइक शुरू नहीं हो पाया, कृपया फिर से कोशिश करें।";
+
+                return;
+            }
+
+
+            recognition.onresult =
+                function(event) {
+
+                    const speechResult =
+                        event.results[0][0].transcript;
+
+                    document.getElementById(
+                        'aiPromptText'
+                    ).innerText =
+                        currentLang === 'en'
+                            ? "Question: " + speechResult
+                            : "सवाल: " + speechResult;
+
+
+                    /*
+                    Demo response.
+                    */
+
+                    const reply =
+                        currentLang === 'en'
+                            ? "Today in Lucknow, weather is partly cloudy with 29 degrees Celsius."
+                            : "आज लखनऊ में मौसम आंशिक रूप से बादलों वाला है और तापमान 29 डिग्री सेल्सियस है।";
+
+
+                    document.getElementById(
+                        'aiListeningStatus'
+                    ).innerText =
+                        reply;
+
+
                     speakText(reply);
-                }, 1000);
-            };
+                };
 
-            recognition.onerror = function() {
-                document.getElementById('aiListeningStatus').innerText = "आवाज़ साफ़ नहीं आई, कृपया फिर से बोलें।";
-                speakText("आवाज़ साफ़ नहीं आई, कृपया फिर से बोलें।");
-            };
+
+            recognition.onerror =
+                function() {
+
+                    const errorMessage =
+                        currentLang === 'en'
+                            ? "I could not hear that clearly. Please try again."
+                            : "आवाज़ साफ़ नहीं आई, कृपया फिर से बोलें।";
+
+
+                    document.getElementById(
+                        'aiListeningStatus'
+                    ).innerText =
+                        errorMessage;
+
+
+                    /*
+                    Deaf mode में audio नहीं.
+                    */
+
+                    if (!deafMuteActive) {
+                        speakText(errorMessage);
+                    }
+                };
+
+
+            recognition.onend =
+                function() {
+
+                    /*
+                    अगर कोई result नहीं आया,
+                    तो listening status को unnecessarily
+                    overwrite नहीं करेंगे.
+                    */
+
+                };
         }
+
     </script>
+
 </body>
 </html>
